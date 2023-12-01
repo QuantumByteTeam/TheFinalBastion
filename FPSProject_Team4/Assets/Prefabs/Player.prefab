@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6139933674980812936}
   - component: {fileID: 4116260970689479086}
   - component: {fileID: 4531273055981947754}
+  - component: {fileID: 6952954621094500802}
   - component: {fileID: 8426167968804643101}
   - component: {fileID: 1884954250829232851}
   m_Layer: 0
@@ -56,13 +57,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2e8eafe21a3f74aa4d0fd0def87052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
-  HP: 0
-  PlayerSpeed: 0
-  JumpHeight: 0
-  GravityValue: 0
-  JumpMax: 0
-  SprintMod: 0
+  controller: {fileID: 6952954621094500802}
+  HP: 3
+  PlayerSpeed: 7
+  JumpHeight: 10
+  GravityValue: -30
+  JumpMax: 3
+  SprintMod: 1.3
+--- !u!143 &6952954621094500802
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694747048085953795}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &8426167968804643101
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -137,6 +164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1524376158000984453}
+  - component: {fileID: 6921601978748096167}
   - component: {fileID: 3919176699962290592}
   - component: {fileID: 996103597712733143}
   m_Layer: 0
@@ -161,6 +189,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6139933674980812936}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6921601978748096167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6376220900637381761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b2bd6559eddc8c41971d29f924f72af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensitivity: 300
+  lockVertMin: -90
+  lockVertMax: 90
+  invertY: 0
 --- !u!20 &3919176699962290592
 Camera:
   m_ObjectHideFlags: 0
