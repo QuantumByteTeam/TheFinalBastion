@@ -11,16 +11,41 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [SerializeField] bool targetPlayer;
     [SerializeField] bool targetPoint;
 
-    // Start is called before the first frame update
+    [Header("----- Weapon Stats -----")]
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform firePos;
+    [SerializeField] float fireRate;
+    [SerializeField] int bulletDamage;
+    [SerializeField] int bulletSpeed;
+
+    bool isShooting;
+
     void Start()
     {
-        
+        // Send info to gamemanager
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (!isShooting)
+        {
+            StartCoroutine(shoot());
+        }
+    }
+
+    IEnumerator shoot()
+    {
+        isShooting = true;
+
+        GameObject obj = Instantiate(bullet, firePos.position, transform.rotation);
+        Bullet bulletComp = obj.GetComponent<Bullet>();
+        bulletComp.damageAmount = bulletDamage;
+        bulletComp.speed = bulletSpeed;
+        bulletComp.run();
+
+        yield return new WaitForSeconds(fireRate);
+
+        isShooting = false;
     }
 
     public void takeDamage(int amount)
