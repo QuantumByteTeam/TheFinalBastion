@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] int ShootDamage; //configurable dmg amt
     [SerializeField] float ShootRate; //configurable rate of fire (per sec)
     [SerializeField] int ShootDist; //configurable distance of shots
-    [SerializeField] GameObject Cube; //for the projectile shot
+    //[SerializeField] GameObject Cube; //for the projectile shot
 
     private Vector3 PlayerVelocity;
     private bool GroundedPlayer; //is player grounded or not
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * ShootDist, Color.red); //gives red line for gun shooting distance in the scene NOT in game since its debug
 
 
-        
+
 
         sprint();
 
