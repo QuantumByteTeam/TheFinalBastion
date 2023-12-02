@@ -13,16 +13,16 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] int JumpMax; //configurable max amt of jumps 
     [SerializeField] float SprintMod; //configurable amt for speed multiplier
 
-    /*[SerializeField] int ShootDamage; //configurable dmg amt
+    [SerializeField] int ShootDamage; //configurable dmg amt
     [SerializeField] float ShootRate; //configurable rate of fire (per sec)
     [SerializeField] int ShootDist; //configurable distance of shots
-    [SerializeField] GameObject cube; //for the projectile shot*/
+    [SerializeField] GameObject cube; //for the projectile shot
 
     private Vector3 PlayerVelocity;
     private bool GroundedPlayer; //is player grounded or not
     private Vector3 Move;
     private int JumpCount; //amt of jumps player has currently remaining
-    //private bool IsShooting;
+    private bool IsShooting;
     int HPOriginal; //default starting HP
 
     private void Start()
@@ -38,12 +38,8 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void movement()
     {
-        
-
 
         sprint();
-
-        
         GroundedPlayer = controller.isGrounded;
         if (GroundedPlayer && PlayerVelocity.y < 0) //makes sure we dont fast fall (falls at normal speed)
         {
@@ -70,9 +66,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     }
 
-    
-
-
     void sprint()
     {
         if (Input.GetButtonDown("Sprint"))
@@ -85,15 +78,43 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
     }
 
-    public void takeDamage(int amount)
+    IEnumerator Shoot()
     {
-        HP -= amount;
+
+        IsShooting = true;
+
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, ShootDist)) //.5 .5 is middle of screen
+        {
+            IDamageable dmg = hit.collider.GetComponent<IDamageable>(); //returns smth if it hits smth with IDamage
+
+            if (dmg != null)
+            {
+                dmg.takeDamage(ShootDamage);
+            }
+        }
+
+        yield return new WaitForSeconds(ShootRate);
+        IsShooting = false;
     }
 
 
 
+    public void takeDamage(int amount)
+    {
+        HP -= amount;
+        GameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
 
 
+        if (HP <= 0)
+        {
+            //player dies
+            GameManager.instance.YouLose();
+        }
+    }
 
-
+    public void updatePlayerUI()
+    {
+        GameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
+    }
 }
