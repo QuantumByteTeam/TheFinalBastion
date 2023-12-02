@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] int ShootDamage; //configurable dmg amt
     [SerializeField] float ShootRate; //configurable rate of fire (per sec)
     [SerializeField] int ShootDist; //configurable distance of shots
-    [SerializeField] GameObject cube; //for the projectile shot
+    [SerializeField] GameObject Cube; //for the projectile shot
 
     private Vector3 PlayerVelocity;
     private bool GroundedPlayer; //is player grounded or not
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     private void Start()
     {
         HPOriginal = HP; //sets default hp to player's current HP
-        //updatePlayerUI();
+        updatePlayerUI();
     }
 
     void Update()
@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void movement()
     {
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * ShootDist, Color.red); //gives red line for gun shooting distance in the scene NOT in game since its debug
 
         sprint();
         GroundedPlayer = controller.isGrounded;
@@ -102,8 +103,8 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public void takeDamage(int amount)
     {
-        HP -= amount;
-        GameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
+        HP -= amount; //player takes dmg
+        GameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal; 
 
 
         if (HP <= 0)
