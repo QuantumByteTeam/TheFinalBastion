@@ -32,7 +32,8 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         //need to access the HP of the point
-        UIManager.instance.pointHPImage.fillAmount = point.HP / point.HPOriginal;
+
+        //UIManager.instance.pointHPImage.fillAmount = point.HP / point.HPOriginal;
 
         //need to update the HP integer label with the HP of the player, a bar is not used, but a label, i cannot access the player HP from here
 
