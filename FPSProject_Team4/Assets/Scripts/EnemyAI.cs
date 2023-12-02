@@ -57,26 +57,26 @@ public class EnemyAI : MonoBehaviour, IDamageable
         {
 
         }
-        else
-        {
-            // Roam
-            timer += Time.deltaTime;
-            if (timer >= walkTimer)
-            {
-                
-                Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * walkRadius;
+        //else
+        //{
+        //    Roam
+        //   timer += Time.deltaTime;
+        //    if (timer >= walkTimer)
+        //    {
 
-                randomDirection += gameObject.transform.position;
+        //        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * walkRadius;
 
-                NavMeshHit hit;
+        //        randomDirection += gameObject.transform.position;
 
-                NavMesh.SamplePosition(randomDirection, out hit, walkRadius, -1);
-                agent.SetDestination(hit.position);
-                timer = 0;
-            }
+        //        NavMeshHit hit;
 
-            
-        }
+        //        NavMesh.SamplePosition(randomDirection, out hit, walkRadius, -1);
+        //        agent.SetDestination(hit.position);
+        //        timer = 0;
+        //    }
+
+
+        //}
     }
 
 
@@ -91,6 +91,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
         if (Physics.Raycast(headPos.position, targetDirection, out hit))
         {
+            // FIXME: If point not hit, does not set destination
             if ((hit.collider.CompareTag("Player") && angleToTarget <= viewCone) || 
                 hit.collider.CompareTag("Point") /*&& Vector3.Distance(transform.position, targetPos.position) <= pointTargetRange*/)
             {
