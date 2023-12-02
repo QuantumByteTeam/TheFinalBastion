@@ -20,9 +20,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject winMenu;
     [SerializeField] GameObject loseMenu;
     [SerializeField] TMP_Text enemyCountText;
+    [SerializeField] TMP_Text waveCountText;
 
     public bool isPaused;
     int enemiesRemaining;
+    int waveCount;
     float timescaleOG;
     
     // Start is called before the first frame update
@@ -69,6 +71,12 @@ public class GameManager : MonoBehaviour
         enemiesRemaining += amount;
         enemiesRemaining = Mathf.Max(enemiesRemaining, 0);
         enemyCountText.text = enemiesRemaining.ToString("0");
+    }
+
+    public void UpdateWaveCount(int amount)
+    {
+        waveCount = amount;
+        waveCountText.text = waveCount.ToString("0");
     }
 
     public void YouWin()

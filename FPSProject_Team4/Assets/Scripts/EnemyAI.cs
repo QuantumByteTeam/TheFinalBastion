@@ -32,6 +32,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [Header("----- Target -----")]
     public GameObject point;
 
+    public MobSpawner originSpawner;
+    
     bool isShooting;
     bool playerInRange;
     bool pointInRange;
@@ -159,6 +161,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         if (health <= 0)
         {
             GameManager.instance.UpdateEnemyCount(-1);
+            originSpawner.UpdateEnemyKilled();
             Destroy(gameObject);
         }
     }
