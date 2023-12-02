@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] int ShootDamage; //configurable dmg amt
     [SerializeField] float ShootRate; //configurable rate of fire (per sec)
     [SerializeField] int ShootDist; //configurable distance of shots
-    //[SerializeField] GameObject Cube; //for the projectile shot
+    [SerializeField] GameObject Cube; //for the projectile shot
 
     private Vector3 PlayerVelocity;
     private bool GroundedPlayer; //is player grounded or not
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void ShootingTimer()
     {
-        if (!GameManager.instance.isPaused && Input.GetButton("Shoot") && !IsShooting) //may shoot when unpaused
+        if (Input.GetButton("Shoot") && !IsShooting) //may shoot when unpaused
         {
             StartCoroutine(Shoot());
         }
