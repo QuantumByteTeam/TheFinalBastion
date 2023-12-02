@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,6 +18,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [SerializeField] int targetFaceSpeed;
     [SerializeField] bool shouldTargetPlayer;
     [SerializeField] bool shouldTargetPoint;
+    [SerializeField] int walkRadius;
+    [SerializeField] float walkTimer;
 
     [Header("----- Weapon Stats -----")]
     [SerializeField] GameObject bullet;
@@ -32,6 +35,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
     bool isShooting;
     bool playerInRange;
     bool pointInRange;
+    float randTime;
+    float timer;
     Color colorOrig;
 
     void Start()
@@ -53,8 +58,25 @@ public class EnemyAI : MonoBehaviour, IDamageable
         else
         {
             // Roam
+            timer += Time.deltaTime;
+            if (timer >= walkTimer)
+            {
+                
+                Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * walkRadius;
+
+                randomDirection += gameObject.transform.position;
+
+                NavMeshHit hit;
+
+                NavMesh.SamplePosition(randomDirection, out hit, walkRadius, -1);
+                agent.SetDestination(hit.position);
+                timer = 0;
+            }
+
+            
         }
     }
+
 
     bool canSeeTarget(Transform targetPos)
     {
