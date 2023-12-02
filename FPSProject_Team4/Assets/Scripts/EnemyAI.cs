@@ -1,36 +1,100 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour, IDamageable
 {
+    [Header("----- Components -----")]
+    [SerializeField] NavMeshAgent agent;
+    [SerializeField] Renderer model;
+
     [Header("----- Stats -----")]
     [SerializeField] int health;
-
-    [Header("----- Controls -----")]
-    [SerializeField] bool targetPlayer;
-    [SerializeField] bool targetPoint;
+    [SerializeField] int viewCone;
+    [SerializeField] int targetFaceSpeed;
+    [SerializeField] bool shouldTargetPlayer;
+    [SerializeField] bool shouldTargetPoint;
 
     [Header("----- Weapon Stats -----")]
     [SerializeField] GameObject bullet;
     [SerializeField] Transform firePos;
+    [SerializeField] Transform headPos;
     [SerializeField] float fireRate;
     [SerializeField] int bulletDamage;
     [SerializeField] int bulletSpeed;
 
+    [Header("----- Target -----")]
+    public GameObject point;
+
     bool isShooting;
+    bool playerInRange;
+    bool pointInRange;
+    Color colorOrig;
 
     void Start()
     {
-        // Send info to gamemanager
+        colorOrig = model.material.color;
+        GameManager.instance.UpdateEnemyCount(1);
     }
 
     void Update()
     {
-        if (!isShooting)
+        if (shouldTargetPlayer && playerInRange && canSeeTarget(GameManager.instance.player.transform))
         {
-            StartCoroutine(shoot());
+
+        } 
+        else if (shouldTargetPoint && canSeeTarget(point.transform))
+        {
+
         }
+        else
+        {
+            // Roam
+        }
+    }
+
+    bool canSeeTarget(Transform targetPos)
+    {
+        Vector3 targetDirection = targetPos.position - headPos.position;
+        float angleToTarget = Vector3.Angle(targetDirection, transform.forward);
+
+        Debug.DrawRay(headPos.position, targetDirection);
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(headPos.position, targetDirection, out hit))
+        {
+            if ((hit.collider.CompareTag("Player") && angleToTarget <= viewCone) || hit.collider.CompareTag("Point"))
+            {
+                agent.SetDestination(targetPos.position);
+
+                if (!isShooting)
+                {
+                    StartCoroutine(shoot());
+                }
+
+                if (agent.remainingDistance < agent.stoppingDistance)
+                {
+                    faceTarget(targetDirection);
+                }
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    void faceTarget(Vector3 targetDir)
+    {
+        Quaternion rot = Quaternion.LookRotation(targetDir);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * targetFaceSpeed);
+
+        // TODO: Setup vertical aiming
+        //headPos.rotation = Quaternion.Euler(Vector3.Scale(rot.eulerAngles, new Vector3(1, 0, 0)));
     }
 
     IEnumerator shoot()
@@ -48,8 +112,39 @@ public class EnemyAI : MonoBehaviour, IDamageable
         isShooting = false;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+        }
+    }
+
     public void takeDamage(int amount)
     {
         health -= amount;
+        
+        StartCoroutine(indicateDamage());
+
+        if (health <= 0)
+        {
+            GameManager.instance.UpdateEnemyCount(-1);
+            Destroy(gameObject);
+        }
+    }
+
+    IEnumerator indicateDamage()
+    {
+        model.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        model.material.color = colorOrig;
     }
 }
