@@ -34,13 +34,19 @@ public class PlayerController : MonoBehaviour, IDamageable
     void Update()
     {
         movement();
+        ShootingTimer();
     }
 
     void movement()
     {
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * ShootDist, Color.red); //gives red line for gun shooting distance in the scene NOT in game since its debug
 
+
+        
+
         sprint();
+
+
         GroundedPlayer = controller.isGrounded;
         if (GroundedPlayer && PlayerVelocity.y < 0) //makes sure we dont fast fall (falls at normal speed)
         {
@@ -55,7 +61,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 
 
-        // Changes the height position of the player..
+        //lets the player jump if they have any left
         if (Input.GetButtonDown("Jump") && JumpCount < JumpMax)
         {
             PlayerVelocity.y = JumpHeight;
@@ -76,6 +82,14 @@ public class PlayerController : MonoBehaviour, IDamageable
         else if (Input.GetButtonUp("Sprint"))
         {
             PlayerSpeed /= SprintMod;
+        }
+    }
+
+    void ShootingTimer()
+    {
+        if (!GameManager.instance.isPaused && Input.GetButton("Shoot") && !IsShooting) //may shoot when unpaused
+        {
+            StartCoroutine(Shoot());
         }
     }
 
