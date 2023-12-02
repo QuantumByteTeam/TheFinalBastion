@@ -28,13 +28,23 @@ public class PlayerController : MonoBehaviour, IDamageable
     private void Start()
     {
         HPOriginal = HP; //sets default hp to player's current HP
-        UIManager.instance.UpdatePlayerHP();
+        respawnPlayer();
     }
 
     void Update()
     {
         movement();
         ShootingTimer();
+    }
+
+    public void respawnPlayer()
+    {
+        HP = HPOriginal;
+        UIManager.instance.UpdatePlayerHP();
+
+        controller.enabled = false;
+        transform.position = GameManager.instance.playerSpawnPos.transform.position;
+        controller.enabled = true;
     }
 
     void movement()

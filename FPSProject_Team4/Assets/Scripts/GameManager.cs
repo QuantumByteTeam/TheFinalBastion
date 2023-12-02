@@ -9,13 +9,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [SerializeField] WaveManager waveManager;
-
     public GameObject player;
     public GameObject playerSpawnPos;
-    public GameObject point;
-
     public PlayerController playerScript;
+
+    public GameObject point;
     public PointController pointScript;
 
     public bool isPaused;
@@ -29,9 +27,9 @@ public class GameManager : MonoBehaviour
         instance = this;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
+        playerSpawnPos = GameObject.FindWithTag("PlayerSpawn");
         point = GameObject.FindWithTag("Point");
         pointScript = point.GetComponent<PointController>();
-        playerSpawnPos = GameObject.FindWithTag("PlayerSpawn");
         timescaleOG = Time.timeScale;
     }
 
@@ -70,7 +68,7 @@ public class GameManager : MonoBehaviour
 
         if (enemiesRemaining <= 0)
         {
-            StartCoroutine(waveManager.StartWave());
+            StartCoroutine(WaveManager.instance.StartWave());
         }
     }
 

@@ -7,9 +7,13 @@ public class WaveManager : MonoBehaviour
     public static WaveManager instance;
 
     [SerializeField] GameObject[] spawners;
+    [SerializeField] int baseEnemyCount;
     [SerializeField] int waveIntermission;
-    [SerializeField] int enemyCountMultiplier;
+    [SerializeField] float enemyCountMultiplier;
     [SerializeField] int waveWinAmount;
+    [SerializeField] GameObject enemy;
+
+    bool intermission;
     
     public int currentWave;
     
@@ -18,22 +22,31 @@ public class WaveManager : MonoBehaviour
     {
         instance = this;
         spawners = GameObject.FindGameObjectsWithTag("EnemySpawner");
+        currentWave = 0;
         StartCoroutine(StartWave());
     }
-    
+
     public IEnumerator StartWave()
     {
-        currentWave++;
-        GameManager.instance.UpdateWaveCount(currentWave);
-        
-        if (currentWave <= spawners.Length)
+        if (currentWave > waveWinAmount)
         {
-            yield return new WaitForSeconds(waveIntermission);
-            spawners[currentWave - 1].GetComponent<MobSpawner>().StartWave();
+            GameManager.instance.YouWin();
         }
         else
         {
-            GameManager.instance.YouWin();
+            currentWave++;
+
+            if (currentWave > 1)
+            {
+                yield return new WaitForSeconds(waveIntermission);
+            }
+
+            // TODO: Need to fix caculation here
+            for (int i = 0; i < baseEnemyCount * enemyCountMultiplier * currentWave; i++)
+            {
+                GameObject randSpawner = spawners[Random.Range(0, spawners.Length)];
+                Instantiate(enemy, randSpawner.transform.position, randSpawner.transform.rotation);
+            }
         }
     }
 }

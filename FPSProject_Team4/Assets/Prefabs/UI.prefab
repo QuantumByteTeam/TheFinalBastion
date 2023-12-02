@@ -2996,7 +2996,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7274803e6ab874395c1c6c17f241ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveManager: {fileID: 1098089820680607143}
   player: {fileID: 0}
   playerSpawnPos: {fileID: 0}
   point: {fileID: 0}
@@ -3595,9 +3594,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  waveIntermission: 1
+  baseEnemyCount: 1
+  waveIntermission: 2
   enemyCountMultiplier: 2
   waveWinAmount: 2
+  enemy: {fileID: 1277755095150470934, guid: 4b2922f080dd4174d8d836fcaaf4e54e, type: 3}
   currentWave: 0
 --- !u!1 &8365868617117076019
 GameObject:

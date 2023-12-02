@@ -18,6 +18,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [SerializeField] int targetFaceSpeed;
     [SerializeField] bool shouldTargetPlayer;
     [SerializeField] bool shouldTargetPoint;
+    [SerializeField] int pointTargetRange;
+
     [SerializeField] int walkRadius;
     [SerializeField] float walkTimer;
 
@@ -31,12 +33,9 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     [Header("----- Target -----")]
     public GameObject point;
-
-    public MobSpawner originSpawner;
     
     bool isShooting;
     bool playerInRange;
-    bool pointInRange;
     float randTime;
     float timer;
     Color colorOrig;
@@ -92,7 +91,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
         if (Physics.Raycast(headPos.position, targetDirection, out hit))
         {
-            if ((hit.collider.CompareTag("Player") && angleToTarget <= viewCone) || hit.collider.CompareTag("Point"))
+            if ((hit.collider.CompareTag("Player") && angleToTarget <= viewCone) || 
+                hit.collider.CompareTag("Point") /*&& Vector3.Distance(transform.position, targetPos.position) <= pointTargetRange*/)
             {
                 agent.SetDestination(targetPos.position);
 
@@ -162,7 +162,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
         if (health <= 0)
         {
             GameManager.instance.UpdateEnemyCount(-1);
-            originSpawner.UpdateEnemyKilled();
             Destroy(gameObject);
         }
     }
