@@ -43,6 +43,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     void Start()
     {
+        point = GameManager.instance.point;
         colorOrig = model.material.color;
         GameManager.instance.UpdateEnemyCount(1);
     }

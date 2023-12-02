@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class PointController : MonoBehaviour, IDamageable
 {
-    [SerializeField] int health;
+    public int health;
+    
+    public int healthOrig;
 
     void Start()
     {
-        
-    }
-
-    void Update()
-    {
-        
+        healthOrig = health;
+        UIManager.instance.UpdatePointHP();
     }
 
     public void takeDamage(int amount)
     {
         health -= amount;
+        UIManager.instance.UpdatePointHP();
+
+        if (health <= 0)
+        {
+            //player dies
+            GameManager.instance.YouLose();
+        }
     }
 }

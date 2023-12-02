@@ -1,45 +1,75 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-using UnityEngine.UIElements;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
-    public GameObject player;
-    [SerializeField] TMP_Text HPText;
-    [SerializeField] GameObject PointHPBar;
-    [SerializeField] GameObject menuActive;
+
+    [SerializeField] Image playerHPBar;
+    [SerializeField] Image pointHPBar;
     [SerializeField] GameObject menuPause;
-    [SerializeField] GameObject point;
+    [SerializeField] GameObject menuLose;
+    [SerializeField] GameObject menuWin;
+    [SerializeField] TMP_Text waveCountText;
+    [SerializeField] TMP_Text enemyCountText;
 
-    [SerializeField] Image pointHPImage;
-
-    float timeScale;
-    public bool isPaused;
+    public GameObject menuActive;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        timeScale= Time.timeScale;
-        instance= this;
-        player = GameManager.instance.player;
+        instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DisplayPausedMenu()
     {
-        //need to access the HP of the point
-
-        //UIManager.instance.pointHPImage.fillAmount = point.HP / point.HPOriginal;
-
-        //need to update the HP integer label with the HP of the player, a bar is not used, but a label, i cannot access the player HP from here
-
-        //Might want to update these labels (wave and enemy included) not on every frame
+        menuActive = menuPause;
+        menuActive.SetActive(true);
     }
 
+    public void DisplayLoseMenu()
+    {
+        menuActive = menuLose;
+        menuActive.SetActive(true);
+    }
+
+    public void DisplayWinMenu()
+    {
+        menuActive = menuWin;
+        menuActive.SetActive(true);
+    }
+
+    public void CloseActiveMenu()
+    {
+        menuActive.SetActive(false);
+        menuActive = null;
+    }
+
+    public void UpdatePlayerHP()
+    {
+        PlayerController playerCont = GameManager.instance.playerScript;
+        playerHPBar.fillAmount = (float)playerCont.HP / playerCont.HPOriginal;
+    }
+
+    public void UpdatePointHP()
+    {
+        PointController pointCont = GameManager.instance.pointScript;
+        pointHPBar.fillAmount = (float)pointCont.health / pointCont.healthOrig;
+    }
+
+    public void UpdateWaveCount()
+    {
+        waveCountText.text = GameManager.instance.waveCount.ToString("0");
+    }
+
+    public void UpdateRemainingEnemies()
+    {
+        enemyCountText.text = GameManager.instance.enemiesRemaining.ToString("0");
+    }
 
     public void Resume()
     {

@@ -8,23 +8,19 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    
+
+    [SerializeField] WaveManager waveManager;
+
     public GameObject player;
     public GameObject playerSpawnPos;
-    public PlayerController playerScript;
+    public GameObject point;
 
-    public Image playerHPBar;
-    
-    [SerializeField] GameObject activeMenu;
-    [SerializeField] GameObject pauseMenu;
-    [SerializeField] GameObject winMenu;
-    [SerializeField] GameObject loseMenu;
-    [SerializeField] TMP_Text enemyCountText;
-    [SerializeField] TMP_Text waveCountText;
+    public PlayerController playerScript;
+    public PointController pointScript;
 
     public bool isPaused;
-    int enemiesRemaining;
-    int waveCount;
+    public int enemiesRemaining;
+    public int waveCount;
     float timescaleOG;
     
     // Start is called before the first frame update
@@ -33,6 +29,8 @@ public class GameManager : MonoBehaviour
         instance = this;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
+        point = GameObject.FindWithTag("Point");
+        pointScript = point.GetComponent<PointController>();
         playerSpawnPos = GameObject.FindWithTag("PlayerSpawn");
         timescaleOG = Time.timeScale;
     }
@@ -40,11 +38,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Cancel") && activeMenu == null)
+        if (Input.GetButtonDown("Cancel") && UIManager.instance.menuActive == null)
         {
             StatePaused();
-            activeMenu = pauseMenu;
-            activeMenu.SetActive(isPaused);
+            UIManager.instance.DisplayPausedMenu();
         }
     }
 
@@ -62,34 +59,36 @@ public class GameManager : MonoBehaviour
         Time.timeScale = timescaleOG;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        activeMenu.SetActive(false);
-        activeMenu = null;
+        UIManager.instance.CloseActiveMenu();
     }
 
     public void UpdateEnemyCount(int amount)
     {
         enemiesRemaining += amount;
         enemiesRemaining = Mathf.Max(enemiesRemaining, 0);
-        enemyCountText.text = enemiesRemaining.ToString("0");
+        UIManager.instance.UpdateRemainingEnemies();
+
+        if (enemiesRemaining <= 0)
+        {
+            StartCoroutine(waveManager.StartWave());
+        }
     }
 
     public void UpdateWaveCount(int amount)
     {
-        waveCount = amount;
-        waveCountText.text = waveCount.ToString("0");
+        waveCount += amount;
+        UIManager.instance.UpdateWaveCount();
     }
 
     public void YouWin()
     {
         StatePaused();
-        activeMenu = winMenu;
-        activeMenu.SetActive(true);
+        UIManager.instance.DisplayWinMenu();
     }
 
     public void YouLose()
     {
         StatePaused();
-        activeMenu = loseMenu;
-        activeMenu.SetActive(true);
+        UIManager.instance.DisplayLoseMenu();
     }
 }

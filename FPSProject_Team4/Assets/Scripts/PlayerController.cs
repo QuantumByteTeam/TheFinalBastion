@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 {
     [SerializeField] CharacterController controller;
 
-    [SerializeField] int HP; //configurable amt of HP
+    public int HP; //configurable amt of HP
     [SerializeField] float PlayerSpeed; //configurable speed
     [SerializeField] float JumpHeight; //configurable jump height
     [SerializeField] float GravityValue;
@@ -23,12 +23,12 @@ public class PlayerController : MonoBehaviour, IDamageable
     private Vector3 Move;
     private int JumpCount; //amt of jumps player has currently remaining
     private bool IsShooting;
-    int HPOriginal; //default starting HP
+    public int HPOriginal; //default starting HP
 
     private void Start()
     {
         HPOriginal = HP; //sets default hp to player's current HP
-        updatePlayerUI();
+        UIManager.instance.UpdatePlayerHP();
     }
 
     void Update()
@@ -41,11 +41,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * ShootDist, Color.red); //gives red line for gun shooting distance in the scene NOT in game since its debug
 
-
-
-
         sprint();
-
 
         GroundedPlayer = controller.isGrounded;
         if (GroundedPlayer && PlayerVelocity.y < 0) //makes sure we dont fast fall (falls at normal speed)
@@ -95,7 +91,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     IEnumerator Shoot()
     {
-
         IsShooting = true;
 
         RaycastHit hit;
@@ -113,23 +108,15 @@ public class PlayerController : MonoBehaviour, IDamageable
         IsShooting = false;
     }
 
-
-
     public void takeDamage(int amount)
     {
         HP -= amount; //player takes dmg
-        GameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal; 
-
+        UIManager.instance.UpdatePlayerHP();
 
         if (HP <= 0)
         {
             //player dies
             GameManager.instance.YouLose();
         }
-    }
-
-    public void updatePlayerUI()
-    {
-        GameManager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
     }
 }

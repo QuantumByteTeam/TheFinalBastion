@@ -6,8 +6,10 @@ public class WaveManager : MonoBehaviour
 {
     public static WaveManager instance;
 
-    [SerializeField] MobSpawner[] spawners;
+    [SerializeField] GameObject[] spawners;
     [SerializeField] int waveIntermission;
+    [SerializeField] int enemyCountMultiplier;
+    [SerializeField] int waveWinAmount;
     
     public int currentWave;
     
@@ -15,6 +17,7 @@ public class WaveManager : MonoBehaviour
     void Start()
     {
         instance = this;
+        spawners = GameObject.FindGameObjectsWithTag("EnemySpawner");
         StartCoroutine(StartWave());
     }
     
@@ -26,7 +29,7 @@ public class WaveManager : MonoBehaviour
         if (currentWave <= spawners.Length)
         {
             yield return new WaitForSeconds(waveIntermission);
-            spawners[currentWave - 1].StartWave();
+            spawners[currentWave - 1].GetComponent<MobSpawner>().StartWave();
         }
         else
         {

@@ -416,7 +416,7 @@ GameObject:
   - component: {fileID: 8637633270176295581}
   - component: {fileID: 6010415998799002623}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -509,11 +509,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3151510499229195138}
+  m_Father: {fileID: 429124159514714670}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 56, y: 71}
+  m_AnchoredPosition: {x: -854, y: -419}
   m_SizeDelta: {x: 25, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2558333110951625038
@@ -935,8 +935,6 @@ RectTransform:
   - {fileID: 6183987234815775029}
   - {fileID: 100287834704658252}
   - {fileID: 7488695054568426936}
-  - {fileID: 2297634312962293852}
-  - {fileID: 571478969131968203}
   - {fileID: 8253425447347866036}
   - {fileID: 1631371173483329956}
   - {fileID: 8162334190892650262}
@@ -945,6 +943,7 @@ RectTransform:
   - {fileID: 6086161247298394511}
   - {fileID: 3064081621223648251}
   - {fileID: 3548582777356346360}
+  - {fileID: 429124159514714670}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1027,13 +1026,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cebaf450f0460f4d8477b19b8c16fc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  HPText: {fileID: 3156662648978985040}
-  PointHPBar: {fileID: 3961433759606963969}
-  menuActive: {fileID: 0}
+  playerHPBar: {fileID: 8840816114553395913}
+  pointHPBar: {fileID: 7069708621557994965}
   menuPause: {fileID: 6040514119995600866}
-  point: {fileID: 0}
-  isPaused: 0
+  menuLose: {fileID: 1697881371572475488}
+  menuWin: {fileID: 2862604247938274607}
+  waveCountText: {fileID: 3890044521457845781}
+  enemyCountText: {fileID: 8979394681936630105}
+  menuActive: {fileID: 0}
 --- !u!1 &2260964009298130531
 GameObject:
   m_ObjectHideFlags: 0
@@ -2003,7 +2003,7 @@ GameObject:
   - component: {fileID: 49155060840561505}
   - component: {fileID: 8840816114553395913}
   m_Layer: 5
-  m_Name: Player HP Bar
+  m_Name: Player Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2996,17 +2996,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7274803e6ab874395c1c6c17f241ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waveManager: {fileID: 1098089820680607143}
   player: {fileID: 0}
   playerSpawnPos: {fileID: 0}
+  point: {fileID: 0}
   playerScript: {fileID: 0}
-  playerHPBar: {fileID: 8840816114553395913}
-  activeMenu: {fileID: 6040514119995600866}
-  pauseMenu: {fileID: 6040514119995600866}
-  winMenu: {fileID: 2862604247938274607}
-  loseMenu: {fileID: 1697881371572475488}
-  enemyCountText: {fileID: 8979394681936630105}
-  waveCountText: {fileID: 3890044521457845781}
-  isPaused: 1
+  pointScript: {fileID: 0}
+  isPaused: 0
+  enemiesRemaining: 0
+  waveCount: 0
 --- !u!1 &6079889513637650975
 GameObject:
   m_ObjectHideFlags: 0
@@ -3141,6 +3139,43 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &6348006296316938248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 429124159514714670}
+  m_Layer: 5
+  m_Name: HP Icon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &429124159514714670
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6348006296316938248}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2297634312962293852}
+  - {fileID: 571478969131968203}
+  m_Father: {fileID: 3151510499229195138}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6656611607382739982
 GameObject:
   m_ObjectHideFlags: 0
@@ -3171,11 +3206,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3151510499229195138}
+  m_Father: {fileID: 429124159514714670}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 56, y: 71}
+  m_AnchoredPosition: {x: -854, y: -419}
   m_SizeDelta: {x: 25, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7153235873602268282
@@ -3555,8 +3590,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0082fe8a0c5bddc49b2e07fa189320e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawners: []
+  spawners:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   waveIntermission: 1
+  enemyCountMultiplier: 2
+  waveWinAmount: 2
   currentWave: 0
 --- !u!1 &8365868617117076019
 GameObject:
