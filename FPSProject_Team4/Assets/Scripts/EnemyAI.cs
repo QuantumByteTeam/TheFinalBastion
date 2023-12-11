@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -109,10 +110,27 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
                 return true;
             }
+            //TODO: Figure out how to get enemies to spread around a target
+            //else if (hit.collider.CompareTag("enemy"))
+            //{
+            //    SpreadOut(targetDirection);
+            //}
         }
 
         return false;
     }
+
+    //void SpreadOut(Vector3 targetPos)
+    //{
+    //    float angleIncrement = 360f / GameManager.instance.enemiesRemaining;
+
+    //    float angle = transform.GetSiblingIndex() * angleIncrement;
+
+    //    Vector3 spreadPosition = targetPos + Quaternion.Euler(0, angle, 0) * (transform.forward * agent.stoppingDistance);
+
+    //    agent.SetDestination(spreadPosition);
+
+    //}
 
     void faceTarget(Vector3 targetDir)
     {
@@ -151,6 +169,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
+            shouldTargetPoint = true;
         }
     }
 
@@ -164,6 +183,12 @@ public class EnemyAI : MonoBehaviour, IDamageable
         {
             GameManager.instance.UpdateEnemyCount(-1);
             Destroy(gameObject);
+        }
+        else
+        {
+            shouldTargetPlayer = true;
+            shouldTargetPoint = false;
+            agent.SetDestination(GameManager.instance.player.transform.position);
         }
     }
 
