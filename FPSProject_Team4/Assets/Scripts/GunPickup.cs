@@ -16,7 +16,7 @@ public class GunPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") & !triggerSet) //use interfaces (like IDamage) to change if u want entities to pick things up/take dmg etc.
+        if (other.CompareTag("Player") && !triggerSet) //use interfaces (like IDamage) to change if u want entities to pick things up/take dmg etc.
         {
             triggerSet = true;
             //give stats to player

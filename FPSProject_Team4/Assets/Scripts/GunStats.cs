@@ -20,5 +20,6 @@ public class gunStats : ScriptableObject
     public AudioClip ShootSound;
     [Range(0, 1)] public float ShootSoundVol;
 
+    //add bools for ads/coach gun logic stuff 
 
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamageable
@@ -174,7 +175,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         GunModel.GetComponent<MeshFilter>().sharedMesh = gun.Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model
         GunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.Model.GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
 
-
+        
         SelectedGun = gunList.Count - 1;
 
     }
@@ -202,8 +203,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         ShootDist = gunList[SelectedGun].ShootDist;
         ShootRate = gunList[SelectedGun].ShootRate;
 
-        GunModel.GetComponent<MeshFilter>().sharedMesh = gunList[SelectedGun].Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model (?)
-        GunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[SelectedGun].Model.GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun (?)
+        GunModel.GetComponent<MeshFilter>().sharedMesh = gunList[SelectedGun].Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model
+        GunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[SelectedGun].GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
 
         IsShooting = false;
 
