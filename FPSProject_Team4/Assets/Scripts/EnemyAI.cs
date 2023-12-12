@@ -50,14 +50,14 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     void Update()
     {
-        if (shouldTargetPlayer && playerInRange && canSeeTarget(GameManager.instance.player.transform))
-        {
+        //if (shouldTargetPlayer && playerInRange && canSeeTarget(GameManager.instance.player.transform))
+        //{
 
-        } 
-        else if (shouldTargetPoint && canSeeTarget(point.transform))
-        {
+        //} 
+        //else if (shouldTargetPoint && canSeeTarget(point.transform))
+        //{
 
-        }
+        //}
         //else
         //{
         //    Roam

@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     private Vector3 Move;
     private int JumpCount; //amt of jumps player has currently remaining
     private bool IsShooting;
-    public int HPOriginal; //default starting HP
+    public int HPOriginal; //default starting HP 
 
     int SelectedGun; //current gun the player is holding
     bool isPlayingSteps;
@@ -47,9 +47,23 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void Update()
     {
-        movement();
-        ShootingTimer();
+        //if (!GameManager.instance.isPaused) //checks if game is paused
+        //{
+
+
+            if (gunList.Count > 0)
+            {
+                if (Input.GetButton("Shoot") && !IsShooting)
+                {
+                    StartCoroutine(Shoot());
+                }
+
+                SelectGun();
+            }
+            movement();
+        //}
     }
+
 
     public void respawnPlayer()
     {
