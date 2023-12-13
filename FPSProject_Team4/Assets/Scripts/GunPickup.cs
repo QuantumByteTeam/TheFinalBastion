@@ -11,7 +11,8 @@ public class GunPickup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gun.ammoCount = gun.ammoMag; //sets ammo to max amt that the gun can hold
+        gun.ammoCount = gun.ammoMag;
+        gun.ammoReserve = gun.ammoReserveDefault;//sets ammo to max amt that the gun can hold
     }
 
     private void OnTriggerEnter(Collider other)

@@ -65,13 +65,17 @@ public class PlayerController : MonoBehaviour, IDamageable
 
             if (gunList.Count > 0)
             {
-                if (Input.GetButton("Shoot") && !IsShooting)
+                if (Input.GetButton("Shoot") && !IsShooting && !reloading)
                 {
                     StartCoroutine(Shoot());
                 }
 
+                if (Input.GetButton("Reload") && !IsShooting)
+                {
+                    StartCoroutine(reload());
+                }
                 SelectGun();
-            }
+        }
             movement();
         //}
     }
