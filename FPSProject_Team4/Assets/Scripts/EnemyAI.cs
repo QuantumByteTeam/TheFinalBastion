@@ -14,7 +14,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [SerializeField] Renderer model;
 
     [Header("----- Stats -----")]
-    [SerializeField] int health;
+    [SerializeField] float health;
     [SerializeField] int viewCone;
     [SerializeField] int targetFaceSpeed;
     [SerializeField] bool shouldTargetPlayer;
@@ -40,6 +40,9 @@ public class EnemyAI : MonoBehaviour, IDamageable
     float randTime;
     float timer;
     Color colorOrig;
+
+    //John
+    bool armor;
 
     void Start()
     {
@@ -173,10 +176,17 @@ public class EnemyAI : MonoBehaviour, IDamageable
         }
     }
 
-    public void takeDamage(int amount)
+    public void takeDamage(float amount, float armorPen)
     {
-        health -= amount;
-        
+        if (armor)
+        {
+            health -= amount * armorPen;
+        }
+        else
+        {
+            health -= amount;
+        }
+
         StartCoroutine(indicateDamage());
 
         if (health <= 0)

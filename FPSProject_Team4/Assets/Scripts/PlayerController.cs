@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] CharacterController controller;
 
     [Header("----- Stats -----")]
-    public int HP; //configurable amt of HP
+    public float HP; //configurable amt of HP
     [SerializeField] float PlayerSpeed; //configurable speed
     [SerializeField] float JumpHeight; //configurable jump height
     [SerializeField] float GravityValue;
@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] int ShootDist; //configurable distance of shots
     [SerializeField] GameObject GunModel;
 
+    //Copying code from my project - John
+    float armorPen;
+
     [Header("----- Audio -----")]
     [SerializeField] AudioClip[] SoundHurt;
     [Range(0, 1)][SerializeField] float SoundHurtVol;
@@ -34,11 +37,19 @@ public class PlayerController : MonoBehaviour, IDamageable
     private Vector3 Move;
     private int JumpCount; //amt of jumps player has currently remaining
     private bool IsShooting;
-    public int HPOriginal; //default starting HP 
+    public float HPOriginal; //default starting HP (changed to float)
 
     int SelectedGun; //current gun the player is holding
     bool isPlayingSteps;
     bool isSprinting;
+
+    //added by John
+    int ammoCount;
+    int ammoMag;
+    int ammoReserve;
+    private bool reloading;
+    private bool armor;
+
 
     private void Start()
     {
@@ -132,26 +143,57 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     IEnumerator Shoot()
     {
-        IsShooting = true;
+        //IsShooting = true;
 
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, ShootDist)) //.5 .5 is middle of screen
+        //RaycastHit hit;
+        //if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, ShootDist)) //.5 .5 is middle of screen
+        //{
+        //    IDamageable dmg = hit.collider.GetComponent<IDamageable>(); //returns smth if it hits smth with IDamage
+
+        //    if (dmg != null)
+        //    {
+        //        dmg.takeDamage(ShootDamage, armorPen);
+        //    }
+        //}
+
+        //yield return new WaitForSeconds(ShootRate);
+        //IsShooting = false;
+
+        if (gunList[SelectedGun].ammoCount > 0)
         {
-            IDamageable dmg = hit.collider.GetComponent<IDamageable>(); //returns smth if it hits smth with IDamage
-
-            if (dmg != null)
+            //audioSource.PlayOneShot(gunList[selectedGun].gunshot, gunList[selectedGun].gunshotVolume);
+            ammoCount--;
+            gunList[SelectedGun].ammoCount--;
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, gunList[SelectedGun].ShootDist))
             {
-                dmg.takeDamage(ShootDamage);
-            }
-        }
+                //Instantiate(gunList[SelectedGun].hitEffect, hit.point, transform.rotation);
 
-        yield return new WaitForSeconds(ShootRate);
-        IsShooting = false;
+                IDamageable dmg = hit.collider.GetComponent<IDamageable>();
+
+                if (hit.transform != transform && dmg != null)
+                {
+                    dmg.takeDamage(gunList[SelectedGun].ShootDamage, gunList[SelectedGun].armorPen);
+                }
+            }
+
+            IsShooting = true;
+            yield return new WaitForSeconds(gunList[SelectedGun].ShootRate);
+            IsShooting = false;
+        }
     }
 
-    public void takeDamage(int amount)
+    public void takeDamage(float amount, float armorPen)
     {
-        HP -= amount; //player takes dmg
+        if (armor)
+        {
+            HP -= amount * armorPen;
+        }
+        else
+        {
+            HP -= amount;
+        } //player takes dmg
+
         UIManager.instance.UpdatePlayerHP();
 
         if (HP <= 0)
@@ -167,16 +209,19 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 
 
-        //sets the gun player just picked up to the gun's stats
-        ShootDamage = gun.ShootDamage;
-        ShootDist = gun.ShootDist;
-        ShootRate = gun.ShootRate;
+        //sets the gun player just picked up to the gun's stats //moved this to ChangeGun()
 
-        GunModel.GetComponent<MeshFilter>().sharedMesh = gun.Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model
-        GunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.Model.GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
+
+        //ShootDamage = gun.ShootDamage;
+        //ShootDist = gun.ShootDist;
+        //ShootRate = gun.ShootRate;
+
+        //GunModel.GetComponent<MeshFilter>().sharedMesh = gun.Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model
+        //GunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.Model.GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
 
         
         SelectedGun = gunList.Count - 1;
+        ChangeGun();
 
     }
 
@@ -203,6 +248,18 @@ public class PlayerController : MonoBehaviour, IDamageable
         ShootDist = gunList[SelectedGun].ShootDist;
         ShootRate = gunList[SelectedGun].ShootRate;
 
+        //John
+        IsShooting = false;
+        reloading = false;
+        isPlayingSteps = false;
+        armorPen = gunList[SelectedGun].armorPen;
+        ShootDamage = gunList[SelectedGun].ShootDamage;
+        ShootRate = gunList[SelectedGun].ShootRate;
+        ShootDist = gunList[SelectedGun].ShootDist;
+        ammoCount = gunList[SelectedGun].ammoCount;
+        ammoMag = gunList[SelectedGun].ammoMag;
+        ammoReserve = gunList[SelectedGun].ammoReserve;
+
         GunModel.GetComponent<MeshFilter>().sharedMesh = gunList[SelectedGun].Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model
         GunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[SelectedGun].GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
 
@@ -211,7 +268,34 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
 
 
-
+    IEnumerator reload()
+    {
+        reloading = true;
+        if (gunList[SelectedGun].ammoReserve > 0 && gunList[SelectedGun].ammoCount < gunList[SelectedGun].ammoMag)
+        {
+            reloading = true;
+            yield return new WaitForSeconds(gunList[SelectedGun].reloadTime);
+            if (gunList[SelectedGun].ammoReserve >= gunList[SelectedGun].ammoMag - gunList[SelectedGun].ammoCount)
+            {
+                gunList[SelectedGun].ammoReserve -= gunList[SelectedGun].ammoMag - gunList[SelectedGun].ammoCount;
+                gunList[SelectedGun].ammoCount = gunList[SelectedGun].ammoMag;
+            }
+            else
+            {
+                gunList[SelectedGun].ammoCount += gunList[SelectedGun].ammoReserve;
+                gunList[SelectedGun].ammoReserve = 0;
+            }
+            reloading = false;
+        }
+        else
+        {
+            yield return new WaitForSeconds(0);
+            reloading = false;
+        }
+        ammoCount = gunList[SelectedGun].ammoCount;
+        ammoMag = gunList[SelectedGun].ammoMag;
+        ammoReserve = gunList[SelectedGun].ammoReserve;
+    }
 
 
 

@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] Rigidbody rigidbody;
+    [SerializeField] Rigidbody rb;
 
     public int secondsUntilDestroy;
     public int damageAmount;
     public int speed;
+    public float armorPen;
 
     public void run()
     {
-        rigidbody.velocity = transform.forward * this.speed;
+        rb.velocity = transform.forward * this.speed;
         Destroy(gameObject, secondsUntilDestroy);
     }
 
@@ -24,7 +25,7 @@ public class Bullet : MonoBehaviour
 
         if (damage != null)
         {
-            damage.takeDamage(damageAmount);
+            damage.takeDamage(damageAmount, armorPen);
         }
 
         Destroy(gameObject);
