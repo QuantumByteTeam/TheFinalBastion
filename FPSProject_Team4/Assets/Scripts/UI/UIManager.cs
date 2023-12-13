@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuWin;
+    [SerializeField] GameObject menuStore;
     [SerializeField] TMP_Text waveCountText;
     [SerializeField] TMP_Text enemyCountText;
     public GameObject playerDamageScreen;
@@ -41,6 +42,12 @@ public class UIManager : MonoBehaviour
     public void DisplayWinMenu()
     {
         menuActive = menuWin;
+        menuActive.SetActive(true);
+    }
+
+    public void DisplayStoreMenu()
+    {
+        menuActive = menuStore;
         menuActive.SetActive(true);
     }
 
