@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] TMP_Text waveCountText;
     [SerializeField] TMP_Text enemyCountText;
+    public GameObject playerDamageScreen;
 
     public GameObject menuActive;
 
