@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (Input.GetButtonDown("Jump") && JumpCount < JumpMax)
         {
             PlayerVelocity.y = JumpHeight;
-            aud.PlayOneShot(SoundSteps[Random.Range(0, SoundJumps.Length - 1)], SoundJumpsVol); //plays jump sfx
+            aud.PlayOneShot(SoundJumps[Random.Range(0, SoundJumps.Length - 1)], SoundJumpsVol); //plays jump sfx randomly
             JumpCount++;
         }
 
