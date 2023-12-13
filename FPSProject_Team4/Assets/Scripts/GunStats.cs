@@ -26,7 +26,7 @@ public class gunStats : ScriptableObject
     public GameObject MagModel; //magazines
     public GameObject TrigModel; //triggers
     public ParticleSystem HitEffect;
-    public AudioClip ShootSound;
+    public AudioClip ShootSound; //was public 12/12
     [Range(0, 1)] public float ShootSoundVol;
 
 

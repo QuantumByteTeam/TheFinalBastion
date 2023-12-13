@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 {
     [Header("----- Components -----")]
     [SerializeField] CharacterController controller;
+    [SerializeField] AudioSource aud;
 
     [Header("----- Stats -----")]
     public float HP; //configurable amt of HP
@@ -168,6 +169,10 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (gunList[SelectedGun].ammoCount > 0)
         {
             //audioSource.PlayOneShot(gunList[selectedGun].gunshot, gunList[selectedGun].gunshotVolume);
+
+            
+            aud.PlayOneShot(gunList[SelectedGun].ShootSound, gunList[SelectedGun].ShootSoundVol); //plays the associated gun noise each time a bullet is shot
+
             ammoCount--;
             gunList[SelectedGun].ammoCount--;
             RaycastHit hit;

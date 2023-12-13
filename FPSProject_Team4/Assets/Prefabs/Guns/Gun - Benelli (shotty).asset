@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a231154ba98f1c34ab32f8a06ac808d0, type: 3}
   m_Name: Gun - Benelli (shotty)
   m_EditorClassIdentifier: 
-  ShootDamage: 4
-  ShootRate: 0.9
-  ShootDist: 15
-  ammoCount: 5
+  ShootDamage: 50
+  ShootRate: 1.35
+  ShootDist: 20
+  ammoCount: 2
   ammoMag: 5
   ammoReserve: 25
   ammoReserveDefault: 25
@@ -25,5 +25,5 @@ MonoBehaviour:
   MagModel: {fileID: 100002, guid: bf2593fe0c804b84688e307cfb1ddfae, type: 3}
   TrigModel: {fileID: 100004, guid: bf2593fe0c804b84688e307cfb1ddfae, type: 3}
   HitEffect: {fileID: 4127998074575878133, guid: fa5f1280767e8e444b7ff30473458613, type: 3}
-  ShootSound: {fileID: 0}
+  ShootSound: {fileID: 8300000, guid: 619416560d0562e46a57f63ff640a270, type: 3}
   ShootSoundVol: 0.5

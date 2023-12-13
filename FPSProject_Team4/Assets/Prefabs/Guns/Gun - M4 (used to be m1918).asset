@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a231154ba98f1c34ab32f8a06ac808d0, type: 3}
   m_Name: Gun - M4 (used to be m1918)
   m_EditorClassIdentifier: 
-  ShootDamage: 70
-  ShootRate: 0.12
+  ShootDamage: 35
+  ShootRate: 0.15
   ShootDist: 50
-  ammoCount: 11
+  ammoCount: 0
   ammoMag: 20
   ammoReserve: 120
   ammoReserveDefault: 120
@@ -25,5 +25,5 @@ MonoBehaviour:
   MagModel: {fileID: 100004, guid: c7741850eebe1df4ea75a80275b16311, type: 3}
   TrigModel: {fileID: 100010, guid: c7741850eebe1df4ea75a80275b16311, type: 3}
   HitEffect: {fileID: 4127998074575878133, guid: fa5f1280767e8e444b7ff30473458613, type: 3}
-  ShootSound: {fileID: 0}
-  ShootSoundVol: 0.5
+  ShootSound: {fileID: 8300000, guid: 9d1310d0c7be88d47b95bf555c54fe3a, type: 3}
+  ShootSoundVol: 0.7
