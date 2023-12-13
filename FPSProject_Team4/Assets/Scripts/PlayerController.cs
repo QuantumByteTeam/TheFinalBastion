@@ -32,8 +32,10 @@ public class PlayerController : MonoBehaviour, IDamageable
     [Header("----- Audio -----")]
     [SerializeField] AudioClip[] SoundHurt;
     [Range(0, 1)][SerializeField] float SoundHurtVol;
-    [SerializeField] AudioClip[] Soundsteps;
+    [SerializeField] AudioClip[] SoundSteps;
     [Range(0, 1)][SerializeField] float SoundStepsVol;
+    [SerializeField] AudioClip[] SoundJumps;
+    [Range(0, 1)][SerializeField] float SoundJumpsVol;
 
     private Vector3 PlayerVelocity;
     private bool GroundedPlayer; //is player grounded or not
@@ -78,10 +80,31 @@ public class PlayerController : MonoBehaviour, IDamageable
                     StartCoroutine(reload());
                 }
                 SelectGun();
-        }
+            }
             movement();
         //}
     }
+
+    IEnumerator playSteps()
+    {
+        isPlayingSteps= true;
+
+        aud.PlayOneShot(SoundSteps[Random.Range(0, SoundSteps.Length - 1)], SoundStepsVol);
+
+        if (!isSprinting) //not sprinting
+        {
+            yield return new WaitForSeconds(.45f); //normal pace
+
+        }
+        else
+        {
+            yield return new WaitForSeconds(.25f); //sprint pace
+        }
+
+        isPlayingSteps = false;
+
+    }
+
 
 
     public void respawnPlayer()
@@ -101,6 +124,13 @@ public class PlayerController : MonoBehaviour, IDamageable
         sprint();
 
         GroundedPlayer = controller.isGrounded;
+
+        if (GroundedPlayer && Move.normalized.magnitude > 0.3f && !isPlayingSteps) //can also use a Vector3.0 in place ofthe normalized and mag but it will start playing as soon as u move
+        {
+            StartCoroutine(playSteps());
+        }
+
+
         if (GroundedPlayer && PlayerVelocity.y < 0) //makes sure we dont fast fall (falls at normal speed)
         {
             PlayerVelocity.y = 0f;
@@ -118,6 +148,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (Input.GetButtonDown("Jump") && JumpCount < JumpMax)
         {
             PlayerVelocity.y = JumpHeight;
+            aud.PlayOneShot(SoundSteps[Random.Range(0, SoundJumps.Length - 1)], SoundJumpsVol); //plays jump sfx
             JumpCount++;
         }
 
@@ -205,6 +236,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             HP -= amount;
         } //player takes dmg
 
+        aud.PlayOneShot(SoundHurt[Random.Range(0, SoundHurt.Length-1)], SoundHurtVol); //plays audio randomly from the whole range of tracks when player hurt
         UIManager.instance.UpdatePlayerHP();
 
         if (HP <= 0)
