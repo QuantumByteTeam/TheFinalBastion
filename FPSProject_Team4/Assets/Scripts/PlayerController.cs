@@ -220,10 +220,10 @@ public class PlayerController : MonoBehaviour, IDamageable
         //ShootDist = gun.ShootDist;
         //ShootRate = gun.ShootRate;
 
-        //GunModel.GetComponent<MeshFilter>().sharedMesh = gun.Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model
-        //GunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.Model.GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
+        GunModel.GetComponent<MeshFilter>().sharedMesh = gun.Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model
+        GunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.Model.GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
 
-        
+
         SelectedGun = gunList.Count - 1;
         ChangeGun();
 
@@ -265,7 +265,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         ammoReserve = gunList[SelectedGun].ammoReserve;
 
         GunModel.GetComponent<MeshFilter>().sharedMesh = gunList[SelectedGun].Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model
-        GunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[SelectedGun].GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
+        GunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[SelectedGun].Model.GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
 
         IsShooting = false;
 

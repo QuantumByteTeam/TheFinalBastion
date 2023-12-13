@@ -42,7 +42,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     Color colorOrig;
 
     //John
-    bool armor;
+    public bool armor;
 
     void Start()
     {

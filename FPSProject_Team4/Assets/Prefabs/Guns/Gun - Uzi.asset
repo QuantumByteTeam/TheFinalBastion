@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a231154ba98f1c34ab32f8a06ac808d0, type: 3}
   m_Name: Gun - Uzi
   m_EditorClassIdentifier: 
-  ShootDamage: 1
+  ShootDamage: 29
   ShootRate: 0.25
   ShootDist: 25
-  AmmoCur: 32
-  AmmoMax: 32
+  ammoCount: 30
+  ammoMag: 30
+  ammoReserve: 100
+  ammoReserveDefault: 100
+  armorPen: 0.575
+  reloadTime: 2.57
   Model: {fileID: 1095254202041702, guid: 6273e2936e9d6a24e9f64c7c70d6bd19, type: 3}
   HitEffect: {fileID: 0}
   ShootSound: {fileID: 0}

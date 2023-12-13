@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a231154ba98f1c34ab32f8a06ac808d0, type: 3}
   m_Name: Glock
   m_EditorClassIdentifier: 
-  ShootDamage: 0
-  ShootRate: 0
-  ShootDist: 0
-  AmmoCur: 0
-  AmmoMax: 0
-  Model: {fileID: 0}
+  ShootDamage: 30
+  ShootRate: 0.15
+  ShootDist: 25
+  ammoCount: 20
+  ammoMag: 20
+  ammoReserve: 120
+  ammoReserveDefault: 120
+  armorPen: 0.45
+  reloadTime: 2.27
+  Model: {fileID: 3494363733659950922, guid: f3578301a4415ce41893ad32d7f53f67, type: 3}
   HitEffect: {fileID: 0}
   ShootSound: {fileID: 0}
   ShootSoundVol: 0
