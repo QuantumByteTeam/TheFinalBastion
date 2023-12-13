@@ -64,8 +64,8 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void Update()
     {
-        //if (!GameManager.instance.isPaused) //checks if game is paused
-        //{
+        if (!GameManager.instance.isPaused) //checks if game is paused
+        {
 
 
             if (gunList.Count > 0)
@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour, IDamageable
                 SelectGun();
             }
             movement();
-        //}
+        }
     }
 
     IEnumerator playSteps()
@@ -236,6 +236,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             HP -= amount;
         } //player takes dmg
 
+        StartCoroutine(playerFlashDamage());
         aud.PlayOneShot(SoundHurt[Random.Range(0, SoundHurt.Length-1)], SoundHurtVol); //plays audio randomly from the whole range of tracks when player hurt
         UIManager.instance.UpdatePlayerHP();
 
@@ -245,6 +246,14 @@ public class PlayerController : MonoBehaviour, IDamageable
             GameManager.instance.YouLose();
         }
     }
+
+    IEnumerator playerFlashDamage() //flashes the red panel screen when dmg is taken
+    {
+        UIManager.instance.playerDamageScreen.SetActive(true);
+        yield return new WaitForSeconds(.1f);
+        UIManager.instance.playerDamageScreen.SetActive(false);
+    }
+
 
     public void GetGunStats(gunStats gun) //gives the current picked up/equipped gun the proper stats
     {
