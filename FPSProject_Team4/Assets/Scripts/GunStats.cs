@@ -22,7 +22,9 @@ public class gunStats : ScriptableObject
     public float armorPen;
     public float reloadTime;
 
-    public GameObject Model;
+    public GameObject Model; //guns
+    public GameObject MagModel; //magazines
+    public GameObject TrigModel; //triggers
     public ParticleSystem HitEffect;
     public AudioClip ShootSound;
     [Range(0, 1)] public float ShootSoundVol;

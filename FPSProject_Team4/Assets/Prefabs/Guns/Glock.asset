@@ -22,6 +22,7 @@ MonoBehaviour:
   armorPen: 0.45
   reloadTime: 2.27
   Model: {fileID: 3494363733659950922, guid: f3578301a4415ce41893ad32d7f53f67, type: 3}
-  HitEffect: {fileID: 0}
+  MagModel: {fileID: 0}
+  HitEffect: {fileID: 4127998074575878133, guid: fa5f1280767e8e444b7ff30473458613, type: 3}
   ShootSound: {fileID: 0}
-  ShootSoundVol: 0
+  ShootSoundVol: 0.5

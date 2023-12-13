@@ -8,6 +8,7 @@ TagManager:
   - EnemySpawner
   - PlayerSpawn
   - Enemy
+  - Gun Mag
   layers:
   - Default
   - TransparentFX

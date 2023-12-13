@@ -15,9 +15,15 @@ MonoBehaviour:
   ShootDamage: 4
   ShootRate: 0.9
   ShootDist: 15
-  AmmoCur: 5
-  AmmoMax: 5
+  ammoCount: 5
+  ammoMag: 5
+  ammoReserve: 25
+  ammoReserveDefault: 25
+  armorPen: 0
+  reloadTime: 2
   Model: {fileID: 1236257789494122, guid: 8b0b86b42def11849a8eba21f4a6a684, type: 3}
-  HitEffect: {fileID: 0}
+  MagModel: {fileID: 100002, guid: bf2593fe0c804b84688e307cfb1ddfae, type: 3}
+  TrigModel: {fileID: 100004, guid: bf2593fe0c804b84688e307cfb1ddfae, type: 3}
+  HitEffect: {fileID: 4127998074575878133, guid: fa5f1280767e8e444b7ff30473458613, type: 3}
   ShootSound: {fileID: 0}
   ShootSoundVol: 0.5

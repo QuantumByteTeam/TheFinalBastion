@@ -21,7 +21,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] int ShootDamage; //configurable dmg amt
     [SerializeField] float ShootRate; //configurable rate of fire (per sec)
     [SerializeField] int ShootDist; //configurable distance of shots
-    [SerializeField] GameObject GunModel;
+    [SerializeField] GameObject GunModel; //for gun model
+    [SerializeField] GameObject GunMag; //for gun mags
+    [SerializeField] GameObject GunTrig; //for gun triggers
 
     //Copying code from my project - John
     float armorPen;
@@ -171,7 +173,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, gunList[SelectedGun].ShootDist))
             {
-                //Instantiate(gunList[SelectedGun].hitEffect, hit.point, transform.rotation);
+                Instantiate(gunList[SelectedGun].HitEffect, hit.point, transform.rotation); //gun spark particle
 
                 IDamageable dmg = hit.collider.GetComponent<IDamageable>();
 
@@ -219,10 +221,16 @@ public class PlayerController : MonoBehaviour, IDamageable
         //ShootDamage = gun.ShootDamage;
         //ShootDist = gun.ShootDist;
         //ShootRate = gun.ShootRate;
-
+        
+        //gun models
         GunModel.GetComponent<MeshFilter>().sharedMesh = gun.Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model
         GunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.Model.GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
-
+        //gun mags
+        GunMag.GetComponent<MeshFilter>().sharedMesh = gun.MagModel.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun mag
+        GunMag.GetComponent<MeshRenderer>().sharedMaterial = gun.MagModel.GetComponent<MeshRenderer>().sharedMaterial; //sets the mag texture/renderer
+        //gun triggers
+        GunTrig.GetComponent<MeshFilter>().sharedMesh = gun.TrigModel.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun mag
+        GunTrig.GetComponent<MeshRenderer>().sharedMaterial = gun.TrigModel.GetComponent<MeshRenderer>().sharedMaterial; //sets the mag texture/renderer
 
         SelectedGun = gunList.Count - 1;
         ChangeGun();
@@ -263,9 +271,18 @@ public class PlayerController : MonoBehaviour, IDamageable
         ammoCount = gunList[SelectedGun].ammoCount;
         ammoMag = gunList[SelectedGun].ammoMag;
         ammoReserve = gunList[SelectedGun].ammoReserve;
-
+        //gun models
         GunModel.GetComponent<MeshFilter>().sharedMesh = gunList[SelectedGun].Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model
         GunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[SelectedGun].Model.GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
+
+        //gun mags
+        GunMag.GetComponent<MeshFilter>().sharedMesh = gunList[SelectedGun].MagModel.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun mag
+        GunMag.GetComponent<MeshRenderer>().sharedMaterial = gunList[SelectedGun].MagModel.GetComponent<MeshRenderer>().sharedMaterial; //sets the mag texture/renderer
+        //gun triggers
+        GunTrig.GetComponent<MeshFilter>().sharedMesh = gunList[SelectedGun].TrigModel.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun mag
+        GunTrig.GetComponent<MeshRenderer>().sharedMaterial = gunList[SelectedGun].TrigModel.GetComponent<MeshRenderer>().sharedMaterial; //sets the mag texture/renderer
+
+
 
         IsShooting = false;
 
