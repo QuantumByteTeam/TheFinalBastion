@@ -47,10 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875f96e9a57746846bfdc4be6a21871a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 5645211895251887586}
+  rb: {fileID: 5645211895251887586}
   secondsUntilDestroy: 10
   damageAmount: 1
   speed: 5
+  armorPen: 0
 --- !u!135 &1531564377498527789
 SphereCollider:
   m_ObjectHideFlags: 0
