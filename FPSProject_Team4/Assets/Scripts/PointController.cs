@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PointController : MonoBehaviour, IDamageable
 {
-    public int health;
+    public float health;
     
-    public int healthOrig;
+    public float healthOrig;
 
     void Start()
     {
@@ -14,7 +14,7 @@ public class PointController : MonoBehaviour, IDamageable
         UIManager.instance.UpdatePointHP();
     }
 
-    public void takeDamage(int amount)
+    public void takeDamage(float amount, float armorPen)
     {
         health -= amount;
         UIManager.instance.UpdatePointHP();
