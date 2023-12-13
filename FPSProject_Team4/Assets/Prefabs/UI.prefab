@@ -3558,11 +3558,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  enemy:
+  - {fileID: 1277755095150470934, guid: 4b2922f080dd4174d8d836fcaaf4e54e, type: 3}
+  - {fileID: 1722172535831231147, guid: 1dc42e0cdc815604e85fa2bedd256383, type: 3}
   baseEnemyCount: 1
-  waveIntermission: 2
   enemyCountMultiplier: 2
+  waveIntermission: 2
   waveWinAmount: 1
-  enemy: {fileID: 1277755095150470934, guid: 4b2922f080dd4174d8d836fcaaf4e54e, type: 3}
   currentWave: 0
 --- !u!1 &8365868617117076019
 GameObject:
