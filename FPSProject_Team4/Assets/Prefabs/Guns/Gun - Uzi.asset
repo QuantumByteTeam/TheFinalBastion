@@ -15,12 +15,12 @@ MonoBehaviour:
   ShootDamage: 20
   ShootRate: 0.1
   ShootDist: 25
-  ammoCount: 0
+  ammoCount: 15
   ammoMag: 32
   ammoReserve: 100
   ammoReserveDefault: 100
   armorPen: 0.575
-  reloadTime: 2.57
+  reloadTime: 0.85
   Model: {fileID: 1095254202041702, guid: 6273e2936e9d6a24e9f64c7c70d6bd19, type: 3}
   MagModel: {fileID: 100002, guid: ff8c9f278b5bc8e4c894e1122f4a81f3, type: 3}
   TrigModel: {fileID: 100008, guid: ff8c9f278b5bc8e4c894e1122f4a81f3, type: 3}

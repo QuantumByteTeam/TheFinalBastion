@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     int SelectedGun; //current gun the player is holding
     bool isPlayingSteps;
     bool isSprinting;
-    bool isSwappingWep;
+    //bool isSwappingWep;
 
     //added by John
     int ammoCount;
@@ -201,8 +201,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (gunList[SelectedGun].ammoCount > 0)
         {
             //IsShooting = true;   
-            
-                aud.PlayOneShot(gunList[SelectedGun].ShootSound, gunList[SelectedGun].ShootSoundVol); //plays the associated gun noise each time a bullet is shot
+
+            aud.PlayOneShot(gunList[SelectedGun].ShootSound[Random.Range(0,gunList[SelectedGun].ShootSound.Length)], gunList[SelectedGun].ShootSoundVol); //plays the associated gun noise each time a bullet is shot
 
                 ammoCount--;
                 gunList[SelectedGun].ammoCount--;
@@ -307,7 +307,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     void ChangeGun() //has double pump exploit, BUG WHEN A GUN IS PICKEDUP FIRERATE DOUBLES, temp fix by moving the vars into get stats
     {
         
-        isSwappingWep = true;
+        
         
         StopAllCoroutines(); //Fixes double fire rate bug, <<<<<<<<<<<<<<<<<<<<<<<<<<< may be a cause of error in the future
         StartCoroutine(playSteps()); //Fixes double fire rate bug
@@ -340,7 +340,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 
         IsShooting = false;
-        isSwappingWep= false;
+        
     }
 
 
