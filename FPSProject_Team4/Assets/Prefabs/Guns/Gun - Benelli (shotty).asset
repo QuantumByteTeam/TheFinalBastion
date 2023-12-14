@@ -15,7 +15,7 @@ MonoBehaviour:
   ShootDamage: 50
   ShootRate: 1.35
   ShootDist: 20
-  ammoCount: 0
+  ammoCount: 5
   ammoMag: 5
   ammoReserve: 25
   ammoReserveDefault: 25
@@ -27,6 +27,6 @@ MonoBehaviour:
   HitEffect: {fileID: 2700414230783179721, guid: 955c010ea782cf94f8fece6a976bfcea, type: 3}
   ShootSound:
   - {fileID: 8300000, guid: 619416560d0562e46a57f63ff640a270, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 6de1edf5c22fc7f4fa307879df6f5b43, type: 3}
+  - {fileID: 8300000, guid: 50ef2b41bc3e5a94d9c73709da59275d, type: 3}
   ShootSoundVol: 0.5

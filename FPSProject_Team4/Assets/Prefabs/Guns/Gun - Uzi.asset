@@ -15,7 +15,7 @@ MonoBehaviour:
   ShootDamage: 20
   ShootRate: 0.1
   ShootDist: 25
-  ammoCount: 15
+  ammoCount: 32
   ammoMag: 32
   ammoReserve: 100
   ammoReserveDefault: 100
@@ -25,5 +25,8 @@ MonoBehaviour:
   MagModel: {fileID: 100002, guid: ff8c9f278b5bc8e4c894e1122f4a81f3, type: 3}
   TrigModel: {fileID: 100008, guid: ff8c9f278b5bc8e4c894e1122f4a81f3, type: 3}
   HitEffect: {fileID: 4127998074575878133, guid: fa5f1280767e8e444b7ff30473458613, type: 3}
-  ShootSound: {fileID: 8300000, guid: 1d21c4c9870bace4c880cf1e851e6edd, type: 3}
+  ShootSound:
+  - {fileID: 8300000, guid: ccec8e7d2be585347993dd2d94119836, type: 3}
+  - {fileID: 8300000, guid: 0f3fc55492917204c85971a1bac30795, type: 3}
+  - {fileID: 8300000, guid: 1d21c4c9870bace4c880cf1e851e6edd, type: 3}
   ShootSoundVol: 0.25
