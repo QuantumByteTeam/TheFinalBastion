@@ -14,8 +14,16 @@ public class BuyFunctions : MonoBehaviour
     {
         PlayerController player = GameManager.instance.playerScript;
         if (player.HP < player.HPOriginal)
-        {
-            player.HP = player.HPOriginal * healModifier;
+        {   
+            float hpToSet = player.HPOriginal * healModifier;
+            if (hpToSet + player.HP <= player.HPOriginal)
+            {
+                player.HP += hpToSet;
+            }
+            else
+            {
+                player.HP = player.HPOriginal;
+            }
             UIManager.instance.UpdatePlayerHP();
         }
     }

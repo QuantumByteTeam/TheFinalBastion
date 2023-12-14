@@ -54,7 +54,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     void Update()
     {
-        Debug.Log(shouldTargetPlayer);
         if (shouldTargetPlayer && playerInRange && canSeeTarget(GameManager.instance.player.transform))
         {
             
@@ -196,7 +195,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
-            shouldTargetPlayer = true;
         }
     }
 
@@ -205,7 +203,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            shouldTargetPlayer = false;
         }
     }
 
@@ -229,8 +226,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
         }
         else
         {
-            shouldTargetPlayer = true;
-            shouldTargetPoint = false;
             agent.SetDestination(GameManager.instance.player.transform.position);
         }
     }

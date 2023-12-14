@@ -4829,7 +4829,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4136195445452433433}
         m_TargetAssemblyTypeName: StoreItem, Assembly-CSharp
         m_MethodName: upgrade
         m_Mode: 1
@@ -8370,7 +8370,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &774881793706633614
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8979,14 +8979,16 @@ MonoBehaviour:
   enemyP:
   - {fileID: 11400000, guid: ad5ee87c1046ce34aaef83b607bc1906, type: 2}
   - {fileID: 11400000, guid: 82ba5e32aad963949a693570382403c4, type: 2}
+  - {fileID: 11400000, guid: 24455c35a20c0a840a7398e866d912e7, type: 2}
+  - {fileID: 11400000, guid: 635e3018f4177264bac94d2807f704a5, type: 2}
   baseEnemyCount: 1
   enemyCountMultiplier: 2
   baseEnemyCountNU: 1
   enemyCountMultNU: 2
   waveIntermission: 2
-  waveWinAmount: 1
+  waveWinAmount: 2
   currentWave: 0
-  coinWaveClearBonus: 1
+  coinWaveClearBonus: 2
 --- !u!1 &8130932721681096757
 GameObject:
   m_ObjectHideFlags: 0
