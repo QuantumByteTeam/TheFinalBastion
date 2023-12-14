@@ -28,6 +28,12 @@ public class gunStats : ScriptableObject
     public ParticleSystem HitEffect;
     public AudioClip[] ShootSound; //was public 12/12
     [Range(0, 1)] public float ShootSoundVol;
+    public AudioClip[] ReloadSound;
+    [Range(0, 1)] public float ReloadSoundVol;
+    public AudioClip[] CasingSound;
+    [Range(0, 1)] public float CasingSoundVol;
+    public AudioClip[] EmptySound;
+    [Range(0, 1)] public float EmptySoundVol;
 
 
     //add bools for ads/coach gun logic stuff 

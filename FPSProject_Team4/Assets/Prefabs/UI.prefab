@@ -6246,17 +6246,11 @@ MonoBehaviour:
   - {fileID: 0}
   spawnerRadius: 5
   uniformRand: 1
-  enemy:
-  - {fileID: 1277755095150470934, guid: 4b2922f080dd4174d8d836fcaaf4e54e, type: 3}
-  - {fileID: 1722172535831231147, guid: 1dc42e0cdc815604e85fa2bedd256383, type: 3}
+  enemyP:
+  - {fileID: 11400000, guid: ad5ee87c1046ce34aaef83b607bc1906, type: 2}
+  - {fileID: 11400000, guid: 82ba5e32aad963949a693570382403c4, type: 2}
   baseEnemyCount: 1
   enemyCountMultiplier: 2
-  enemyOne: {fileID: 1277755095150470934, guid: 4b2922f080dd4174d8d836fcaaf4e54e, type: 3}
-  enemyOneProbability: 0.7
-  enemyTwo: {fileID: 1722172535831231147, guid: 1dc42e0cdc815604e85fa2bedd256383, type: 3}
-  enemyTwoProbability: 0.3
-  enemyThree: {fileID: 0}
-  enemyThreeProbability: 0
   baseEnemyCountNU: 1
   enemyCountMultNU: 2
   waveIntermission: 2

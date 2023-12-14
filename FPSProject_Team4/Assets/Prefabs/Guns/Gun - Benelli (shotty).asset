@@ -17,7 +17,7 @@ MonoBehaviour:
   ShootDist: 20
   ammoCount: 5
   ammoMag: 5
-  ammoReserve: 25
+  ammoReserve: 22
   ammoReserveDefault: 25
   armorPen: 1
   reloadTime: 2
@@ -30,3 +30,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6de1edf5c22fc7f4fa307879df6f5b43, type: 3}
   - {fileID: 8300000, guid: 50ef2b41bc3e5a94d9c73709da59275d, type: 3}
   ShootSoundVol: 0.5
+  ReloadSound:
+  - {fileID: 8300000, guid: 0790268a36102a04e95aa1fb32eca715, type: 3}
+  ReloadSoundVol: 0.35
+  CasingSound:
+  - {fileID: 8300000, guid: 6c2cc8e55511f1d4cb4d4d70adbe63c9, type: 3}
+  - {fileID: 8300000, guid: 5da0579b95129384f8c2b72805a6e640, type: 3}
+  CasingSoundVol: 0.25
+  EmptySound:
+  - {fileID: 8300000, guid: 5093ca16750adc64baa08a1878f8146c, type: 3}
+  EmptySoundVol: 0.25

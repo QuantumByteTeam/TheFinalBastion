@@ -47,7 +47,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     int SelectedGun; //current gun the player is holding
     bool isPlayingSteps;
     bool isSprinting;
-    
+    bool isPlayingEmpty;
+    bool isPlayingReload;
 
     //added by John
     public int ammoCount;
@@ -204,7 +205,8 @@ public class PlayerController : MonoBehaviour, IDamageable
 
             
 
-            aud.PlayOneShot(gunList[SelectedGun].ShootSound[Random.Range(0,gunList[SelectedGun].ShootSound.Length)], gunList[SelectedGun].ShootSoundVol); //plays the associated gun noise each time a bullet is shot
+            // aud.PlayOneShot(gunList[SelectedGun].ShootSound[Random.Range(0,gunList[SelectedGun].ShootSound.Length)], gunList[SelectedGun].ShootSoundVol); //plays the associated gun noise each time a bullet is shot
+            StartCoroutine(ShootSound());
 
                 ammoCount--;
                 gunList[SelectedGun].ammoCount--;
@@ -226,6 +228,29 @@ public class PlayerController : MonoBehaviour, IDamageable
             IsShooting = false;
             
         }
+        else
+        {
+            if (!isPlayingEmpty)
+            {
+                StartCoroutine(playEmptySound());
+            }
+        }
+    }
+
+    IEnumerator ShootSound()
+    {
+        aud.PlayOneShot(gunList[SelectedGun].ShootSound[Random.Range(0,gunList[SelectedGun].ShootSound.Length - 1)], gunList[SelectedGun].ShootSoundVol); //plays the associated gun noise each time a bullet is shot
+        yield return new WaitForSeconds(0.5f);
+        aud.PlayOneShot(gunList[SelectedGun].CasingSound[Random.Range(0,gunList[SelectedGun].CasingSound.Length - 1)], gunList[SelectedGun].CasingSoundVol); //plays the associated bullet casing drop noise each time a bullet is shot
+    }
+    
+    IEnumerator playEmptySound()
+    {
+        isPlayingEmpty = true;
+        aud.PlayOneShot(gunList[SelectedGun].EmptySound[Random.Range(0,gunList[SelectedGun].EmptySound.Length - 1)], gunList[SelectedGun].EmptySoundVol); //plays the no ammo empty gun click sound
+        yield return new WaitForSeconds(.25f); //sprint pace
+        isPlayingEmpty = false;
+       
     }
 
     public void takeDamage(float amount, float armorPen)
@@ -349,6 +374,11 @@ public class PlayerController : MonoBehaviour, IDamageable
     IEnumerator reload()
     {
         reloading = true;
+        // aud.PlayOneShot(gunList[SelectedGun].ReloadSound[Random.Range(0,gunList[SelectedGun].ReloadSound.Length - 1)], gunList[SelectedGun].ReloadSoundVol); //plays the associated gun reload sound
+        if (!isPlayingReload)
+        {
+            StartCoroutine(playReloadSound());
+        }
         StartCoroutine(UIManager.instance.reloading(gunList[SelectedGun].reloadTime));
         if (gunList[SelectedGun].ammoReserve > 0 && gunList[SelectedGun].ammoCount < gunList[SelectedGun].ammoMag)
         {
@@ -376,9 +406,14 @@ public class PlayerController : MonoBehaviour, IDamageable
         ammoReserve = gunList[SelectedGun].ammoReserve;
         UIManager.instance.UpdateAmmo();
     }
-
-
-
-
-
+    
+    IEnumerator playReloadSound()
+    {
+        isPlayingReload= true;
+        aud.PlayOneShot(gunList[SelectedGun].ReloadSound[Random.Range(0,gunList[SelectedGun].ReloadSound.Length - 1)], gunList[SelectedGun].ReloadSoundVol); //plays the associated gun reload sound
+        yield return new WaitForSeconds(.25f); //sprint pace
+        isPlayingReload = false;
+       
+    }
+    
 }
