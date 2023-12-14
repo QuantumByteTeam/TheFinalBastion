@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
@@ -10,20 +11,16 @@ public class WaveManager : MonoBehaviour
     [SerializeField] GameObject[] spawners;
     [Range(3, 6)] [SerializeField] float spawnerRadius;
     public bool uniformRand;
+
+    [Header("----- Enemies -----")]
+    [SerializeField] EnemyProbability[] enemyP;
     
+
     [Header("----- Enemies (Uniform) -----")]
-    // [SerializeField] GameObject enemy;
-    [SerializeField] GameObject[] enemy;
     [SerializeField] int baseEnemyCount;
     [SerializeField] float enemyCountMultiplier;
 
     [Header("----- Enemies (Non-Uniform) -----")]
-    [SerializeField] GameObject enemyOne;
-    [Range(0,1)] [SerializeField] float enemyOneProbability;
-    [SerializeField] GameObject enemyTwo;
-    [Range(0,1)] [SerializeField] float enemyTwoProbability;
-    [SerializeField] GameObject enemyThree;
-    [Range(0,1)] [SerializeField] float enemyThreeProbability;
     [SerializeField] int baseEnemyCountNU;
     [SerializeField] float enemyCountMultNU;
     
@@ -37,13 +34,10 @@ public class WaveManager : MonoBehaviour
 
     bool intermission;
 
-    GameObject one = null;
-    GameObject two = null;
-    GameObject three = null;
-    int count = 0;
+    int length;
+    
     float probability = 0;
-    float midOne = 0;
-    float midTwo = 0;
+    List<float> midNums = new List<float>();
     
     // Start is called before the first frame update
     void Start()
@@ -92,7 +86,7 @@ public class WaveManager : MonoBehaviour
                 {
                     GameObject randSpawner = spawners[Random.Range(0, spawners.Length)]; // Get a random spawner
                     Vector3 randSpawnerPoint = randSpawner.transform.position + Random.insideUnitSphere * spawnerRadius; // find a point in a sphere around the spawner
-                    Instantiate(enemy[Random.Range(0, enemy.Length)], randSpawnerPoint, randSpawner.transform.rotation); // Spawns a random enemy type on the random point
+                    Instantiate(enemyP[Random.Range(0, enemyP.Length)].enemy, randSpawnerPoint, randSpawner.transform.rotation);
                 }
             }
             else
@@ -101,7 +95,7 @@ public class WaveManager : MonoBehaviour
                 {
                     GameObject randSpawner = spawners[Random.Range(0, spawners.Length)]; // Get a random spawner
                     Vector3 randSpawnerPoint = randSpawner.transform.position + Random.insideUnitSphere * spawnerRadius; // find a point in a sphere around the spawner
-                    Instantiate(enemy[Random.Range(0, enemy.Length)], randSpawnerPoint, randSpawner.transform.rotation); // Spawns a random enemy type on the random point
+                    Instantiate(enemyP[Random.Range(0, enemyP.Length)].enemy, randSpawnerPoint, randSpawner.transform.rotation);
                 }
             }
         }
@@ -148,105 +142,31 @@ public class WaveManager : MonoBehaviour
 
     void NonUniformSetup()
     {
-        if (enemyOne != null)
+        midNums.Add(0);
+
+        for (int i = 0; i < enemyP.Length; i++)
         {
-            probability += enemyOneProbability;
-            one = enemyOne;
-            count++;
-
-            if (enemyTwo != null)
-            {
-                midOne = probability;
-                probability += enemyTwoProbability;
-                two = enemyTwo;
-                count++;
-
-                if (enemyThree != null)
-                {
-                    midTwo = probability;
-                    probability += enemyThreeProbability;
-                    three = enemyThree;
-                    count++;
-                }
-            }
-            else
-            {
-                if (enemyThree != null)
-                {
-                    midOne = probability;
-                    probability += enemyThreeProbability;
-                    two = enemyThree;
-                    count++;
-                }
-            }
-        }
-        else
-        {
-            if (enemyTwo != null)
-            {
-                probability += enemyTwoProbability;
-                one = enemyTwo;
-                count++;
-
-                if (enemyThree != null)
-                {
-                    midOne = probability;
-                    probability += enemyThreeProbability;
-                    two = enemyThree;
-                    count++;
-                }
-            }
-            else
-            {
-                if (enemyThree != null)
-                {
-                    probability += enemyThreeProbability;
-                    one = enemyThree;
-                    count++;
-                }
-                else
-                {
-                    uniformRand = true;
-                    StartCoroutine(StartWave());
-                }
-            }
+            probability += enemyP[i].probability;
+            midNums.Add(probability);
         }
     }
 
     void NonUniformEnemy(GameObject spawner, Vector3 pos)
     {
-        if (count == 1)
+        if (enemyP.Length == 1)
         {
-            Instantiate(one, pos, spawner.transform.rotation);
+            Instantiate(enemyP[0].enemy, pos, spawner.transform.rotation);
         }
-        else if (count == 2)
+        else if (enemyP.Length > 1)
         {
             float rand = Random.Range(0, probability);
 
-            if (rand >= 0 && rand < midOne)
+            for (int i = 0; i < enemyP.Length; i++)
             {
-                Instantiate(one, pos, spawner.transform.rotation);
-            }
-            else
-            {
-                Instantiate(two, pos, spawner.transform.rotation);
-            }
-        }
-        else if (count == 3)
-        {
-            float rand = Random.Range(0, probability);
-            
-            if (rand >= 0 && rand < midOne)
-            {
-                Instantiate(one, pos, spawner.transform.rotation);
-            }
-            else if (rand >= midOne && rand < midTwo)
-            {
-                Instantiate(two, pos, spawner.transform.rotation);
-            }
-            else
-            {
-                Instantiate(three, pos, spawner.transform.rotation);
+                if (rand >= midNums[i] && rand < midNums[i + 1])
+                {
+                    Instantiate(enemyP[i].enemy, pos, spawner.transform.rotation);
+                }
             }
         }
         else
