@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     int SelectedGun; //current gun the player is holding
     bool isPlayingSteps;
     bool isSprinting;
+    bool isSwappingWep;
 
     //added by John
     int ammoCount;
@@ -88,8 +89,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     IEnumerator playSteps()
     {
         isPlayingSteps= true;
-
         aud.PlayOneShot(SoundSteps[Random.Range(0, SoundSteps.Length - 1)], SoundStepsVol);
+        
 
         if (!isSprinting) //not sprinting
         {
@@ -102,7 +103,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
 
         isPlayingSteps = false;
-
+       
     }
 
 
@@ -173,7 +174,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void ShootingTimer()
     {
-        if (!GameManager.instance.isPaused && Input.GetButton("Shoot") && !IsShooting) //may shoot when unpaused
+        if (!GameManager.instance.isPaused && Input.GetButton("Shoot") && !IsShooting) 
         {
             StartCoroutine(Shoot());
         }
@@ -199,29 +200,29 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         if (gunList[SelectedGun].ammoCount > 0)
         {
-            //audioSource.PlayOneShot(gunList[selectedGun].gunshot, gunList[selectedGun].gunshotVolume);
-
+            //IsShooting = true;   
             
-            aud.PlayOneShot(gunList[SelectedGun].ShootSound, gunList[SelectedGun].ShootSoundVol); //plays the associated gun noise each time a bullet is shot
+                aud.PlayOneShot(gunList[SelectedGun].ShootSound, gunList[SelectedGun].ShootSoundVol); //plays the associated gun noise each time a bullet is shot
 
-            ammoCount--;
-            gunList[SelectedGun].ammoCount--;
-            RaycastHit hit;
-            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, gunList[SelectedGun].ShootDist))
-            {
-                Instantiate(gunList[SelectedGun].HitEffect, hit.point, transform.rotation); //gun spark particle
-
-                IDamageable dmg = hit.collider.GetComponent<IDamageable>();
-
-                if (hit.transform != transform && dmg != null)
+                ammoCount--;
+                gunList[SelectedGun].ammoCount--;
+                RaycastHit hit;
+                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, gunList[SelectedGun].ShootDist))
                 {
-                    dmg.takeDamage(gunList[SelectedGun].ShootDamage, gunList[SelectedGun].armorPen);
-                }
-            }
+                    Instantiate(gunList[SelectedGun].HitEffect, hit.point, transform.rotation); //gun spark particle
 
-            IsShooting = true;
-            yield return new WaitForSeconds(gunList[SelectedGun].ShootRate);
-            IsShooting = false;
+                    IDamageable dmg = hit.collider.GetComponent<IDamageable>();
+
+                    if (hit.transform != transform && dmg != null)
+                    {
+                        dmg.takeDamage(gunList[SelectedGun].ShootDamage, gunList[SelectedGun].armorPen);
+                    }
+                }
+
+                IsShooting = true;
+                yield return new WaitForSeconds(gunList[SelectedGun].ShootRate);
+                IsShooting = false;
+            
         }
     }
 
@@ -263,11 +264,13 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         //sets the gun player just picked up to the gun's stats //moved this to ChangeGun()
 
+        StopAllCoroutines(); // <<<<<<<<<<<<<<<<<<<<<<<<<<< may be a cause of error in the future
+        StartCoroutine(playSteps()); //this + stop all coroutines seems to fix the double footstep issue
+        /*ShootDamage = gun.ShootDamage;
+        ShootDist = gun.ShootDist;
+        ShootRate = gun.ShootRate;*/
 
-        //ShootDamage = gun.ShootDamage;
-        //ShootDist = gun.ShootDist;
-        //ShootRate = gun.ShootRate;
-        
+
         //gun models
         GunModel.GetComponent<MeshFilter>().sharedMesh = gun.Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model
         GunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.Model.GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
@@ -280,6 +283,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         SelectedGun = gunList.Count - 1;
         ChangeGun();
+        
 
     }
 
@@ -295,21 +299,26 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             SelectedGun--;
             ChangeGun();
-
         }
+        
 
     } //picks which weapon to use via scroll wheel
 
-    void ChangeGun() //has double pump exploit
+    void ChangeGun() //has double pump exploit, BUG WHEN A GUN IS PICKEDUP FIRERATE DOUBLES, temp fix by moving the vars into get stats
     {
-        ShootDamage = gunList[SelectedGun].ShootDamage;
-        ShootDist = gunList[SelectedGun].ShootDist;
-        ShootRate = gunList[SelectedGun].ShootRate;
+        
+        isSwappingWep = true;
+        
+        StopAllCoroutines(); //Fixes double fire rate bug, <<<<<<<<<<<<<<<<<<<<<<<<<<< may be a cause of error in the future
+        StartCoroutine(playSteps()); //Fixes double fire rate bug
+        //ShootDamage = gunList[SelectedGun].ShootDamage;
+        //ShootDist = gunList[SelectedGun].ShootDist;
+        //ShootRate = gunList[SelectedGun].ShootRate;
 
         //John
         IsShooting = false;
         reloading = false;
-        isPlayingSteps = false;
+        //isPlayingSteps = false; //julius commented this out since it caused the player to hear double audio when picking up a gun
         armorPen = gunList[SelectedGun].armorPen;
         ShootDamage = gunList[SelectedGun].ShootDamage;
         ShootRate = gunList[SelectedGun].ShootRate;
@@ -331,7 +340,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 
         IsShooting = false;
-
+        isSwappingWep= false;
     }
 
 
