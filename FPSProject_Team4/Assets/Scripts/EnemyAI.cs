@@ -54,6 +54,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     void Update()
     {
+        Debug.Log(shouldTargetPlayer);
         if (shouldTargetPlayer && playerInRange && canSeeTarget(GameManager.instance.player.transform))
         {
             
@@ -97,8 +98,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         if (Physics.Raycast(headPos.position, targetDirection, out hit))
         {
             // FIXME: If point not hit, does not set destination
-            if ((hit.collider.CompareTag("Player") && angleToTarget <= viewCone) || 
-                hit.collider.CompareTag("Point") /*&& Vector3.Distance(transform.position, targetPos.position) <= pointTargetRange*/)
+            if ((hit.collider.CompareTag("Player") && angleToTarget <= viewCone))
             {
                 agent.SetDestination(targetPos.position);
                 //SpreadOut(targetDirection);
@@ -114,16 +114,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
                     faceTarget(targetDirection);
                 }
 
-                if (hit.collider.CompareTag("Player"))
-                {
-                    shouldTargetPlayer = true;
-                    shouldTargetPoint = false;
-                }
-                else
-                {
-                    shouldTargetPoint = true;
-                    shouldTargetPlayer = false;
-                }
+                
 
                 return true;
             }
@@ -131,6 +122,21 @@ public class EnemyAI : MonoBehaviour, IDamageable
             {
                 StopCoroutine(shoot());
                 isShooting = false;
+            }
+            else
+            {
+                agent.SetDestination(point.transform.position);
+
+                if (!isShooting)
+                {
+                    StartCoroutine(shoot());
+                }
+
+
+                if (agent.remainingDistance < agent.stoppingDistance)
+                {
+                    faceTarget(targetDirection);
+                }
             }
             
         }
@@ -190,6 +196,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
+            shouldTargetPlayer = true;
         }
     }
 
@@ -198,7 +205,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            shouldTargetPoint = true;
+            shouldTargetPlayer = false;
         }
     }
 

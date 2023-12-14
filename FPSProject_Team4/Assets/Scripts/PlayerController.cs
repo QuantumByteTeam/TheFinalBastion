@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         HPOriginal = HP; //sets default hp to player's current HP
         respawnPlayer();
+        controller.enabled = true;
     }
 
     void Update()
@@ -73,7 +74,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         if (!GameManager.instance.isPaused) //checks if game is paused, if paused it doesnt call anything below
         {
-
             if (anim.isActiveAndEnabled)
             {
 
@@ -106,6 +106,7 @@ public class PlayerController : MonoBehaviour, IDamageable
                     }
                     SelectGun();
                 }
+                controller.enabled = true; //Prevents bug where controller gets disabled for some reason
                 movement();
             }
         }
