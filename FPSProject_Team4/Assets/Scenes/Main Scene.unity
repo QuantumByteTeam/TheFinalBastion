@@ -455,6 +455,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1098089820680607143, guid: 89af9474754ef6f429917386dc5e70a6, type: 3}
+      propertyPath: waveWinAmount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098089820680607143, guid: 89af9474754ef6f429917386dc5e70a6, type: 3}
+      propertyPath: enemyP.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098089820680607143, guid: 89af9474754ef6f429917386dc5e70a6, type: 3}
+      propertyPath: coinWaveClearBonus
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098089820680607143, guid: 89af9474754ef6f429917386dc5e70a6, type: 3}
+      propertyPath: enemyP.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 24455c35a20c0a840a7398e866d912e7, type: 2}
+    - target: {fileID: 1098089820680607143, guid: 89af9474754ef6f429917386dc5e70a6, type: 3}
+      propertyPath: enemyP.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 635e3018f4177264bac94d2807f704a5, type: 2}
     - target: {fileID: 2054096922543892526, guid: 89af9474754ef6f429917386dc5e70a6, type: 3}
       propertyPath: m_Name
       value: UI

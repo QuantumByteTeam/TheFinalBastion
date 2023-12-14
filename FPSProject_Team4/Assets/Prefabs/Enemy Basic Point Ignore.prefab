@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -5039189745956767537}
   - component: {fileID: 2560077517623344602}
   m_Layer: 0
-  m_Name: Enemy Basic
+  m_Name: Enemy Basic Point Ignore
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
   viewCone: 90
   targetFaceSpeed: 10
   shouldTargetPlayer: 1
-  shouldTargetPoint: 1
+  shouldTargetPoint: 0
   pointTargetRange: 15
   maxLookAngle: 45
   walkRadius: 0
@@ -112,7 +112,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 15
+  m_Radius: 30
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &5064259822469827125
 MeshFilter:

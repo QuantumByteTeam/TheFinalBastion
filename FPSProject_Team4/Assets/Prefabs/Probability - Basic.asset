@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Probability - Basic
   m_EditorClassIdentifier: 
   enemy: {fileID: 1277755095150470934, guid: 4b2922f080dd4174d8d836fcaaf4e54e, type: 3}
-  probability: 70
+  probability: 40
   coinKillReward: 0
