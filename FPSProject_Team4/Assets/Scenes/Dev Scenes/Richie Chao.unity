@@ -758,6 +758,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1098089820680607143, guid: 89af9474754ef6f429917386dc5e70a6, type: 3}
+      propertyPath: uniformRand
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098089820680607143, guid: 89af9474754ef6f429917386dc5e70a6, type: 3}
+      propertyPath: baseEnemyCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098089820680607143, guid: 89af9474754ef6f429917386dc5e70a6, type: 3}
+      propertyPath: enemyP.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098089820680607143, guid: 89af9474754ef6f429917386dc5e70a6, type: 3}
+      propertyPath: enemyP.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: ad5ee87c1046ce34aaef83b607bc1906, type: 2}
+    - target: {fileID: 1098089820680607143, guid: 89af9474754ef6f429917386dc5e70a6, type: 3}
+      propertyPath: enemyP.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82ba5e32aad963949a693570382403c4, type: 2}
     - target: {fileID: 2054096922543892526, guid: 89af9474754ef6f429917386dc5e70a6, type: 3}
       propertyPath: m_Name
       value: UI

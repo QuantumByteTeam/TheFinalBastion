@@ -47,14 +47,14 @@ public class PlayerController : MonoBehaviour, IDamageable
     int SelectedGun; //current gun the player is holding
     bool isPlayingSteps;
     bool isSprinting;
-    //bool isSwappingWep;
+    
 
     //added by John
     public int ammoCount;
     int ammoMag;
     public int ammoReserve;
     private bool reloading;
-    private bool armor;
+    public bool armor; //was priv
 
 
     private void Start()
