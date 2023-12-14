@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [Header("----- Components -----")]
     [SerializeField] CharacterController controller;
     [SerializeField] AudioSource aud;
+    [SerializeField] Animator anim;
 
     [Header("----- Stats -----")]
     public float HP; //configurable amt of HP
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] float GravityValue;
     [SerializeField] int JumpMax; //configurable max amt of jumps 
     [SerializeField] float SprintMod; //configurable amt for speed multiplier
+    [SerializeField] float animSpeedTransition; //anim speed
 
     [Header("----- Weapon -----")]
     [SerializeField] List<gunStats> gunList = new List<gunStats>();
@@ -25,6 +27,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] GameObject GunModel; //for gun model
     [SerializeField] GameObject GunMag; //for gun mags
     [SerializeField] GameObject GunTrig; //for gun triggers
+    
 
     //Copying code from my project - John
     float armorPen;
@@ -49,6 +52,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     bool isSprinting;
     bool isPlayingEmpty;
     bool isPlayingReload;
+    bool isPlayingShoot;
 
     //added by John
     public int ammoCount;
@@ -66,24 +70,44 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void Update()
     {
-        if (!GameManager.instance.isPaused) //checks if game is paused
+
+        if (!GameManager.instance.isPaused) //checks if game is paused, if paused it doesnt call anything below
         {
 
-
-            if (gunList.Count > 0)
+            if (anim.isActiveAndEnabled)
             {
-                if (Input.GetButton("Shoot") && !IsShooting && !reloading)
-                {
-                    StartCoroutine(Shoot());
-                }
 
-                if (Input.GetButton("Reload") && !IsShooting)
+
+                float animSpeed = anim.velocity.normalized.magnitude;
+
+                anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animSpeed, Time.deltaTime * animSpeedTransition));
+
+
+
+
+
+
+
+
+
+
+
+
+                if (gunList.Count > 0)
                 {
-                    StartCoroutine(reload());
+                    if (Input.GetButton("Shoot") && !IsShooting && !reloading)
+                    {
+                        StartCoroutine(Shoot());
+                    }
+
+                    if (Input.GetButton("Reload") && !IsShooting)
+                    {
+                        StartCoroutine(reload());
+                    }
+                    SelectGun();
                 }
-                SelectGun();
+                movement();
             }
-            movement();
         }
     }
 
@@ -206,27 +230,44 @@ public class PlayerController : MonoBehaviour, IDamageable
             
 
             // aud.PlayOneShot(gunList[SelectedGun].ShootSound[Random.Range(0,gunList[SelectedGun].ShootSound.Length)], gunList[SelectedGun].ShootSoundVol); //plays the associated gun noise each time a bullet is shot
-            StartCoroutine(ShootSound());
+            if (!isPlayingShoot)
+            {
+                StartCoroutine(ShootSound());
+            }
 
-                ammoCount--;
-                gunList[SelectedGun].ammoCount--;
-                RaycastHit hit;
-                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, gunList[SelectedGun].ShootDist))
+            ammoCount--;
+            gunList[SelectedGun].ammoCount--;
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, gunList[SelectedGun].ShootDist))
+            {
+                if (hit.collider.tag == "Enemy")
+                {
+                    Instantiate(gunList[SelectedGun].BloodEffect, hit.point, transform.rotation); //gun spark particle
+                }
+                else
                 {
                     Instantiate(gunList[SelectedGun].HitEffect, hit.point, transform.rotation); //gun spark particle
-
-                    IDamageable dmg = hit.collider.GetComponent<IDamageable>();
-
-                    if (hit.transform != transform && dmg != null)
-                    {
-                        dmg.takeDamage(gunList[SelectedGun].ShootDamage, gunList[SelectedGun].armorPen);
-                    }
                 }
+                
+                IDamageable dmg = hit.collider.GetComponent<IDamageable>();
+                
+                if (hit.transform != transform && dmg != null)
+                {
+                    dmg.takeDamage(gunList[SelectedGun].ShootDamage, gunList[SelectedGun].armorPen);
+                }
+            }
             UIManager.instance.UpdateAmmo();
             IsShooting = true;
             yield return new WaitForSeconds(gunList[SelectedGun].ShootRate);
             IsShooting = false;
             
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, gunList[SelectedGun].ShootDist))
+            {
+                if (hit.collider.gameObject.GetComponent<ImpactAudio>())
+                {
+                    hit.collider.gameObject.GetComponent<ImpactAudio>().playImpact();
+                }
+            }
         }
         else
         {
@@ -239,16 +280,18 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     IEnumerator ShootSound()
     {
+        isPlayingShoot = true;
         aud.PlayOneShot(gunList[SelectedGun].ShootSound[Random.Range(0,gunList[SelectedGun].ShootSound.Length - 1)], gunList[SelectedGun].ShootSoundVol); //plays the associated gun noise each time a bullet is shot
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(gunList[SelectedGun].ShootRate);
         aud.PlayOneShot(gunList[SelectedGun].CasingSound[Random.Range(0,gunList[SelectedGun].CasingSound.Length - 1)], gunList[SelectedGun].CasingSoundVol); //plays the associated bullet casing drop noise each time a bullet is shot
+        isPlayingShoot = false;
     }
     
     IEnumerator playEmptySound()
     {
         isPlayingEmpty = true;
         aud.PlayOneShot(gunList[SelectedGun].EmptySound[Random.Range(0,gunList[SelectedGun].EmptySound.Length - 1)], gunList[SelectedGun].EmptySoundVol); //plays the no ammo empty gun click sound
-        yield return new WaitForSeconds(.25f); //sprint pace
+        yield return new WaitForSeconds(gunList[SelectedGun].ShootRate);
         isPlayingEmpty = false;
        
     }
@@ -344,6 +387,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         //John
         IsShooting = false;
+        isPlayingShoot = false;
         reloading = false;
         //isPlayingSteps = false; //julius commented this out since it caused the player to hear double audio when picking up a gun
         armorPen = gunList[SelectedGun].armorPen;
