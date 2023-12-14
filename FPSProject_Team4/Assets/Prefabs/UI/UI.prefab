@@ -8567,7 +8567,9 @@ MonoBehaviour:
   - {fileID: 0}
   spawnerRadius: 5
   uniformRand: 1
-  enemyP: []
+  enemyP:
+  - {fileID: 11400000, guid: ad5ee87c1046ce34aaef83b607bc1906, type: 2}
+  - {fileID: 11400000, guid: 82ba5e32aad963949a693570382403c4, type: 2}
   baseEnemyCount: 1
   enemyCountMultiplier: 2
   baseEnemyCountNU: 1
