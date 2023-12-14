@@ -50,9 +50,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     //bool isSwappingWep;
 
     //added by John
-    int ammoCount;
+    public int ammoCount;
     int ammoMag;
-    int ammoReserve;
+    public int ammoReserve;
     private bool reloading;
     private bool armor;
 
@@ -202,6 +202,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             //IsShooting = true;   
 
+            
+
             aud.PlayOneShot(gunList[SelectedGun].ShootSound[Random.Range(0,gunList[SelectedGun].ShootSound.Length)], gunList[SelectedGun].ShootSoundVol); //plays the associated gun noise each time a bullet is shot
 
                 ammoCount--;
@@ -218,10 +220,10 @@ public class PlayerController : MonoBehaviour, IDamageable
                         dmg.takeDamage(gunList[SelectedGun].ShootDamage, gunList[SelectedGun].armorPen);
                     }
                 }
-
-                IsShooting = true;
-                yield return new WaitForSeconds(gunList[SelectedGun].ShootRate);
-                IsShooting = false;
+            //UIManager.instance.UpdateAmmo();
+            IsShooting = true;
+            yield return new WaitForSeconds(gunList[SelectedGun].ShootRate);
+            IsShooting = false;
             
         }
     }
@@ -337,7 +339,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         GunTrig.GetComponent<MeshFilter>().sharedMesh = gunList[SelectedGun].TrigModel.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun mag
         GunTrig.GetComponent<MeshRenderer>().sharedMaterial = gunList[SelectedGun].TrigModel.GetComponent<MeshRenderer>().sharedMaterial; //sets the mag texture/renderer
 
-
+        //UIManager.instance.UpdateAmmo();
 
         IsShooting = false;
         
@@ -347,6 +349,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     IEnumerator reload()
     {
         reloading = true;
+        //StartCoroutine(UIManager.instance.reloading(gunList[SelectedGun].reloadTime));
         if (gunList[SelectedGun].ammoReserve > 0 && gunList[SelectedGun].ammoCount < gunList[SelectedGun].ammoMag)
         {
             reloading = true;
@@ -371,6 +374,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         ammoCount = gunList[SelectedGun].ammoCount;
         ammoMag = gunList[SelectedGun].ammoMag;
         ammoReserve = gunList[SelectedGun].ammoReserve;
+        //UIManager.instance.UpdateAmmo();
     }
 
 
