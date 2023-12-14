@@ -43,10 +43,18 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Cancel") && UIManager.instance.menuActive == null)
+        if (UIManager.instance.menuActive == null)
         {
-            StatePaused();
-            UIManager.instance.DisplayPausedMenu();
+            if (Input.GetButtonDown("Cancel"))
+            {
+                StatePaused();
+                UIManager.instance.DisplayPausedMenu();
+            }
+            else if (Input.GetButtonDown("Open Buy Menu"))
+            {
+                StatePaused();
+                UIManager.instance.DisplayStoreMenu();
+            }
         }
     }
 

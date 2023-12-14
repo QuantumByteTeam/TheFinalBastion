@@ -43,7 +43,7 @@ public class UpgradableStoreItem : MonoBehaviour
 
     public void updateText()
     {
-        costText.text = costCur.ToString();
+        costText.text = '$' + costCur.ToString();
         curText.text = upgradeCur.ToString();
         maxText.text = maxUpgrade.ToString();
     }

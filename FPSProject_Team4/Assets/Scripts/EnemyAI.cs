@@ -58,12 +58,9 @@ public class EnemyAI : MonoBehaviour, IDamageable
         {
             
         } 
-        else if (shouldTargetPoint && !shouldTargetPlayer)
+        else if (shouldTargetPoint && canSeeTarget(point.transform))
         {
-            if (canSeeTarget(point.transform))
-            {
-                //Possible function
-            }
+
         }
         //else
         //{
