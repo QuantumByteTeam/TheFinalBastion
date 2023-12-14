@@ -58,12 +58,9 @@ public class EnemyAI : MonoBehaviour, IDamageable
         {
             
         } 
-        else if (shouldTargetPoint && !shouldTargetPlayer)
+        else if (shouldTargetPoint && canSeeTarget(point.transform))
         {
-            if (canSeeTarget(point.transform))
-            {
 
-            }
         }
         //else
         //{
@@ -117,33 +114,18 @@ public class EnemyAI : MonoBehaviour, IDamageable
                     faceTarget(targetDirection);
                 }
 
-                if(hit.collider.CompareTag("Player"))
-                {
-                    shouldTargetPlayer = true;
-                    shouldTargetPoint = false;
-                }
-                else
-                {
-                    shouldTargetPoint = true;
-                    shouldTargetPlayer = false;
-                }
-
                 return true;
             }
-            else if (hit.collider.CompareTag("Enemy"))
-            {
-                StopCoroutine(shoot());
-                isShooting = false;
-            }
-            
+            //TODO: Figure out how to get enemies to spread around a target
         }
 
         return false;
     }
 
-    //TODO: Figure out how to get enemies to spread around a target
     //void SpreadOut(Vector3 targetPos)
     //{
+    //    int uniqueIndex = gameObject.GetInstanceID();
+    //    Debug.Log(uniqueIndex);
 
     //    float angleIncrement = 360f / GameManager.instance.enemiesRemaining;
 
