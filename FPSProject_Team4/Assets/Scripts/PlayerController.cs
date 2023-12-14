@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     [Header("----- Stats -----")]
     public float HP; //configurable amt of HP
-    [SerializeField] float PlayerSpeed; //configurable speed
+    public float PlayerSpeed; //configurable speed
     [SerializeField] float JumpHeight; //configurable jump height
     [SerializeField] float GravityValue;
     [SerializeField] int JumpMax; //configurable max amt of jumps 
