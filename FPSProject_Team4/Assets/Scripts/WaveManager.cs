@@ -71,6 +71,7 @@ public class WaveManager : MonoBehaviour
         else
         {
             currentWave++;
+            UIManager.instance.UpdateWaveCount();
 
             if (currentWave > 1)
             {
