@@ -16,9 +16,13 @@ public class GameManager : MonoBehaviour
     public GameObject point;
     public PointController pointScript;
 
+    public GameObject wave;
+    public WaveManager waveScript;
+    
     public bool isPaused;
     public int enemiesRemaining;
-    public int waveCount;
+    // public int waveCount;
+    public int coins;
     float timescaleOG;
     
     // Start is called before the first frame update
@@ -30,7 +34,10 @@ public class GameManager : MonoBehaviour
         playerSpawnPos = GameObject.FindWithTag("PlayerSpawn");
         point = GameObject.FindWithTag("Point");
         pointScript = point.GetComponent<PointController>();
+        wave = GameObject.FindWithTag("WaveManager");
+        waveScript = wave.GetComponent<WaveManager>();
         timescaleOG = Time.timeScale;
+        coins = 0;
     }
 
     // Update is called once per frame
@@ -71,12 +78,14 @@ public class GameManager : MonoBehaviour
             StartCoroutine(WaveManager.instance.StartWave());
         }
     }
+    
+    
 
-    public void UpdateWaveCount(int amount)
-    {
-        waveCount += amount;
-        UIManager.instance.UpdateWaveCount();
-    }
+    // public void UpdateWaveCount(int amount)
+    // {
+    //     waveCount += amount;
+    //     UIManager.instance.UpdateWaveCount();
+    // }
 
     public void YouWin()
     {

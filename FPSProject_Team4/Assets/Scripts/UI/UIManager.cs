@@ -71,7 +71,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateWaveCount()
     {
-        waveCountText.text = GameManager.instance.waveCount.ToString("0");
+        WaveManager wave = GameManager.instance.waveScript;
+        waveCountText.text = wave.currentWave.ToString("0");
     }
 
     public void UpdateRemainingEnemies()

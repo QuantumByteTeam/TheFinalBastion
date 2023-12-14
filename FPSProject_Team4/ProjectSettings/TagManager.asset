@@ -9,6 +9,7 @@ TagManager:
   - PlayerSpawn
   - Enemy
   - Gun Mag
+  - WaveManager
   layers:
   - Default
   - TransparentFX

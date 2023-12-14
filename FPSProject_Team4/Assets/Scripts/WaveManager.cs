@@ -30,10 +30,12 @@ public class WaveManager : MonoBehaviour
     [Header("----- Wave -----")]
     [SerializeField] int waveIntermission;
     [SerializeField] int waveWinAmount;
+    public int currentWave;
+
+    [Header("----- Coins -----")] [SerializeField]
+    private int coinWaveClearBonus;
 
     bool intermission;
-    
-    public int currentWave;
 
     GameObject one = null;
     GameObject two = null;
@@ -73,6 +75,7 @@ public class WaveManager : MonoBehaviour
             if (currentWave > 1)
             {
                 yield return new WaitForSeconds(waveIntermission);
+                GameManager.instance.coins += coinWaveClearBonus;
             }
 
             // TODO: Need to fix caculation here
@@ -114,6 +117,7 @@ public class WaveManager : MonoBehaviour
         else
         {
             currentWave++;
+            UIManager.instance.UpdateWaveCount();
 
             if (currentWave > 1)
             {
