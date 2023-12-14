@@ -15,11 +15,11 @@ MonoBehaviour:
   ShootDamage: 50
   ShootRate: 1.35
   ShootDist: 20
-  ammoCount: 0
+  ammoCount: 5
   ammoMag: 5
   ammoReserve: 25
   ammoReserveDefault: 25
-  armorPen: 0
+  armorPen: 1
   reloadTime: 2
   Model: {fileID: 1236257789494122, guid: 8b0b86b42def11849a8eba21f4a6a684, type: 3}
   MagModel: {fileID: 100002, guid: bf2593fe0c804b84688e307cfb1ddfae, type: 3}
