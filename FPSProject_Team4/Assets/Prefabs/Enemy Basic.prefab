@@ -58,6 +58,7 @@ MonoBehaviour:
   shouldTargetPlayer: 1
   shouldTargetPoint: 1
   pointTargetRange: 15
+  maxLookAngle: 45
   walkRadius: 0
   walkTimer: 0
   bullet: {fileID: 7580640331045285745, guid: 30a1178c0347c7d4babb706e0e172bc6, type: 3}
@@ -67,6 +68,7 @@ MonoBehaviour:
   bulletDamage: 1
   bulletSpeed: 25
   point: {fileID: 0}
+  armor: 0
 --- !u!195 &6816173695710615065
 NavMeshAgent:
   m_ObjectHideFlags: 0

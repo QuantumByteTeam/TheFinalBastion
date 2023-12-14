@@ -59,6 +59,7 @@ MonoBehaviour:
   shouldTargetPlayer: 1
   shouldTargetPoint: 1
   pointTargetRange: 15
+  maxLookAngle: 45
   walkRadius: 0
   walkTimer: 0
   bullet: {fileID: 7580640331045285745, guid: 30a1178c0347c7d4babb706e0e172bc6, type: 3}

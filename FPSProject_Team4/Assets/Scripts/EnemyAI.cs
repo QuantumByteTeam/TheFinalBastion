@@ -20,6 +20,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [SerializeField] bool shouldTargetPlayer;
     [SerializeField] bool shouldTargetPoint;
     [SerializeField] int pointTargetRange;
+    [SerializeField] float maxLookAngle;
 
     [SerializeField] int walkRadius;
     [SerializeField] float walkTimer;
@@ -55,7 +56,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     {
         if (shouldTargetPlayer && playerInRange && canSeeTarget(GameManager.instance.player.transform))
         {
-
+            
         } 
         else if (shouldTargetPoint && canSeeTarget(point.transform))
         {
@@ -100,12 +101,14 @@ public class EnemyAI : MonoBehaviour, IDamageable
                 hit.collider.CompareTag("Point") /*&& Vector3.Distance(transform.position, targetPos.position) <= pointTargetRange*/)
             {
                 agent.SetDestination(targetPos.position);
+                //SpreadOut(targetDirection);
 
                 if (!isShooting)
                 {
                     StartCoroutine(shoot());
                 }
 
+                
                 if (agent.remainingDistance < agent.stoppingDistance)
                 {
                     faceTarget(targetDirection);
@@ -114,10 +117,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
                 return true;
             }
             //TODO: Figure out how to get enemies to spread around a target
-            //else if (hit.collider.CompareTag("enemy"))
-            //{
-            //    SpreadOut(targetDirection);
-            //}
         }
 
         return false;
@@ -125,9 +124,12 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     //void SpreadOut(Vector3 targetPos)
     //{
+    //    int uniqueIndex = gameObject.GetInstanceID();
+    //    Debug.Log(uniqueIndex);
+
     //    float angleIncrement = 360f / GameManager.instance.enemiesRemaining;
 
-    //    float angle = transform.GetSiblingIndex() * angleIncrement;
+    //    float angle = uniqueIndex * angleIncrement;
 
     //    Vector3 spreadPosition = targetPos + Quaternion.Euler(0, angle, 0) * (transform.forward * agent.stoppingDistance);
 
@@ -141,18 +143,25 @@ public class EnemyAI : MonoBehaviour, IDamageable
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * targetFaceSpeed);
 
         // TODO: Setup vertical aiming
+
         //headPos.rotation = Quaternion.Euler(Vector3.Scale(rot.eulerAngles, new Vector3(1, 0, 0)));
+        Quaternion verticalRotation = Quaternion.Euler(rot.eulerAngles.x, 0f, 0f);
+        headPos.rotation = verticalRotation;
+        firePos.rotation = Quaternion.Euler(headPos.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
     }
 
     IEnumerator shoot()
     {
         isShooting = true;
 
-        GameObject obj = Instantiate(bullet, firePos.position, transform.rotation);
+        GameObject obj = Instantiate(bullet, firePos.position, firePos.rotation);
+        Physics.IgnoreCollision(GetComponent<Collider>(), obj.GetComponent<Collider>());
         Bullet bulletComp = obj.GetComponent<Bullet>();
         bulletComp.damageAmount = bulletDamage;
         bulletComp.speed = bulletSpeed;
         bulletComp.run();
+
+
 
         yield return new WaitForSeconds(fireRate);
 
