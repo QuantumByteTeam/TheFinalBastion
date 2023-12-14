@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [Header("----- Components -----")]
     [SerializeField] CharacterController controller;
     [SerializeField] AudioSource aud;
+    [SerializeField] Animator anim;
 
     [Header("----- Stats -----")]
     public float HP; //configurable amt of HP
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] float GravityValue;
     [SerializeField] int JumpMax; //configurable max amt of jumps 
     [SerializeField] float SprintMod; //configurable amt for speed multiplier
+    [SerializeField] float animSpeedTransition; //anim speed
 
     [Header("----- Weapon -----")]
     [SerializeField] List<gunStats> gunList = new List<gunStats>();
@@ -25,6 +27,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] GameObject GunModel; //for gun model
     [SerializeField] GameObject GunMag; //for gun mags
     [SerializeField] GameObject GunTrig; //for gun triggers
+    
 
     //Copying code from my project - John
     float armorPen;
@@ -66,24 +69,44 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void Update()
     {
-        if (!GameManager.instance.isPaused) //checks if game is paused
+
+        if (!GameManager.instance.isPaused) //checks if game is paused, if paused it doesnt call anything below
         {
 
-
-            if (gunList.Count > 0)
+            if (anim.isActiveAndEnabled)
             {
-                if (Input.GetButton("Shoot") && !IsShooting && !reloading)
-                {
-                    StartCoroutine(Shoot());
-                }
 
-                if (Input.GetButton("Reload") && !IsShooting)
+
+                float animSpeed = anim.velocity.normalized.magnitude;
+
+                anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animSpeed, Time.deltaTime * animSpeedTransition));
+
+
+
+
+
+
+
+
+
+
+
+
+                if (gunList.Count > 0)
                 {
-                    StartCoroutine(reload());
+                    if (Input.GetButton("Shoot") && !IsShooting && !reloading)
+                    {
+                        StartCoroutine(Shoot());
+                    }
+
+                    if (Input.GetButton("Reload") && !IsShooting)
+                    {
+                        StartCoroutine(reload());
+                    }
+                    SelectGun();
                 }
-                SelectGun();
+                movement();
             }
-            movement();
         }
     }
 
