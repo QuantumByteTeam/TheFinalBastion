@@ -21,6 +21,10 @@ public class UIManager : MonoBehaviour
 
     public GameObject menuActive;
 
+    [SerializeField] TMP_Text ammoCounterText;
+    [SerializeField] TMP_Text reserveAmmoText;
+    [SerializeField] GameObject reloadingText;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -78,6 +82,20 @@ public class UIManager : MonoBehaviour
     public void UpdateRemainingEnemies()
     {
         enemyCountText.text = GameManager.instance.enemiesRemaining.ToString("0");
+    }
+
+    public void UpdateAmmo()
+    {
+        PlayerController playerCont = GameManager.instance.playerScript;
+        ammoCounterText.text = playerCont.ammoCount.ToString("0");
+        reserveAmmoText.text = playerCont.ammoReserve.ToString("0");
+    }
+
+    public IEnumerator reloading(float time)
+    {
+        reloadingText.SetActive(true);
+        yield return new WaitForSeconds(time);
+        reloadingText.SetActive(false);
     }
 
     public void Resume()
