@@ -71,6 +71,7 @@ public class WaveManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(waveIntermission);
                 GameManager.instance.coins += coinWaveClearBonus;
+                UIManager.instance.UpdateBalance();
             }
 
             // TODO: Need to fix caculation here

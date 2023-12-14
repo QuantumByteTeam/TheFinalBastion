@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject menuStore;
     [SerializeField] TMP_Text waveCountText;
     [SerializeField] TMP_Text enemyCountText;
+    [SerializeField] TMP_Text coinCountText;
     public GameObject playerDamageScreen;
 
     public GameObject menuActive;
@@ -29,6 +30,11 @@ public class UIManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        UpdateBalance();
     }
 
     public void DisplayPausedMenu()
@@ -89,6 +95,11 @@ public class UIManager : MonoBehaviour
         PlayerController playerCont = GameManager.instance.playerScript;
         ammoCounterText.text = playerCont.ammoCount.ToString("0");
         reserveAmmoText.text = playerCont.ammoReserve.ToString("0");
+    }
+
+    public void UpdateBalance()
+    {
+        coinCountText.text = GameManager.instance.coins.ToString("0");
     }
 
     public IEnumerator reloading(float time)

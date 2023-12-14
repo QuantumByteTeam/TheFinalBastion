@@ -27,13 +27,13 @@ public class UpgradableStoreItem : MonoBehaviour
     {
         if (upgradeCur < maxUpgrade)
         {
-            // Grab coins from whatever handles it
-            //if (cost <= GameManager.instance.coins)
+            if (costCur <= GameManager.instance.coins)
             {
-                //GameManager.instance.coins -= costCur;
+                GameManager.instance.coins -= costCur;
+                UIManager.instance.UpdateBalance();
+
                 costCur *= costMultiplier;
                 upgradeCur++;
-
                 updateText();
 
                 onBuy.Invoke();

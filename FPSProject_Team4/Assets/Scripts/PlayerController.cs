@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] float animSpeedTransition; //anim speed
 
     [Header("----- Weapon -----")]
-    [SerializeField] List<gunStats> gunList = new List<gunStats>();
+    public List<gunStats> gunList = new List<gunStats>();
     [SerializeField] int ShootDamage; //configurable dmg amt
     [SerializeField] float ShootRate; //configurable rate of fire (per sec)
     [SerializeField] int ShootDist; //configurable distance of shots

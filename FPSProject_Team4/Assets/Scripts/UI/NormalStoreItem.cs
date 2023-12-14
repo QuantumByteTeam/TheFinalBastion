@@ -24,8 +24,9 @@ public class StoreItem : MonoBehaviour, IStoreItem
         if (costCur <= GameManager.instance.coins)
         {
             GameManager.instance.coins -= costCur;
-            costCur *= costMultiplier;
+            UIManager.instance.UpdateBalance();
 
+            costCur *= costMultiplier;
             updateText();
 
             onBuy.Invoke();

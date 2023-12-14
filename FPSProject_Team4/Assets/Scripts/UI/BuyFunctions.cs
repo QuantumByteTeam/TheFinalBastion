@@ -20,24 +20,30 @@ public class BuyFunctions : MonoBehaviour
         }
     }
 
+    public void buyArmor()
+    {
+        GameManager.instance.playerScript.armor = true;
+    }
+
     public void buySpeed()
     {
         GameManager.instance.playerScript.PlayerSpeed *= speedModifer;
-    }
-
-    public void buySprint()
-    {
-        //GameManager.instance.playerScript;
-    }
-
-    public void buyArmor()
-    {
-        //GameManager.instance.playerScript.armor *= armorModifer;
     }
 
     public void buyMaxHP()
     {
         GameManager.instance.playerScript.HPOriginal *= maxHPModifer;
         UIManager.instance.UpdatePlayerHP();
+    }
+
+    public void buyAmmo()
+    {
+        List<gunStats> guns = GameManager.instance.playerScript.gunList;
+        for (int i = 0; i < guns.Count; i++)
+        {
+            guns[i].ammoReserve = guns[i].ammoReserveDefault;
+        }
+
+        UIManager.instance.UpdateAmmo();
     }
 }
