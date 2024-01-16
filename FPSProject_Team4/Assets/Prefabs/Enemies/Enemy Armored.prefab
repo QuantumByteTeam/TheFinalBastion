@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7101192409231401207}
   - component: {fileID: 3227608371496112310}
   - component: {fileID: 1966695397752721227}
+  - component: {fileID: 7165252052925863231}
   - component: {fileID: 4308683069543837300}
   m_Layer: 0
   m_Name: Enemy Armored
@@ -209,6 +210,20 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a67ef63061619c847b9f3ba2dc5acd4e, type: 3}
   - {fileID: 8300000, guid: a9e2ee94721c6ca409f3d64ce09aa903, type: 3}
   ImpactSoundVol: 0.5
+--- !u!114 &7165252052925863231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722172535831231147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf7bceb44a2b6347948115e24b7d6c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemDropsPrefab: {fileID: 0}
+  lootList: []
 --- !u!82 &4308683069543837300
 AudioSource:
   m_ObjectHideFlags: 0
