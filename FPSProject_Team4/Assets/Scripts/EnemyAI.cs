@@ -167,25 +167,37 @@ public class EnemyAI : MonoBehaviour, IDamageable
         // TODO: Setup vertical aiming
 
         //headPos.rotation = Quaternion.Euler(Vector3.Scale(rot.eulerAngles, new Vector3(1, 0, 0)));
-        Quaternion verticalRotation = Quaternion.Euler(rot.eulerAngles.x, 0f, 0f);
-        headPos.rotation = verticalRotation;
-        firePos.rotation = Quaternion.Euler(headPos.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+        //Quaternion verticalRotation = Quaternion.Euler(rot.eulerAngles.x, 0f, 0f);
+        //headPos.rotation = verticalRotation;
+        //firePos.rotation = Quaternion.Euler(headPos.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
     }
 
     IEnumerator shoot()
     {
         isShooting = true;
 
-        GameObject obj = Instantiate(bullet, firePos.position, firePos.rotation);
-        Physics.IgnoreCollision(GetComponent<Collider>(), obj.GetComponent<Collider>());
-        Bullet bulletComp = obj.GetComponent<Bullet>();
-        bulletComp.damageAmount = bulletDamage;
-        bulletComp.speed = bulletSpeed;
-        bulletComp.run();
+        // Perform a ray cast
+        Ray ray = new Ray(firePos.position, firePos.forward);
+        RaycastHit hit;
 
+        if (Physics.Raycast(ray, out hit))
+        {
+            // Check if the hit object implements IDamagable
+            IDamageable damageable = hit.collider.GetComponent<IDamageable>();
 
+            if (damageable != null)
+            {
+                // Instantiate and configure the bullet
+                GameObject obj = Instantiate(bullet, firePos.position, firePos.rotation);
+                Physics.IgnoreCollision(GetComponent<Collider>(), obj.GetComponent<Collider>());
+                Bullet bulletComp = obj.GetComponent<Bullet>();
+                bulletComp.damageAmount = bulletDamage;
+                bulletComp.speed = bulletSpeed;
+                bulletComp.run();
 
-        yield return new WaitForSeconds(fireRate);
+                yield return new WaitForSeconds(fireRate);
+            }
+        }
 
         isShooting = false;
     }
