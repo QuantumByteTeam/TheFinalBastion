@@ -20,12 +20,20 @@ public class Interactor : MonoBehaviour
 
         if (_numFound > 0) //if something is within the interaction sphere, assigns it to first spot of colliders array
         {
+            UIManager.instance.InteractImage.SetActive(true);
+            UIManager.instance.PromptText.SetActive(true);
+
             var interactable = colliders[0].GetComponent<Iinteractable>();
 
             if (interactable != null && Input.GetKeyDown(KeyCode.E)) 
             {
                 interactable.Interact(this);
             }
+        }
+        else
+        {
+            UIManager.instance.InteractImage.SetActive(false);
+            UIManager.instance.PromptText.SetActive(false);
         }
 
     }

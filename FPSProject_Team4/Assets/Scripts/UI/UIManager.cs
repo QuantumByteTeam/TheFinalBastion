@@ -26,6 +26,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text reserveAmmoText;
     [SerializeField] GameObject reloadingText;
 
+    //Interact UI Elements
+    public GameObject InteractImage;
+    public GameObject PromptText;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -124,4 +128,12 @@ public class UIManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    
+
+
+
+
+
+
 }
