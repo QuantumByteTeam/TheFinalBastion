@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abfbb034d198186438212f435b07ec37, type: 3}
-  m_Name: Currency
+  m_Script: {fileID: 11500000, guid: bb3ee6a874c4b2a43a6dab80c223debb, type: 3}
+  m_Name: HealthPickUp
   m_EditorClassIdentifier: 
-  lootName: Currency
-  dropChance: 0
-  lootSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  amount: 50

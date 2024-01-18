@@ -234,6 +234,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         if (health <= 0)
         {
             GameManager.instance.UpdateEnemyCount(-1);
+            GetComponent<LootBag>().InstantiateLoot(transform.position);
             Destroy(gameObject);
         }
         else
