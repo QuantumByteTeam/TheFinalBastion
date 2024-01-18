@@ -22,6 +22,14 @@ public class gunStats : ScriptableObject
     public float armorPen;
     public float reloadTime;
 
+    public float standingAccuracy;
+    public float crouchingAccuracy;
+    public float adsAccuracy;
+    public float walkingAccuracy;
+    public float runningAccuracy;
+    public float jumpingAccuracy;
+
+
     public GameObject Model; //guns
     public GameObject MagModel; //magazines
     public GameObject TrigModel; //triggers
