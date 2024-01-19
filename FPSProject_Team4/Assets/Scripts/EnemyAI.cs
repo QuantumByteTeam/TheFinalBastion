@@ -19,6 +19,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [SerializeField] int targetFaceSpeed;
     [SerializeField] bool shouldTargetPlayer;
     [SerializeField] bool shouldTargetPoint;
+    [SerializeField] bool canRoam;
     [SerializeField] int pointTargetRange;
     [SerializeField] float maxLookAngle;
 
@@ -62,31 +63,19 @@ public class EnemyAI : MonoBehaviour, IDamageable
         {
 
         }
-        //else
-        //{
-        //    Roam
-        //   timer += Time.deltaTime;
-        //    if (timer >= walkTimer)
-        //    {
+        else if (canRoam && (!canSeeTarget(GameManager.instance.player.transform) || !canSeeTarget(point.transform)))
+        {
+            //Roam
 
-        //        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * walkRadius;
+            StartCoroutine(roam());
 
-        //        randomDirection += gameObject.transform.position;
-
-        //        NavMeshHit hit;
-
-        //        NavMesh.SamplePosition(randomDirection, out hit, walkRadius, -1);
-        //        agent.SetDestination(hit.position);
-        //        timer = 0;
-        //    }
-
-
-        //}
+        }
     }
 
 
     bool canSeeTarget(Transform targetPos)
     {
+        Quaternion originalRotation = firePos.rotation;
         Vector3 targetDirection = targetPos.position - headPos.position;
         float angleToTarget = Vector3.Angle(targetDirection, transform.forward);
 
@@ -96,6 +85,11 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
         if (Physics.Raycast(headPos.position, targetDirection, out hit))
         {
+            // Calculate the direction to the target
+            Vector3 fireToTarget = (targetPos.position - firePos.position).normalized;
+            firePos.rotation = Quaternion.LookRotation(fireToTarget);
+
+
             // FIXME: If point not hit, does not set destination
             if ((hit.collider.CompareTag("Player") && angleToTarget <= viewCone))
             {
@@ -122,7 +116,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
                 StopCoroutine(shoot());
                 isShooting = false;
             }
-            else
+            else if (hit.collider.CompareTag("Point"))
             {
                 agent.SetDestination(point.transform.position);
 
@@ -200,6 +194,22 @@ public class EnemyAI : MonoBehaviour, IDamageable
         }
 
         isShooting = false;
+    }
+
+    IEnumerator roam()
+    {
+        randTime = UnityEngine.Random.Range(0.5f, 3f);
+
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * walkRadius;
+
+        randomDirection += gameObject.transform.position;
+
+        NavMeshHit hit;
+
+        NavMesh.SamplePosition(randomDirection, out hit, walkRadius, -1);
+        agent.SetDestination(hit.position);
+
+        yield return new WaitForSeconds(randTime);
     }
 
     private void OnTriggerEnter(Collider other)
