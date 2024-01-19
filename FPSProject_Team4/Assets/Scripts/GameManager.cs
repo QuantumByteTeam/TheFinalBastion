@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public WaveManager waveScript;
     
     public bool isPaused;
+    public bool isActivePaused;
     public int enemiesRemaining;
     // public int waveCount;
     public int coins;
@@ -73,6 +74,20 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         UIManager.instance.CloseActiveMenu();
+    }
+
+    public void ActivePaused()
+    {
+        isActivePaused = !isActivePaused;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+    }
+
+    public void ActiveUnpause()
+    {
+        isActivePaused = !isActivePaused;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void UpdateEnemyCount(int amount)

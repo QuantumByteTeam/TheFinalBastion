@@ -74,43 +74,45 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void Update()
     {
-
-        if (!GameManager.instance.isPaused) //checks if game is paused, if paused it doesnt call anything below
-        {
-            if (anim.isActiveAndEnabled)
+        if (!GameManager.instance.isActivePaused) //checks if game is Actve paused (interaction menus), if paused it doesnt call anything below
+        { 
+            if (!GameManager.instance.isPaused) //checks if game is paused, if paused it doesnt call anything below
             {
-
-
-                float animSpeed = anim.velocity.normalized.magnitude;
-
-                anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animSpeed, Time.deltaTime * animSpeedTransition));
-
-
-
-
-
-
-
-
-
-
-
-
-                if (gunList.Count > 0)
+                if (anim.isActiveAndEnabled)
                 {
-                    if (Input.GetButton("Shoot") && !IsShooting && !reloading)
-                    {
-                        StartCoroutine(Shoot());
-                    }
 
-                    if (Input.GetButton("Reload") && !IsShooting)
+
+                    float animSpeed = anim.velocity.normalized.magnitude;
+
+                    anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animSpeed, Time.deltaTime * animSpeedTransition));
+
+
+
+
+
+
+
+
+
+
+
+
+                    if (gunList.Count > 0)
                     {
-                        StartCoroutine(reload());
+                        if (Input.GetButton("Shoot") && !IsShooting && !reloading)
+                        {
+                            StartCoroutine(Shoot());
+                        }
+
+                        if (Input.GetButton("Reload") && !IsShooting)
+                        {
+                            StartCoroutine(reload());
+                        }
+                        SelectGun();
                     }
-                    SelectGun();
+                    controller.enabled = true; //Prevents bug where controller gets disabled for some reason
+                    movement();
                 }
-                controller.enabled = true; //Prevents bug where controller gets disabled for some reason
-                movement();
             }
         }
     }

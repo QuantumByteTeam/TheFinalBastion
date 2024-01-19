@@ -28,12 +28,21 @@ public class Interactor : MonoBehaviour
             if (interactable != null && Input.GetKeyDown(KeyCode.E)) 
             {
                 interactable.Interact(this);
+                GameManager.instance.ActivePaused(); //pauses the game for ALL menu's accessed by interaction
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+
+                Cursor.lockState = CursorLockMode.None;
+                UIManager.instance.CraftingUI.SetActive(false); //turns off crafting UI
+                Cursor.visible = false;
+                GameManager.instance.ActiveUnpause(); //unpauses the game for ALL menu's accessed by interaction
             }
         }
         else
         {
-            UIManager.instance.InteractImage.SetActive(false);
-            UIManager.instance.PromptText.SetActive(false);
+            UIManager.instance.InteractImage.SetActive(false); //turns off interact image (placeolder is blue rectangle)
+            UIManager.instance.PromptText.SetActive(false); //turnsoff the interact text
         }
 
     }

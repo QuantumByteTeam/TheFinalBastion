@@ -8,24 +8,24 @@ public class CraftingTable : MonoBehaviour, Iinteractable
 
     private void Update()
     {
-    if (Input.GetKeyDown(KeyCode.Q))
+   /* if (Input.GetKeyDown(KeyCode.Q))
         {
-            isPaused = false;
+            
             Cursor.lockState = CursorLockMode.None;
             UIManager.instance.CraftingUI.SetActive(false);
             Cursor.visible = false;
-        }
+        }*/
     }
 
 
 
     public string InteractionPrompt => prompt;
-    bool isPaused = false;
+   
+
     public bool Interact(Interactor interactor)
     {
         UIManager.instance.CraftingUI.SetActive(true);
         Debug.Log("Opening Crafting Menu");
-        isPaused = true;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
         
