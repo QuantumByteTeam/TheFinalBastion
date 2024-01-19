@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ace12973ebdde459607efb176c9898, type: 3}
   m_Name: DamagePickUp
   m_EditorClassIdentifier: 
-  amount: 0
+  amount: 2

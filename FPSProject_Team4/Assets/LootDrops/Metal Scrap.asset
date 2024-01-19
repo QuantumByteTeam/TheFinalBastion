@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Metal Scrap
   m_EditorClassIdentifier: 
   lootName: Metal Scrap
-  dropChance: 30
+  dropChance: 50
   lootSprite: {fileID: 0}

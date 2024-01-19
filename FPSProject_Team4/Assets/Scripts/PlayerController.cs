@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] int JumpMax; //configurable max amt of jumps 
     [SerializeField] float SprintMod; //configurable amt for speed multiplier
     [SerializeField] float animSpeedTransition; //anim speed
+    [SerializeField] private Vector3 crouchingScale = new Vector3(1, 0.5f, 1);
+    [SerializeField] private Vector3 standingScale = new Vector3(1, 1, 1);
+    private bool isCrouching;
 
     [Header("----- Weapon -----")]
     public List<gunStats> gunList = new List<gunStats>();
@@ -149,6 +152,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * ShootDist, Color.red); //gives red line for gun shooting distance in the scene NOT in game since its debug
 
         sprint();
+        crouch();
 
         GroundedPlayer = controller.isGrounded;
 
@@ -197,7 +201,20 @@ public class PlayerController : MonoBehaviour, IDamageable
             isSprinting = false;
         }
     }
+    void crouch()
+    {
+        if (Input.GetButtonDown("Crouch"))
+        {
+            this.transform.localScale = crouchingScale;
+            isCrouching = true;
+        }
 
+        else if (Input.GetButtonUp("Crouch"))
+        {
+            this.transform.localScale = standingScale;
+            isCrouching = false;
+        }
+    }
     void ShootingTimer()
     {
         if (!GameManager.instance.isPaused && Input.GetButton("Shoot") && !IsShooting) 

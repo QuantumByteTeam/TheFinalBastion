@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abfbb034d198186438212f435b07ec37, type: 3}
   m_Name: Cloth
   m_EditorClassIdentifier: 
-  lootName: 
-  dropChance: 0
+  lootName: Cloth
+  dropChance: 30
   lootSprite: {fileID: 0}

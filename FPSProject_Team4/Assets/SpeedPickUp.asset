@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74299fc84e97023478ce1e797bb07c8e, type: 3}
   m_Name: SpeedPickUp
   m_EditorClassIdentifier: 
-  amount: 0
+  amount: 5
