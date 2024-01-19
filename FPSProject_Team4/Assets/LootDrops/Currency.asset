@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootName: Currency
   dropChance: 80
-  lootSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  lootSprite: {fileID: 21300000, guid: a61a988bbc99d2e4ca0470d24978d88f, type: 3}

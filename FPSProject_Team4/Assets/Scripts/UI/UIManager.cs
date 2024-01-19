@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image playerHPBar;
     [SerializeField] Image pointHPBar;
     [SerializeField] GameObject menuPause;
+    [SerializeField] GameObject menuOptions;
+    public GameObject optionsActive;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuStore;
@@ -20,6 +22,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text coinCountText;
     public GameObject playerDamageScreen;
     public GameObject CraftingUI; 
+
+
 
     public GameObject menuActive;
 
@@ -46,6 +50,12 @@ public class UIManager : MonoBehaviour
     {
         menuActive = menuPause;
         menuActive.SetActive(true);
+    }
+
+    public void DisplayOptionsMenu()
+    {
+        menuActive = menuOptions;
+        menuOptions.SetActive(true);
     }
 
     public void DisplayLoseMenu()
