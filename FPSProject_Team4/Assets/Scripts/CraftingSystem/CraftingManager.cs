@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class CraftingManager : MonoBehaviour
 {
+    
     private CraftingItem currItem; //stores the current item
     public Image customCursor;
 
