@@ -23,28 +23,30 @@ public class cameraControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //get input
-        float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * sensitivity;
-        float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * sensitivity;
+        if (!GameManager.instance.isActivePaused) //checks if game is Actve paused (interaction menus), if paused it doesnt call anything below
+        { 
+          //get input
+            float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * sensitivity;
+            float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * sensitivity;
 
-        if (invertY) //inverts Y axis controls
-            xRot += mouseY;
-        else
-            xRot -= mouseY;
+            if (invertY) //inverts Y axis controls
+                xRot += mouseY;
+            else
+                xRot -= mouseY;
 
 
 
-        //clamps rotation on the X-Axis
-        xRot = Mathf.Clamp(xRot, lockVertMin, lockVertMax);
+            //clamps rotation on the X-Axis
+            xRot = Mathf.Clamp(xRot, lockVertMin, lockVertMax);
 
-        //rotates camera on the X-axis
-        transform.localRotation = Quaternion.Euler(xRot, 0, 0);
+            //rotates camera on the X-axis
+            transform.localRotation = Quaternion.Euler(xRot, 0, 0);
 
-        //rotates player on the Y-Axis
-        transform.parent.Rotate(Vector3.up * mouseX);
+            //rotates player on the Y-Axis
+            transform.parent.Rotate(Vector3.up * mouseX);
+
+        }
+
 
     }
-
-
-
 }

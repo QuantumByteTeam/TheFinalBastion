@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
 
     public void ActivePaused()
     {
-        isActivePaused = !isActivePaused;
+        isActivePaused = true;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
     }

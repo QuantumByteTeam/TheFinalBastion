@@ -15,6 +15,7 @@ public class CraftingManager : MonoBehaviour
     public string[] recipes;
     public CraftingItem[] recipeResults;
     public CraftingSlot resultSlot;
+    bool Craftable = false;
 
     private void Update()
     {
@@ -52,6 +53,8 @@ public class CraftingManager : MonoBehaviour
 
     void CheckForRecipe()
     {
+
+        Craftable = false;
         resultSlot.gameObject.SetActive(false); 
         resultSlot.item = null;
 
@@ -75,6 +78,11 @@ public class CraftingManager : MonoBehaviour
                 resultSlot.gameObject.SetActive(true);
                 resultSlot.GetComponent<Image>().sprite = recipeResults[i].GetComponent<Image>().sprite;
                 resultSlot.item = recipeResults[i];
+                Craftable = true;
+            }
+            else
+            {
+                Craftable = false;
             }
         }
 
@@ -89,6 +97,26 @@ public class CraftingManager : MonoBehaviour
         itemList[slot.index] = null;
         slot.gameObject.SetActive(false);
         CheckForRecipe();
+    }
+
+    public void OnConfirmRecipe()
+    {
+        if (Craftable == true)
+        {
+            resultSlot.gameObject.SetActive(true);
+            //resultSlot.item = list of some sort              ( code for obtaining the item goes here )
+
+            //lines below clear the item from the result slot
+            resultSlot.item = null;
+            resultSlot.gameObject.SetActive(false);
+
+            foreach (CraftingSlot slot in craftingSlots)
+            {
+                slot.item = null;
+            }
+
+
+        }
     }
 
 

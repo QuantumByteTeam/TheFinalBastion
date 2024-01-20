@@ -21,9 +21,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text coinCountText;
     public GameObject playerDamageScreen;
-    public GameObject CraftingUI; 
+    public GameObject CraftingUI;
 
-
+ 
 
     public GameObject menuActive;
 
