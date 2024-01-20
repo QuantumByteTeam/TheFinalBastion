@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7041437091442426586}
   - component: {fileID: -5039189745956767537}
   - component: {fileID: 2560077517623344602}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Enemy Basic Point Ignore
   m_TagString: Enemy
   m_Icon: {fileID: 0}

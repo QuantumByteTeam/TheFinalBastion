@@ -14,7 +14,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [SerializeField] Renderer model;
 
     [Header("----- Stats -----")]
-    [SerializeField] float health;
+    [SerializeField] public float health;
     [SerializeField] int viewCone;
     [SerializeField] int targetFaceSpeed;
     [SerializeField] bool shouldTargetPlayer;
@@ -30,13 +30,14 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [SerializeField] GameObject bullet;
     [SerializeField] Transform firePos;
     [SerializeField] Transform headPos;
-    [SerializeField] float fireRate;
-    [SerializeField] int bulletDamage;
+    [SerializeField] public float fireRate;
+    [SerializeField] public int bulletDamage;
     [SerializeField] int bulletSpeed;
 
     [Header("----- Target -----")]
     public GameObject point;
-    
+
+    public bool isBuffed = false;
     bool isShooting;
     bool playerInRange;
     float randTime;

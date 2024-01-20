@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c36b7ca5460f07448f8f352215e0b80, type: 3}
-  m_Name: Probability - Basic
+  m_Name: Probability - Enemy Support
   m_EditorClassIdentifier: 
-  enemy: {fileID: 1277755095150470934, guid: 4b2922f080dd4174d8d836fcaaf4e54e, type: 3}
-  probability: 30
+  enemy: {fileID: 3001416707534194424, guid: 113eb89b0b602dd46b59e680b9e8b4be, type: 3}
+  probability: 10
   coinKillReward: 0

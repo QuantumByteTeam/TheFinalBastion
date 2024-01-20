@@ -68,6 +68,8 @@ MonoBehaviour:
   JumpMax: 3
   SprintMod: 1.3
   animSpeedTransition: 0
+  crouchingScale: {x: 1, y: 0.5, z: 1}
+  standingScale: {x: 1, y: 1, z: 1}
   gunList: []
   ShootDamage: 1
   ShootRate: 0.25
@@ -511,7 +513,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 524407
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
