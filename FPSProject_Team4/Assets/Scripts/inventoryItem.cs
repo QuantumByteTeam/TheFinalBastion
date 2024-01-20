@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro;
 
-public class inventoryItem : MonoBehaviour
+[CreateAssetMenu(menuName = "Inventory Item")]
+public class inventoryItem : ScriptableObject
 {
-    [SerializeField] GameObject player;
+    public string itemID;
+    [SerializeField] Image icon;
 }
