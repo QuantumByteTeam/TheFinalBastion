@@ -12,6 +12,7 @@ TagManager:
   - WaveManager
   - EnemyBullet
   - Mine
+  - ActivePauseNeeded
   layers:
   - Default
   - TransparentFX

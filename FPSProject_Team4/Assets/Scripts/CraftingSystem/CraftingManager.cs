@@ -99,22 +99,16 @@ public class CraftingManager : MonoBehaviour
         CheckForRecipe();
     }
 
-    public void OnConfirmRecipe()
+    public void OnConfirmRecipe(CraftingSlot slot)
     {
         if (Craftable == true)
         {
-            resultSlot.gameObject.SetActive(true);
+            //slot.gameObject.SetActive(true);
             //resultSlot.item = list of some sort              ( code for obtaining the item goes here )
 
             //lines below clear the item from the result slot
-            resultSlot.item = null;
-            resultSlot.gameObject.SetActive(false);
-
-            foreach (CraftingSlot slot in craftingSlots)
-            {
-                slot.item = null;
-            }
-
+            slot.item = null;
+            slot.gameObject.SetActive(false);
 
         }
     }

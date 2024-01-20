@@ -15,6 +15,8 @@ public class CraftingTable : MonoBehaviour, Iinteractable
             UIManager.instance.CraftingUI.SetActive(false);
             Cursor.visible = false;
         }*/
+
+        
     }
 
 

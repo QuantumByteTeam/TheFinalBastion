@@ -563,6 +563,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f69d7b8595995c0489b57734f0b6ab5a, type: 3}
+--- !u!114 &1441513073 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1910594236238517787, guid: f6afe5f04942cee4eb7edfa1eb20fb1b, type: 3}
+  m_PrefabInstance: {fileID: 4747767922508883284}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab85609a49fb9a84284833799f843a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1846011708
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -803,6 +814,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1049206398003814509, guid: f6afe5f04942cee4eb7edfa1eb20fb1b, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1049206398003814509, guid: f6afe5f04942cee4eb7edfa1eb20fb1b, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1441513073}
+    - target: {fileID: 1049206398003814509, guid: f6afe5f04942cee4eb7edfa1eb20fb1b, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: CraftingSlot, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1910594236238517787, guid: f6afe5f04942cee4eb7edfa1eb20fb1b, type: 3}
+      propertyPath: index
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2511115915489648596, guid: f6afe5f04942cee4eb7edfa1eb20fb1b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -943,6 +970,10 @@ PrefabInstance:
     - target: {fileID: 6304107581889593785, guid: 1a5a4778bb816444f8fedc01973f44d2, type: 3}
       propertyPath: m_Name
       value: Crafting Table
+      objectReference: {fileID: 0}
+    - target: {fileID: 6304107581889593785, guid: 1a5a4778bb816444f8fedc01973f44d2, type: 3}
+      propertyPath: m_TagString
+      value: ActivePauseNeeded
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
