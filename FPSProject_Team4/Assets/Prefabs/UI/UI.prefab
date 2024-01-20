@@ -2191,6 +2191,7 @@ RectTransform:
   - {fileID: 5461346791449865986}
   - {fileID: 6183987234815775029}
   - {fileID: 3548582777356346360}
+  - {fileID: 190877763080821006}
   - {fileID: 286986933674439741}
   - {fileID: 100287834704658252}
   - {fileID: 7488695054568426936}
@@ -2293,6 +2294,8 @@ MonoBehaviour:
   playerHPBar: {fileID: 8840816114553395913}
   pointHPBar: {fileID: 7069708621557994965}
   menuPause: {fileID: 6040514119995600866}
+  menuOptions: {fileID: 0}
+  optionsActive: {fileID: 0}
   menuLose: {fileID: 1697881371572475488}
   menuWin: {fileID: 2862604247938274607}
   menuStore: {fileID: 0}
@@ -6764,6 +6767,7 @@ MonoBehaviour:
   wave: {fileID: 0}
   waveScript: {fileID: 0}
   isPaused: 0
+  isActivePaused: 0
   enemiesRemaining: 0
   coins: 0
 --- !u!1 &6079889513637650975
@@ -9334,23 +9338,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0082fe8a0c5bddc49b2e07fa189320e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawners:
-  - {fileID: 0}
-  spawnerRadius: 5
   uniformRand: 1
-  enemyP:
-  - {fileID: 11400000, guid: ad5ee87c1046ce34aaef83b607bc1906, type: 2}
-  - {fileID: 11400000, guid: 82ba5e32aad963949a693570382403c4, type: 2}
-  - {fileID: 11400000, guid: 24455c35a20c0a840a7398e866d912e7, type: 2}
-  - {fileID: 11400000, guid: 635e3018f4177264bac94d2807f704a5, type: 2}
+  enemyP: []
   baseEnemyCount: 1
   enemyCountMultiplier: 2
-  baseEnemyCountNU: 1
-  enemyCountMultNU: 2
-  waveIntermission: 2
-  waveWinAmount: 2
+  waveIntermissionTime: 0
   currentWave: 0
-  coinWaveClearBonus: 2
 --- !u!1 &8130932721681096757
 GameObject:
   m_ObjectHideFlags: 0
@@ -10272,6 +10265,55 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &8874294578939892804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 190877763080821006}
+  - component: {fileID: 3065068937153163220}
+  m_Layer: 5
+  m_Name: CoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &190877763080821006
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8874294578939892804}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3151510499229195138}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3065068937153163220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8874294578939892804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf2af92a70e58194ea985e6c50d349a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cores: []
 --- !u!1 &8889605480878413132
 GameObject:
   m_ObjectHideFlags: 0
