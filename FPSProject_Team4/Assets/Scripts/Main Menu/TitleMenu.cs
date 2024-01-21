@@ -12,7 +12,25 @@ public class TitleMenu : MonoBehaviour
 
     public void QuitGame()
     {
+        Application.Quit();
+    }
 
+    public void Tutorial()
+    {
+        SceneManager.LoadScene("Tutorial Level");
+
+    }
+
+    public void Credits()
+    {
+        SceneManager.LoadScene("Credits");
+
+
+    }
+
+    public void Options()
+    {
+        //whoever is working on credits, this will be called when the options button is clicked
     }
 
 }
