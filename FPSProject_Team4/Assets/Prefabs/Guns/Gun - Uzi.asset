@@ -17,12 +17,14 @@ MonoBehaviour:
   isConsumable: 0
   itemSprite: {fileID: 21300000, guid: af2f137eaab0b8343be8ecb11bb1a240, type: 3}
   deployable: {fileID: 0}
+  droppedItem: {fileID: 5924633815591688547, guid: f69d7b8595995c0489b57734f0b6ab5a, type: 3}
+  deployDistance: 0
   ShootDamage: 20
   ShootRate: 0.1
   ShootDist: 25
-  ammoCount: 17
+  ammoCount: 32
   ammoMag: 32
-  ammoReserve: 36
+  ammoReserve: 100
   ammoReserveDefault: 100
   armorPen: 0.575
   reloadTime: 0.85

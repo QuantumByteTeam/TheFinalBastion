@@ -14,22 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGun: 1
   isDeployable: 0
-  icon: {fileID: 0}
+  isConsumable: 0
+  itemSprite: {fileID: 21300000, guid: af2f137eaab0b8343be8ecb11bb1a240, type: 3}
+  deployable: {fileID: 0}
+  droppedItem: {fileID: 9056801287884393424, guid: e22999e527439a74391ad91bafb1eead, type: 3}
+  deployDistance: 0
   ShootDamage: 50
   ShootRate: 1.35
   ShootDist: 20
-  ammoCount: 3
+  ammoCount: 5
   ammoMag: 5
   ammoReserve: 25
   ammoReserveDefault: 25
   armorPen: 1
   reloadTime: 2
-  standingAccuracy: 0
-  crouchingAccuracy: 0
-  adsAccuracy: 0
-  walkingAccuracy: 0
-  runningAccuracy: 0
-  jumpingAccuracy: 0
+  crouchingMultiplier: 0
+  adsMultiplier: 0
+  walkingMultiplier: 0
+  runningMultiplier: 0
+  jumpingMultiplier: 0
+  baseAccuracy: 0
   Model: {fileID: 1236257789494122, guid: 8b0b86b42def11849a8eba21f4a6a684, type: 3}
   MagModel: {fileID: 100002, guid: bf2593fe0c804b84688e307cfb1ddfae, type: 3}
   TrigModel: {fileID: 100004, guid: bf2593fe0c804b84688e307cfb1ddfae, type: 3}

@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
-
     [SerializeField] Image playerHPBar;
+    [SerializeField] GameObject pointHPElement;
     [SerializeField] Image pointHPBar;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuOptions;
@@ -20,18 +21,17 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text waveCountText;
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text coinCountText;
+    [SerializeField] TMP_Text scoreCountText;
     public GameObject playerDamageScreen;
     public GameObject playerFlashScreen;
     public GameObject CraftingUI;
-
- 
-
+    [SerializeField] GameObject selectionBox;
+    [SerializeField] GameObject[] hotbarSlots = new GameObject[9];
+    [SerializeField] Sprite emptySlotSprite;
     public GameObject menuActive;
-
     [SerializeField] TMP_Text ammoCounterText;
     [SerializeField] TMP_Text reserveAmmoText;
     [SerializeField] GameObject reloadingText;
-
     //Interact UI Elements
     public GameObject InteractImage;
     public GameObject PromptText;
@@ -131,6 +131,11 @@ public class UIManager : MonoBehaviour
         coinCountText.text = GameManager.instance.coins.ToString("0");
     }
 
+    public void UpdateScore()
+    {
+        scoreCountText.text = GameManager.instance.score.ToString("0");
+    }
+
     public IEnumerator reloading(float time)
     {
         reloadingText.SetActive(true);
@@ -154,7 +159,25 @@ public class UIManager : MonoBehaviour
         Application.Quit();
     }
 
-    
+    public void updateSelection(int selection)
+    {
+        selectionBox.transform.localPosition = new Vector3((selection * (478f / 8)) - 239f, -480, 0);
+        updateHotbar();
+    }
+
+    public void updateHotbar()
+    {
+        int j = GameManager.instance.playerScript.inventory.hotbarInventory.Count;
+        for (int i = 0; i < j; i++)
+        {
+            hotbarSlots[i].GetComponent<Image>().sprite = GameManager.instance.playerScript.inventory.hotbarInventory.ElementAt(i).Key.returnIcon();
+        }
+        for (int i = j; i < 9; i++)
+        {
+            hotbarSlots[i].GetComponent<Image>().sprite = emptySlotSprite;
+        }
+        UpdateAmmo();
+    }
     public void exitToMainMenu()
     {
         SceneManager.LoadScene("TitleMenu");

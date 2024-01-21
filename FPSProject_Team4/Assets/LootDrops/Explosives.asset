@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootName: Explosives
   dropChance: 40
-  lootSprite: {fileID: 21300000, guid: 0c6d8dc7fc6e41449b469b863bba31db, type: 3}
+  lootSprite: {fileID: 21300000, guid: 9ce6e74f670b0ce47940deda6f3abf0f, type: 3}
