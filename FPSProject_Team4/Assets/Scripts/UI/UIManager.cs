@@ -59,6 +59,11 @@ public class UIManager : MonoBehaviour
         menuOptions.SetActive(true);
     }
 
+    public void closeOptionsMenu()
+    {
+        menuOptions.SetActive(false);
+    }
+
     public void DisplayLoseMenu()
     {
         menuActive = menuLose;
