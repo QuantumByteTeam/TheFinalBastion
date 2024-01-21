@@ -26,6 +26,7 @@ public class playerInventory //: MonoBehaviour
         
         if (hotbarInventory[hotbarInventory.ElementAt(index).Key] == 0)
         {
+            GameManager.instance.playerScript.swap = true;
             hotbarInventory.Remove(item);
             if (GameManager.instance.playerScript.SelectedItem >= hotbarInventory.Count && hotbarInventory.Count > 0)
             {

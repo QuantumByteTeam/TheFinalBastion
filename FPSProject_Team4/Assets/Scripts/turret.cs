@@ -1,120 +1,142 @@
-//using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.AI;
 
 
-//public class turret : MonoBehaviour
-//{
+public class turret : MonoBehaviour
+{
+    [SerializeField] public int viewCone;
+    [SerializeField] int targetFaceSpeed;
+    [SerializeField] public float range;
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform firePos;
+    [SerializeField] public Transform headPos;
+    [SerializeField] public float fireRate;
+    [SerializeField] public int bulletDamage;
+    [SerializeField] int bulletSpeed;
+    [SerializeField] public float armorPen;
 
-//    [SerializeField] GameObject bullet;
-//    [SerializeField] Transform firePos;
-//    [SerializeField] public Transform headPos;
-//    [SerializeField] public float fireRate;
-//    [SerializeField] public int bulletDamage;
-//    [SerializeField] int bulletSpeed;
+    int EnemyInRange;
+    bool isShooting;
 
-//    bool canSeeTarget(Transform targetPos)
-//    {
-//        Quaternion originalRotation = firePos.rotation;
-//        Vector3 targetDirection = targetPos.position - headPos.position;
-//        float angleToTarget = Vector3.Angle(targetDirection, transform.forward);
+    Collider[] colliders;
 
-//        Debug.DrawRay(headPos.position, targetDirection);
-//        RaycastHit hit;
+    void Update()
+    {
+        if (EnemyInRange > 0 && canSeeTarget(closestEnemy()))
+        {
 
-//        if (Physics.Raycast(headPos.position, targetDirection, out hit))
-//        {
-//            // Calculate the direction to the target
-//            Vector3 fireToTarget = (targetPos.position - firePos.position).normalized;
-//            firePos.rotation = Quaternion.LookRotation(fireToTarget);
+        }
+    }
 
+    private Transform closestEnemy()
+    {
+        colliders = Physics.OverlapSphere(transform.position, range);
 
-//            // FIXME: If point not hit, does not set destination
-//            if ((hit.collider.CompareTag("Player") && angleToTarget <= viewCone))
-//            {
-//                agent.SetDestination(targetPos.position);
-//                //SpreadOut(targetDirection);
-//                if (!isShooting)
-//                {
-//                    StartCoroutine(shoot());
-//                }
+        Transform closest = null;
+        float temp = range+1;
 
-//                if (agent.remainingDistance < agent.stoppingDistance)
-//                {
-//                    faceTarget(targetDirection);
-//                }
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            float dist = Vector3.Distance(transform.position, colliders[i].transform.position);
+            if (colliders[i].tag == "Enemy" && dist < temp)
+            {
+                closest = colliders[i].transform;
+                temp = dist;
+            }
+        }
+        return closest;
+    }
 
-//                return true;
-//            }
-//            else if (hit.collider.CompareTag("Enemy"))
-//            {
-//                StopCoroutine(shoot());
-//                isShooting = false;
-//            }
-//            else if (hit.collider.CompareTag("Point"))
-//            {
-//                agent.SetDestination(point.transform.position);
+    bool canSeeTarget(Transform targetPos)
+    {
+        if (targetPos == null)
+        {
+            return false;
+        }
+        Quaternion originalRotation = firePos.rotation;
+        Vector3 targetDirection = targetPos.position - headPos.position;
+        float angleToTarget = Vector3.Angle(targetDirection, transform.forward);
 
-//                if (!isShooting)
-//                {
-//                    StartCoroutine(shoot());
-//                }
-//                if (agent.remainingDistance < agent.stoppingDistance)
-//                {
-//                    faceTarget(targetDirection);
-//                }
-//            }
+        Debug.DrawRay(headPos.position, targetDirection);
+        RaycastHit hit;
 
-//        }
-//        return false;
-//    }
-//    void faceTarget(Vector3 targetDir)
-//    {
-//        Quaternion rot = Quaternion.LookRotation(targetDir);
-//        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * targetFaceSpeed);
-//    }
+        if (Physics.Raycast(headPos.position, targetDirection, out hit))
+        {
+            Vector3 fireToTarget = (targetPos.position - firePos.position).normalized;
+            firePos.rotation = Quaternion.LookRotation(fireToTarget);
 
-//    IEnumerator shoot()
-//    {
-//        isShooting = true;
+            if (hit.collider.CompareTag("Enemy") && angleToTarget <= viewCone)
+            {
+                
+                if (!isShooting)
+                {
+                    StartCoroutine(shoot());
+                }
 
-//        // Perform a ray cast
-//        Ray ray = new Ray(firePos.position, firePos.forward);
-//        RaycastHit hit;
+                faceTarget(targetDirection);
 
-//        if (Physics.Raycast(ray, out hit))
-//        {
-//            // Check if the hit object implements IDamagable
-//            IDamageable damageable = hit.collider.GetComponent<IDamageable>();
+                return true;
+            }
 
-//            if (damageable != null)
-//            {
-//                // Instantiate and configure the bullet
-//                GameObject obj = Instantiate(bullet, firePos.position, firePos.rotation);
-//                Physics.IgnoreCollision(GetComponent<Collider>(), obj.GetComponent<Collider>());
-//                Bullet bulletComp = obj.GetComponent<Bullet>();
-//                bulletComp.damageAmount = bulletDamage;
-//                bulletComp.speed = bulletSpeed;
-//                bulletComp.run();
+        }
+        return false;
+    }
+    void faceTarget(Vector3 targetDir)
+    {
+        Quaternion rot = Quaternion.LookRotation(targetDir);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * targetFaceSpeed);
+    }
 
-//                yield return new WaitForSeconds(fireRate);
-//            }
-//        }
+    IEnumerator shoot()
+    {
+        isShooting = true;
 
-//        isShooting = false;
-//    }
+        // Perform a ray cast
+        Ray ray = new Ray(firePos.position, firePos.forward);
+        RaycastHit hit;
 
-//    private void OnTriggerEnter(Collider other)
-//    {
-//        if (other.CompareTag("Enemy"))
-//        {
-//            EnemyInRange++;
-//        }
-//    }
+        if (Physics.Raycast(ray, out hit))
+        {
+            // Check if the hit object implements IDamagable
+            IDamageable damageable = hit.collider.GetComponent<IDamageable>();
 
-//    private void OnTriggerExit(Collider other)
-//    {
-//        if (other.CompareTag("Enemy"))
-//        {
-//            EnemyInRange--;
-//        }
-//    }
-//}
+            if (damageable != null)
+            {
+                // Instantiate and configure the bullet
+                GameObject obj = Instantiate(bullet, firePos.position, firePos.rotation);
+                Physics.IgnoreCollision(GetComponent<Collider>(), obj.GetComponent<Collider>());
+                Bullet bulletComp = obj.GetComponent<Bullet>();
+                bulletComp.damageAmount = bulletDamage;
+                bulletComp.armorPen = armorPen;
+                bulletComp.speed = bulletSpeed;
+                bulletComp.run();
+
+                yield return new WaitForSeconds(fireRate);
+            }
+        }
+
+        isShooting = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            EnemyInRange++;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            EnemyInRange--;
+        }
+    }
+}

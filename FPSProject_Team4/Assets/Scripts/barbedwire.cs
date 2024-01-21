@@ -28,7 +28,7 @@ public class Wire : MonoBehaviour
             agent.speed = 3.5f;
             uses--;
         }
-        if (uses >=0)
+        if (uses <=0)
         {
             Destroy(gameObject);
         }

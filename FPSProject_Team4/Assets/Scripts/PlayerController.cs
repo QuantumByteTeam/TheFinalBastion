@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     public int SelectedItem;
     public playerInventory inventory = new playerInventory();
     private int invSize;
-    bool holdingGun;
+    public bool swap;
     [SerializeField] float FOV;
 
     
@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         invSize = inventory.hotbarInventory.Count();
         if (invSize > 0)
         {
-            holdingGun = inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun;
+            //holdingGun = inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun;
             if (SelectedItem >= invSize)
             {
                 SelectedItem = invSize - 1;
@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviour, IDamageable
                     }
 
 
-                    if (Input.GetButtonDown("Drop") && invSize > 0)
+                    if (Input.GetButtonDown("Drop") && invSize > 0 && !inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
                     {
                         inventory.drop(SelectedItem);
                     }
@@ -147,7 +147,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
                     if (inventory.hotbarInventory.Count > 0 && inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
                     {
-                        if (Input.GetButton("Shoot") && !IsShooting && !reloading)
+                        if (Input.GetButton("Shoot") && !IsShooting && !reloading && !swap)
                         {
                             StartCoroutine(Shoot());
                         }
@@ -162,12 +162,19 @@ public class PlayerController : MonoBehaviour, IDamageable
                     {
                         if (Input.GetButtonDown("Shoot"))
                         {
+                            IsShooting = true;
                             Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployable, Camera.main.transform.position + (Camera.main.transform.forward* inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployDistance), Camera.main.transform.rotation);
                             inventory.Remove(SelectedItem);
                             UIManager.instance.updateHotbar(); 
                             UIManager.instance.UpdateAmmo();
                         }
                         
+                    }
+
+                    if (Input.GetButtonUp("Shoot"))
+                    {
+                        IsShooting = false;
+                        swap = false;
                     }
                     controller.enabled = true; //Prevents bug where controller gets disabled for some reason
                     movement();
