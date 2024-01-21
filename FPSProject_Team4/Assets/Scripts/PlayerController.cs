@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -20,7 +23,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] float animSpeedTransition; //anim speed
     [SerializeField] private Vector3 crouchingScale = new Vector3(1, 0.5f, 1);
     [SerializeField] private Vector3 standingScale = new Vector3(1, 1, 1);
-    private bool isCrouching;
+    
 
     [Header("----- Weapon -----")]
     public List<gunStats> gunList = new List<gunStats>();
@@ -52,10 +55,14 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     int SelectedGun; //current gun the player is holding
     bool isPlayingSteps;
+    bool isWalking;
     bool isSprinting;
+    bool isJumping;
+    bool isADS;
     bool isPlayingEmpty;
     bool isPlayingReload;
     bool isPlayingShoot;
+    bool isCrouching;
 
     //added by John
     public int ammoCount;
@@ -64,16 +71,36 @@ public class PlayerController : MonoBehaviour, IDamageable
     private bool reloading;
     public bool armor; //was priv
 
+    public int SelectedItem;
+    public playerInventory inventory = new playerInventory();
+    private int invSize;
+    bool holdingGun;
+    [SerializeField] float FOV;
+
 
     private void Start()
     {
         HPOriginal = HP; //sets default hp to player's current HP
         respawnPlayer();
         controller.enabled = true;
+        
+        
     }
 
     void Update()
     {
+        invSize = inventory.hotbarInventory.Count();
+        if (invSize > 0)
+        {
+            holdingGun = inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun;
+            if (SelectedItem >= invSize)
+            {
+                SelectedItem = invSize - 1;
+            }
+        }
+
+        
+
         if (!GameManager.instance.isActivePaused) //checks if game is Actve paused (interaction menus), if paused it doesnt call anything below
         { 
             if (!GameManager.instance.isPaused) //checks if game is paused, if paused it doesnt call anything below
@@ -88,16 +115,26 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 
 
+                    if(Input.GetButton("ADS"))
+                    {
+                        isADS = true;
+                        Camera.main.fieldOfView = FOV * 0.75f;
+                    }
+                    else
+                    {
+                        isADS = false;
+                        Camera.main.fieldOfView = FOV;
+                    }
 
 
 
 
+                    if (invSize > -1)
+                    {
+                        SelectItem();
+                    }
 
-
-
-
-
-                    if (gunList.Count > 0)
+                    if (invSize > 0 && inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
                     {
                         if (Input.GetButton("Shoot") && !IsShooting && !reloading)
                         {
@@ -108,7 +145,18 @@ public class PlayerController : MonoBehaviour, IDamageable
                         {
                             StartCoroutine(reload());
                         }
-                        SelectGun();
+                        //SelectGun();
+                    }
+                    else if (invSize > 0 && inventory.hotbarInventory.ElementAt(SelectedItem).Key.isDeployable)
+                    {
+                        if (Input.GetButtonDown("Shoot"))
+                        {
+                            Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployable, Camera.main.transform.position + (Camera.main.transform.forward* inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployDistance), Camera.main.transform.rotation);
+                            inventory.Remove(SelectedItem);
+                            UIManager.instance.updateHotbar();
+                            UIManager.instance.UpdateAmmo();
+                        }
+                        
                     }
                     controller.enabled = true; //Prevents bug where controller gets disabled for some reason
                     movement();
@@ -120,7 +168,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     IEnumerator playSteps()
     {
         isPlayingSteps= true;
-        aud.PlayOneShot(SoundSteps[Random.Range(0, SoundSteps.Length - 1)], SoundStepsVol);
+        aud.PlayOneShot(SoundSteps[UnityEngine.Random.Range(0, SoundSteps.Length - 1)], SoundStepsVol);
         
 
         if (!isSprinting) //not sprinting
@@ -163,6 +211,21 @@ public class PlayerController : MonoBehaviour, IDamageable
             StartCoroutine(playSteps());
         }
 
+        if (GroundedPlayer)
+        {
+            isJumping = false;
+        }
+
+        
+
+        if (Move.normalized.magnitude > 0.3f)
+        {
+            isWalking = true;
+        }
+        else
+        {
+            isWalking = false;
+        }
 
         if (GroundedPlayer && PlayerVelocity.y < 0) //makes sure we dont fast fall (falls at normal speed)
         {
@@ -180,8 +243,9 @@ public class PlayerController : MonoBehaviour, IDamageable
         //lets the player jump if they have any left
         if (Input.GetButtonDown("Jump") && JumpCount < JumpMax)
         {
+            isJumping = true;
             PlayerVelocity.y = JumpHeight;
-            aud.PlayOneShot(SoundJumps[Random.Range(0, SoundJumps.Length - 1)], SoundJumpsVol); //plays jump sfx randomly
+            aud.PlayOneShot(SoundJumps[UnityEngine.Random.Range(0, SoundJumps.Length - 1)], SoundJumpsVol); //plays jump sfx randomly
             JumpCount++;
         }
 
@@ -225,63 +289,77 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
     }
 
+    
+
     IEnumerator Shoot()
     {
-        //IsShooting = true;
+        inventoryItem currentItem = inventory.hotbarInventory.ElementAt(SelectedItem).Key;
 
-        //RaycastHit hit;
-        //if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, ShootDist)) //.5 .5 is middle of screen
-        //{
-        //    IDamageable dmg = hit.collider.GetComponent<IDamageable>(); //returns smth if it hits smth with IDamage
+        
 
-        //    if (dmg != null)
-        //    {
-        //        dmg.takeDamage(ShootDamage, armorPen);
-        //    }
-        //}
-
-        //yield return new WaitForSeconds(ShootRate);
-        //IsShooting = false;
-
-        if (gunList[SelectedGun].ammoCount > 0)
+        if (currentItem.ammoCount > 0)
         {
-            //IsShooting = true;   
-
-            
-
-            // aud.PlayOneShot(gunList[SelectedGun].ShootSound[Random.Range(0,gunList[SelectedGun].ShootSound.Length)], gunList[SelectedGun].ShootSoundVol); //plays the associated gun noise each time a bullet is shot
             if (!isPlayingShoot)
             {
                 StartCoroutine(ShootSound());
             }
 
             ammoCount--;
-            gunList[SelectedGun].ammoCount--;
+            currentItem.ammoCount--;
             RaycastHit hit;
-            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, gunList[SelectedGun].ShootDist))
+            Vector3 fwd = Camera.main.transform.forward;
+            float bA = currentItem.baseAccuracy;
+
+            if (isSprinting)
             {
+                bA = bA * currentItem.runningMultiplier;
+            }
+            if (isWalking)
+            {
+                bA = bA * currentItem.walkingMultiplier;
+            }
+            if (isCrouching)
+            {
+                bA = bA * currentItem.crouchingMultiplier;
+            }
+            if (isJumping)
+            {
+                bA = bA * currentItem.jumpingMultiplier;
+            }
+            if (isADS)
+            {
+                bA = bA * currentItem.adsMultiplier;
+            }
+
+            fwd = fwd + Camera.main.transform.TransformDirection(new Vector3(UnityEngine.Random.Range(-bA, bA), UnityEngine.Random.Range(-bA, bA)));
+
+            if (Physics.Raycast(Camera.main.transform.position, fwd, out hit, currentItem.ShootDist))
+            //if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootDist))
+            {
+                Debug.Log(bA);
+                Debug.DrawRay(Camera.main.transform.position, fwd, Color.yellow, 100);
                 if (hit.collider.tag == "Enemy")
                 {
-                    Instantiate(gunList[SelectedGun].BloodEffect, hit.point, transform.rotation); //gun spark particle
+                    Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.BloodEffect, hit.point, transform.rotation); //gun spark particle
                 }
                 else
                 {
-                    Instantiate(gunList[SelectedGun].HitEffect, hit.point, transform.rotation); //gun spark particle
+                    Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.HitEffect, hit.point, transform.rotation); //gun spark particle
                 }
-                
+
                 IDamageable dmg = hit.collider.GetComponent<IDamageable>();
-                
+
                 if (hit.transform != transform && dmg != null)
                 {
-                    dmg.takeDamage(gunList[SelectedGun].ShootDamage, gunList[SelectedGun].armorPen);
+                    dmg.takeDamage(inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootDamage, inventory.hotbarInventory.ElementAt(SelectedItem).Key.armorPen);
                 }
             }
             UIManager.instance.UpdateAmmo();
             IsShooting = true;
-            yield return new WaitForSeconds(gunList[SelectedGun].ShootRate);
+            yield return new WaitForSeconds(inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootRate);
             IsShooting = false;
-            
-            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, gunList[SelectedGun].ShootDist))
+
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootDist))
             {
                 if (hit.collider.gameObject.GetComponent<ImpactAudio>())
                 {
@@ -296,22 +374,24 @@ public class PlayerController : MonoBehaviour, IDamageable
                 StartCoroutine(playEmptySound());
             }
         }
+
+
     }
 
     IEnumerator ShootSound()
     {
         isPlayingShoot = true;
-        aud.PlayOneShot(gunList[SelectedGun].ShootSound[Random.Range(0,gunList[SelectedGun].ShootSound.Length - 1)], gunList[SelectedGun].ShootSoundVol); //plays the associated gun noise each time a bullet is shot
-        yield return new WaitForSeconds(gunList[SelectedGun].ShootRate);
-        aud.PlayOneShot(gunList[SelectedGun].CasingSound[Random.Range(0,gunList[SelectedGun].CasingSound.Length - 1)], gunList[SelectedGun].CasingSoundVol); //plays the associated bullet casing drop noise each time a bullet is shot
+        aud.PlayOneShot(inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootSound[UnityEngine.Random.Range(0,inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootSound.Length - 1)], inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootSoundVol); //plays the associated gun noise each time a bullet is shot
+        yield return new WaitForSeconds(inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootRate);
+        aud.PlayOneShot(inventory.hotbarInventory.ElementAt(SelectedItem).Key.CasingSound[UnityEngine.Random.Range(0,inventory.hotbarInventory.ElementAt(SelectedItem).Key.CasingSound.Length - 1)], inventory.hotbarInventory.ElementAt(SelectedItem).Key.CasingSoundVol); //plays the associated bullet casing drop noise each time a bullet is shot
         isPlayingShoot = false;
     }
     
     IEnumerator playEmptySound()
     {
         isPlayingEmpty = true;
-        aud.PlayOneShot(gunList[SelectedGun].EmptySound[Random.Range(0,gunList[SelectedGun].EmptySound.Length - 1)], gunList[SelectedGun].EmptySoundVol); //plays the no ammo empty gun click sound
-        yield return new WaitForSeconds(gunList[SelectedGun].ShootRate);
+        aud.PlayOneShot(inventory.hotbarInventory.ElementAt(SelectedItem).Key.EmptySound[UnityEngine.Random.Range(0,inventory.hotbarInventory.ElementAt(SelectedItem).Key.EmptySound.Length - 1)], inventory.hotbarInventory.ElementAt(SelectedItem).Key.EmptySoundVol); //plays the no ammo empty gun click sound
+        yield return new WaitForSeconds(inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootRate);
         isPlayingEmpty = false;
        
     }
@@ -328,7 +408,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         } //player takes dmg
 
         StartCoroutine(playerFlashDamage());
-        aud.PlayOneShot(SoundHurt[Random.Range(0, SoundHurt.Length-1)], SoundHurtVol); //plays audio randomly from the whole range of tracks when player hurt
+        aud.PlayOneShot(SoundHurt[UnityEngine.Random.Range(0, SoundHurt.Length-1)], SoundHurtVol); //plays audio randomly from the whole range of tracks when player hurt
         UIManager.instance.UpdatePlayerHP();
 
         if (HP <= 0)
@@ -345,35 +425,25 @@ public class PlayerController : MonoBehaviour, IDamageable
         UIManager.instance.playerDamageScreen.SetActive(false);
     }
 
-
-    public void GetGunStats(gunStats gun) //gives the current picked up/equipped gun the proper stats
+    public void GetGunStats(inventoryItem item) //gives the current picked up/equipped gun the proper stats
     {
-        gunList.Add(gun); //adds each gun picked up to a list
-
-
-
-        //sets the gun player just picked up to the gun's stats //moved this to ChangeGun()
+        if (inventory.hotbarInventory.ContainsKey(item))
+        {
+            Debug.LogWarning("Added to existing item");
+            inventory.hotbarInventory[item] += 1;
+        }
+        else
+        {
+            Debug.LogWarning("New item created");
+            inventory.hotbarInventory.Add(item, 1);
+        }
+        
 
         StopAllCoroutines(); // <<<<<<<<<<<<<<<<<<<<<<<<<<< may be a cause of error in the future
-        StartCoroutine(playSteps()); //this + stop all coroutines seems to fix the double footstep issue
-        /*ShootDamage = gun.ShootDamage;
-        ShootDist = gun.ShootDist;
-        ShootRate = gun.ShootRate;*/
+        StartCoroutine(playSteps());
 
+        ChangeItem();
 
-        //gun models
-        GunModel.GetComponent<MeshFilter>().sharedMesh = gun.Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model
-        GunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.Model.GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
-        //gun mags
-        GunMag.GetComponent<MeshFilter>().sharedMesh = gun.MagModel.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun mag
-        GunMag.GetComponent<MeshRenderer>().sharedMaterial = gun.MagModel.GetComponent<MeshRenderer>().sharedMaterial; //sets the mag texture/renderer
-        //gun triggers
-        GunTrig.GetComponent<MeshFilter>().sharedMesh = gun.TrigModel.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun mag
-        GunTrig.GetComponent<MeshRenderer>().sharedMaterial = gun.TrigModel.GetComponent<MeshRenderer>().sharedMaterial; //sets the mag texture/renderer
-
-        SelectedGun = gunList.Count - 1;
-        ChangeGun();
-        
 
     }
 
@@ -394,44 +464,99 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     } //picks which weapon to use via scroll wheel
 
+    void SelectItem()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && SelectedItem > 0)//scrolling up, -1 so that ur one less than out of bounds
+        {
+            SelectedItem--;
+            UIManager.instance.updateSelection(SelectedItem);
+            //if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
+            //{
+            //    SelectedGun--;
+            //}
+            ChangeItem();
+
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && SelectedItem < inventory.hotbarInventory.Count - 1) //scrolling down, makes sure we never get past 0
+        {
+            SelectedItem++;
+            UIManager.instance.updateSelection(SelectedItem);
+            //if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
+            //{
+            //    SelectedGun++;
+            //}
+            ChangeItem();
+        }
+    }
+
+
+    public void ChangeItem()
+    {
+        StopAllCoroutines();
+
+        IsShooting = false;
+        isPlayingShoot = false;
+        reloading = false;
+
+        GunModel.GetComponent<MeshFilter>().sharedMesh = null;
+        GunModel.GetComponent<MeshRenderer>().sharedMaterial = null;
+        GunMag.GetComponent<MeshFilter>().sharedMesh = null;
+        GunMag.GetComponent<MeshRenderer>().sharedMaterial = null;
+        GunTrig.GetComponent<MeshFilter>().sharedMesh = null;
+        GunTrig.GetComponent<MeshRenderer>().sharedMaterial = null;
+
+        if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.Model != null)
+        {
+            GunModel.GetComponent<MeshFilter>().sharedMesh = inventory.hotbarInventory.ElementAt(SelectedItem).Key.Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model
+            GunModel.GetComponent<MeshRenderer>().sharedMaterial = inventory.hotbarInventory.ElementAt(SelectedItem).Key.Model.GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
+        }
+        
+
+
+        if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
+        {
+            ChangeGun();
+        }
+
+        UIManager.instance.updateSelection(SelectedItem);
+    }
+
     void ChangeGun() //has double pump exploit, BUG WHEN A GUN IS PICKEDUP FIRERATE DOUBLES, temp fix by moving the vars into get stats
     {
-        
-        
-        
+
+
+
         StopAllCoroutines(); //Fixes double fire rate bug, <<<<<<<<<<<<<<<<<<<<<<<<<<< may be a cause of error in the future
-        StartCoroutine(playSteps()); //Fixes double fire rate bug
-        //ShootDamage = gunList[SelectedGun].ShootDamage;
-        //ShootDist = gunList[SelectedGun].ShootDist;
-        //ShootRate = gunList[SelectedGun].ShootRate;
+        StartCoroutine(playSteps());
+
+        //armorPen = inventory.hotbarInventory.ElementAt(SelectedItem).Key.armorPen;
 
         //John
         IsShooting = false;
         isPlayingShoot = false;
         reloading = false;
         //isPlayingSteps = false; //julius commented this out since it caused the player to hear double audio when picking up a gun
-        armorPen = gunList[SelectedGun].armorPen;
-        ShootDamage = gunList[SelectedGun].ShootDamage;
-        ShootRate = gunList[SelectedGun].ShootRate;
-        ShootDist = gunList[SelectedGun].ShootDist;
-        ammoCount = gunList[SelectedGun].ammoCount;
-        ammoMag = gunList[SelectedGun].ammoMag;
-        ammoReserve = gunList[SelectedGun].ammoReserve;
+        armorPen = inventory.hotbarInventory.ElementAt(SelectedItem).Key.armorPen;
+        ShootDamage = inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootDamage;
+        ShootRate = inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootRate;
+        ShootDist = inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootDist;
+        ammoCount = inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoCount;
+        ammoMag = inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoMag;
+        ammoReserve = inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoReserve;
         //gun models
-        GunModel.GetComponent<MeshFilter>().sharedMesh = gunList[SelectedGun].Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model
-        GunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[SelectedGun].Model.GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
-
+        
         //gun mags
-        GunMag.GetComponent<MeshFilter>().sharedMesh = gunList[SelectedGun].MagModel.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun mag
-        GunMag.GetComponent<MeshRenderer>().sharedMaterial = gunList[SelectedGun].MagModel.GetComponent<MeshRenderer>().sharedMaterial; //sets the mag texture/renderer
+        GunMag.GetComponent<MeshFilter>().sharedMesh = inventory.hotbarInventory.ElementAt(SelectedItem).Key.MagModel.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun mag
+        GunMag.GetComponent<MeshRenderer>().sharedMaterial = inventory.hotbarInventory.ElementAt(SelectedItem).Key.MagModel.GetComponent<MeshRenderer>().sharedMaterial; //sets the mag texture/renderer
         //gun triggers
-        GunTrig.GetComponent<MeshFilter>().sharedMesh = gunList[SelectedGun].TrigModel.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun mag
-        GunTrig.GetComponent<MeshRenderer>().sharedMaterial = gunList[SelectedGun].TrigModel.GetComponent<MeshRenderer>().sharedMaterial; //sets the mag texture/renderer
+        GunTrig.GetComponent<MeshFilter>().sharedMesh = inventory.hotbarInventory.ElementAt(SelectedItem).Key.TrigModel.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun mag
+        GunTrig.GetComponent<MeshRenderer>().sharedMaterial = inventory.hotbarInventory.ElementAt(SelectedItem).Key.TrigModel.GetComponent<MeshRenderer>().sharedMaterial; //sets the mag texture/renderer
 
         UIManager.instance.UpdateAmmo();
+        UIManager.instance.updateHotbar();
 
         IsShooting = false;
-        
+
     }
 
 
@@ -439,24 +564,27 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         reloading = true;
         // aud.PlayOneShot(gunList[SelectedGun].ReloadSound[Random.Range(0,gunList[SelectedGun].ReloadSound.Length - 1)], gunList[SelectedGun].ReloadSoundVol); //plays the associated gun reload sound
-        if (!isPlayingReload)
+        
+        
+        if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoReserve > 0 && inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoCount < inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoMag)
         {
-            StartCoroutine(playReloadSound());
-        }
-        StartCoroutine(UIManager.instance.reloading(gunList[SelectedGun].reloadTime));
-        if (gunList[SelectedGun].ammoReserve > 0 && gunList[SelectedGun].ammoCount < gunList[SelectedGun].ammoMag)
-        {
-            reloading = true;
-            yield return new WaitForSeconds(gunList[SelectedGun].reloadTime);
-            if (gunList[SelectedGun].ammoReserve >= gunList[SelectedGun].ammoMag - gunList[SelectedGun].ammoCount)
+            if (!isPlayingReload)
             {
-                gunList[SelectedGun].ammoReserve -= gunList[SelectedGun].ammoMag - gunList[SelectedGun].ammoCount;
-                gunList[SelectedGun].ammoCount = gunList[SelectedGun].ammoMag;
+                StartCoroutine(playReloadSound());
+            }
+            StartCoroutine(UIManager.instance.reloading(inventory.hotbarInventory.ElementAt(SelectedItem).Key.reloadTime));
+
+            reloading = true;
+            yield return new WaitForSeconds(inventory.hotbarInventory.ElementAt(SelectedItem).Key.reloadTime);
+            if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoReserve >= inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoMag - inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoCount)
+            {
+                inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoReserve -= inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoMag - inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoCount;
+                inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoCount = inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoMag;
             }
             else
             {
-                gunList[SelectedGun].ammoCount += gunList[SelectedGun].ammoReserve;
-                gunList[SelectedGun].ammoReserve = 0;
+                inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoCount += inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoReserve;
+                inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoReserve = 0;
             }
             reloading = false;
         }
@@ -465,16 +593,16 @@ public class PlayerController : MonoBehaviour, IDamageable
             yield return new WaitForSeconds(0);
             reloading = false;
         }
-        ammoCount = gunList[SelectedGun].ammoCount;
-        ammoMag = gunList[SelectedGun].ammoMag;
-        ammoReserve = gunList[SelectedGun].ammoReserve;
+        ammoCount = inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoCount;
+        ammoMag = inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoMag;
+        ammoReserve = inventory.hotbarInventory.ElementAt(SelectedItem).Key.ammoReserve;
         UIManager.instance.UpdateAmmo();
     }
     
     IEnumerator playReloadSound()
     {
         isPlayingReload= true;
-        aud.PlayOneShot(gunList[SelectedGun].ReloadSound[Random.Range(0,gunList[SelectedGun].ReloadSound.Length - 1)], gunList[SelectedGun].ReloadSoundVol); //plays the associated gun reload sound
+        aud.PlayOneShot(inventory.hotbarInventory.ElementAt(SelectedItem).Key.ReloadSound[UnityEngine.Random.Range(0,inventory.hotbarInventory.ElementAt(SelectedItem).Key.ReloadSound.Length - 1)], inventory.hotbarInventory.ElementAt(SelectedItem).Key.ReloadSoundVol); //plays the associated gun reload sound
         yield return new WaitForSeconds(.25f); //sprint pace
         isPlayingReload = false;
        

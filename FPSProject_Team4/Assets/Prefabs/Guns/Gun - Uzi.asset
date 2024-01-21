@@ -12,15 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a231154ba98f1c34ab32f8a06ac808d0, type: 3}
   m_Name: Gun - Uzi
   m_EditorClassIdentifier: 
+  isGun: 1
+  isDeployable: 0
+  isConsumable: 0
+  itemSprite: {fileID: 21300000, guid: af2f137eaab0b8343be8ecb11bb1a240, type: 3}
+  deployable: {fileID: 0}
   ShootDamage: 20
   ShootRate: 0.1
   ShootDist: 25
-  ammoCount: 32
+  ammoCount: 17
   ammoMag: 32
-  ammoReserve: 100
+  ammoReserve: 36
   ammoReserveDefault: 100
   armorPen: 0.575
   reloadTime: 0.85
+  crouchingMultiplier: 0.5
+  adsMultiplier: 0.25
+  walkingMultiplier: 1.1
+  runningMultiplier: 1.2
+  jumpingMultiplier: 1.75
+  baseAccuracy: 0.045
   Model: {fileID: 1095254202041702, guid: 6273e2936e9d6a24e9f64c7c70d6bd19, type: 3}
   MagModel: {fileID: 100002, guid: ff8c9f278b5bc8e4c894e1122f4a81f3, type: 3}
   TrigModel: {fileID: 100008, guid: ff8c9f278b5bc8e4c894e1122f4a81f3, type: 3}

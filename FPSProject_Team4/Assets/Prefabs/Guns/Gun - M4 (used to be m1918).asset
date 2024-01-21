@@ -12,15 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a231154ba98f1c34ab32f8a06ac808d0, type: 3}
   m_Name: Gun - M4 (used to be m1918)
   m_EditorClassIdentifier: 
+  isGun: 1
+  isDeployable: 0
+  isConsumable: 0
+  itemSprite: {fileID: 21300000, guid: 2f074f2f80657ff4fbe188db1468fc51, type: 3}
+  deployable: {fileID: 0}
+  deployDistance: 0
   ShootDamage: 35
   ShootRate: 0.15
   ShootDist: 50
-  ammoCount: 16
+  ammoCount: 20
   ammoMag: 20
-  ammoReserve: 100
+  ammoReserve: 120
   ammoReserveDefault: 120
   armorPen: 0.9
   reloadTime: 1
+  crouchingMultiplier: 0.5
+  adsMultiplier: 0.1
+  walkingMultiplier: 7.5
+  runningMultiplier: 1.25
+  jumpingMultiplier: 5
+  baseAccuracy: 0.015
   Model: {fileID: 100002, guid: c7741850eebe1df4ea75a80275b16311, type: 3}
   MagModel: {fileID: 100004, guid: c7741850eebe1df4ea75a80275b16311, type: 3}
   TrigModel: {fileID: 100010, guid: c7741850eebe1df4ea75a80275b16311, type: 3}

@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a231154ba98f1c34ab32f8a06ac808d0, type: 3}
   m_Name: Gun - Benelli (shotty)
   m_EditorClassIdentifier: 
+  isGun: 1
+  isDeployable: 0
+  icon: {fileID: 0}
   ShootDamage: 50
   ShootRate: 1.35
   ShootDist: 20
@@ -21,6 +24,12 @@ MonoBehaviour:
   ammoReserveDefault: 25
   armorPen: 1
   reloadTime: 2
+  standingAccuracy: 0
+  crouchingAccuracy: 0
+  adsAccuracy: 0
+  walkingAccuracy: 0
+  runningAccuracy: 0
+  jumpingAccuracy: 0
   Model: {fileID: 1236257789494122, guid: 8b0b86b42def11849a8eba21f4a6a684, type: 3}
   MagModel: {fileID: 100002, guid: bf2593fe0c804b84688e307cfb1ddfae, type: 3}
   TrigModel: {fileID: 100004, guid: bf2593fe0c804b84688e307cfb1ddfae, type: 3}

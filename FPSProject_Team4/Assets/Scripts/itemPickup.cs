@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunPickup : MonoBehaviour
+public class itemPickup : MonoBehaviour
 {
-    [SerializeField] inventoryItem gun;
+    [SerializeField] inventoryItem item;
 
     bool triggerSet; //code that fixes a bug with picking up multiple of the same type of gun (activates trigger multiple times)
 
     // Start is called before the first frame update
     void Start()
     {
-        gun.ammoCount = gun.ammoMag;
-        gun.ammoReserve = gun.ammoReserveDefault;//sets ammo to max amt that the gun can hold
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -21,9 +20,9 @@ public class GunPickup : MonoBehaviour
         {
             triggerSet = true;
             //give stats to player
-            GameManager.instance.playerScript.GetGunStats(gun);
+            GameManager.instance.playerScript.GetGunStats(item);
             Destroy(gameObject);
-            Debug.Log("Gun picked up");
+            Debug.Log("Item picked up");
         }
 
 
@@ -31,4 +30,3 @@ public class GunPickup : MonoBehaviour
 
 
 }
-

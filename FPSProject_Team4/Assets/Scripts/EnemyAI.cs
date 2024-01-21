@@ -42,6 +42,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     bool playerInRange;
     float randTime;
     float timer;
+    [SerializeField] int reward;
     Color colorOrig;
 
     //John
@@ -244,8 +245,11 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
+            Debug.Log("Enemy Killed");
             GameManager.instance.UpdateEnemyCount(-1);
             GetComponent<LootBag>().InstantiateLoot(transform.position);
+            GameManager.instance.score += reward;
+            GameManager.instance.coins += reward;
             Destroy(gameObject);
         }
         else

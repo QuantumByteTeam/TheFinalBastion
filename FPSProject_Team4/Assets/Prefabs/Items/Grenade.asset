@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6867d22c6321489458289b2b5d975120, type: 3}
+  m_Name: Grenade
+  m_EditorClassIdentifier: 
+  isGun: 0
+  isDeployable: 1
+  isConsumable: 0
+  itemSprite: {fileID: 21300000, guid: 159ae6ce77b8347438640e05c36cb053, type: 3}
+  deployable: {fileID: 1068280170183586175, guid: d0523112751fcc84aa348ed49b1b9c41, type: 3}
+  deployDistance: 0
+  ShootDamage: 0
+  ShootRate: 0
+  ShootDist: 0
+  ammoCount: 0
+  ammoMag: 0
+  ammoReserve: 0
+  ammoReserveDefault: 0
+  armorPen: 0
+  reloadTime: 0
+  crouchingMultiplier: 0
+  adsMultiplier: 0
+  walkingMultiplier: 0
+  runningMultiplier: 0
+  jumpingMultiplier: 0
+  baseAccuracy: 0
+  Model: {fileID: 100004, guid: cecca25c94780ca428d51ab9f5894270, type: 3}
+  MagModel: {fileID: 0}
+  TrigModel: {fileID: 0}
+  HitEffect: {fileID: 0}
+  BloodEffect: {fileID: 0}
+  ShootSound: []
+  ShootSoundVol: 0
+  ReloadSound: []
+  ReloadSoundVol: 0
+  CasingSound: []
+  CasingSoundVol: 0
+  EmptySound: []
+  EmptySoundVol: 0

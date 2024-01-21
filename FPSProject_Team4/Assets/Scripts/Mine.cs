@@ -17,7 +17,6 @@ public class Mine : MonoBehaviour
     Collider[] enemies;
     IDamageable dmg;
 
-    private bool exploded = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -55,7 +54,6 @@ public class Mine : MonoBehaviour
                 }
             }
 
-                exploded = true;
                 Destroy(gameObject);
 
         }
