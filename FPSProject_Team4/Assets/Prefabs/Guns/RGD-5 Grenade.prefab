@@ -84,10 +84,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionDamage: 100
-  explosionRadius: 5
+  explosionRadius: 10
   armorPen: 0.5
   knockbackModifier: 0
-  throwForce: 10
+  throwForce: 15
   explosionSound: []
   rb: {fileID: 7218188661652581308}
 --- !u!54 &7218188661652581308
@@ -136,5 +136,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.1
+  m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}

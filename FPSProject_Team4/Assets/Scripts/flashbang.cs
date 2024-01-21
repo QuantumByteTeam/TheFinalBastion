@@ -1,12 +1,11 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class grenade : MonoBehaviour
+public class flashbang : MonoBehaviour
 {
-    [SerializeField] float explosionDamage;
+    [SerializeField] float blindTime;
     [SerializeField] float explosionRadius;
-    [SerializeField] float armorPen;
-    [SerializeField] float knockbackModifier;
     [SerializeField] float throwForce;
     [SerializeField] AudioClip[] explosionSound;
     [SerializeField] Rigidbody rb;
@@ -15,7 +14,7 @@ public class grenade : MonoBehaviour
     private void Start()
     {
         rb.velocity = rb.transform.forward * throwForce;
-        StartCoroutine(fuse(5));
+        StartCoroutine(fuse(2.5f));
     }
 
     IEnumerator fuse(float time)
@@ -36,16 +35,31 @@ public class grenade : MonoBehaviour
 
                     RaycastHit hit;
 
+                    Debug.DrawRay(transform.position, enemies[i].transform.position - transform.position, Color.red, 10);
+
                     if (Physics.Raycast(transform.position, enemies[i].transform.position - transform.position, out hit, explosionRadius))
                     {
 
                         if (hit.collider.tag == "Enemy")
                         {
+                            EnemyAI enemy = hit.collider.GetComponent<EnemyAI>();
+                            Vector3 targetDirection = transform.position - enemy.headPos.position;
+                            float angleToTarget = Vector3.Angle(targetDirection, enemy.transform.forward);
 
-                            Debug.LogError("Hit");
+                            Debug.LogWarning(angleToTarget);
 
-                            dmg.takeDamage(explosionDamage, armorPen);
+                            if (angleToTarget < enemy.viewCone/2)
+                            {
+                                Debug.LogError("Hit");
+                                
+                                float dist = Vector3.Distance(transform.position, enemy.headPos.position);
 
+                                Debug.LogError(dist);
+
+                                enemy.stopShoot(blindTime);
+                                
+                                //blind(enemy, dist);
+                            }
                         }
                     }
                 }
@@ -56,4 +70,6 @@ public class grenade : MonoBehaviour
         Destroy(gameObject);
 
     }
+
+    
 }
