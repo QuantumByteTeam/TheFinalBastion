@@ -16,6 +16,8 @@ public class Wire : MonoBehaviour
         {
             NavMeshAgent agent = other.GetComponent<NavMeshAgent>();
             agent.speed = 0.5f;
+            Rigidbody rb = GetComponent<Rigidbody>();
+            Destroy(rb);
         }
         
     }
