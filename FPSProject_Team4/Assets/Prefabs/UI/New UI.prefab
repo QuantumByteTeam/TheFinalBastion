@@ -3205,6 +3205,81 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &2140748175560581253
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2970479704349525017}
+  - component: {fileID: 3528946622214899283}
+  - component: {fileID: 1993133072011983512}
+  m_Layer: 5
+  m_Name: Player Flash Screen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &2970479704349525017
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140748175560581253}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5879997555414682883}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3528946622214899283
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140748175560581253}
+  m_CullTransparentMesh: 1
+--- !u!114 &1993133072011983512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140748175560581253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &2161847921409866752
 GameObject:
   m_ObjectHideFlags: 0
@@ -4991,6 +5066,7 @@ RectTransform:
   - {fileID: 8882397734453157763}
   - {fileID: 2868195341076015736}
   - {fileID: 7300203951976839259}
+  - {fileID: 2970479704349525017}
   - {fileID: 4888005333674670766}
   - {fileID: 2520916383317305062}
   - {fileID: 1252887320156044636}
@@ -5115,6 +5191,7 @@ MonoBehaviour:
   coinCountText: {fileID: 5128538989374719935}
   scoreCountText: {fileID: 4769265313289987387}
   playerDamageScreen: {fileID: 4739241912908701379}
+  playerFlashScreen: {fileID: 2140748175560581253}
   CraftingUI: {fileID: 0}
   selectionBox: {fileID: 1100392612460586625}
   hotbarSlots:
@@ -6975,13 +7052,13 @@ MonoBehaviour:
   uniformRand: 1
   enemyP: []
   baseEnemyCount: 1
-  enemyCountMultiplier: 2
+  enemyCountMultiplier: 1
   baseEnemyCountNU: 0
   enemyCountMultNU: 0
   waveIntermission: 0
-  waveWinAmount: 0
+  waveWinAmount: 5
   currentWave: 0
-  coinWaveClearBonus: 0
+  coinWaveClearBonus: 1000
 --- !u!1 &4243788807873311542
 GameObject:
   m_ObjectHideFlags: 0

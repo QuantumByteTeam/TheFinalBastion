@@ -245,7 +245,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
-            Debug.Log("Enemy Killed");
             GameManager.instance.UpdateEnemyCount(-1);
             GetComponent<LootBag>().InstantiateLoot(transform.position);
             GameManager.instance.score += reward;

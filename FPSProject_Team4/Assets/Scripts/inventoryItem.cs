@@ -12,22 +12,13 @@ public class inventoryItem : ScriptableObject
     public bool isConsumable;
     [SerializeField] Sprite itemSprite;
     public GameObject deployable;
+    public GameObject droppedItem;
 
     public float deployDistance;
 
     public Sprite returnIcon()
     {
         return itemSprite;
-    }
-
-    public void deploy()
-    {
-
-    }
-
-    public void heal()
-    {
-
     }
 
     [Header("----- Stats -----")]

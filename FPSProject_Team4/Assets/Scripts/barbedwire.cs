@@ -9,6 +9,7 @@ using UnityEngine.AI;
 
 public class Wire : MonoBehaviour
 {
+    [SerializeField] int uses = 10;
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Enemy" && !other.isTrigger)
@@ -25,6 +26,11 @@ public class Wire : MonoBehaviour
         {
             NavMeshAgent agent = other.GetComponent<NavMeshAgent>();
             agent.speed = 3.5f;
+            uses--;
+        }
+        if (uses >=0)
+        {
+            Destroy(gameObject);
         }
     }
 }
