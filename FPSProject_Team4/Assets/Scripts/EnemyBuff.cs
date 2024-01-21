@@ -50,9 +50,15 @@ public class EnemyBuff : MonoBehaviour
 
     void Update()
     {
-        if (!onCooldown)
+        if (!GameManager.instance.isActivePaused)
         {
-            StartCoroutine(CastBuff());
+            if (!GameManager.instance.isPaused)
+            {
+                if (!onCooldown)
+                {
+                    StartCoroutine(CastBuff());
+                }
+            }
         }
     }
     
