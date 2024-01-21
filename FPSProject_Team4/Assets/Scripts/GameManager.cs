@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public PlayerController playerScript;
 
     public GameObject point;
-    //public PointController pointScript;
+    public PointController pointScript;
 
     public GameObject wave;
     public WaveManager waveScript;
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        UIManager.instance.UpdateScore(); //move this elsewhere to it isnt being called every frame
+        //UIManager.instance.UpdateScore(); //move this elsewhere to it isnt being called every frame commenting out
     }
 
     public void StatePaused()

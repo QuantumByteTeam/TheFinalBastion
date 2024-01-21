@@ -34,7 +34,7 @@ public class playerInventory // : MonoBehaviour
             }
             
             GameManager.instance.playerScript.ChangeItem();
-            UIManager.instance.updateHotbar();
+            //UIManager.instance.updateHotbar(); <<<<<<<<<<<<<<< commented out
         }
     }
 
