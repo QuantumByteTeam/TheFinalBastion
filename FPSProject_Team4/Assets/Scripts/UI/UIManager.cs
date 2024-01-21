@@ -89,10 +89,27 @@ public class UIManager : MonoBehaviour
         playerHPBar.fillAmount = (float)playerCont.HP / playerCont.HPOriginal;
     }
 
-    public void UpdatePointHP()
+    public void UpdatePointHP(bool pointHPVisible)
     {
-        PointController pointCont = GameManager.instance.pointScript;
-        pointHPBar.fillAmount = (float)pointCont.health / pointCont.healthOrig;
+        pointHPElement.SetActive(pointHPVisible);
+    }
+
+    public void UpdatePointHP(float pointHP, float pointHPMax)
+    {
+        float ratio = pointHP / pointHPMax;
+        pointHPBar.fillAmount = ratio;
+        if (ratio <= 0.25f)
+        {
+            pointHPBar.color = Color.red;
+        }
+        else if (ratio <= 0.5f)
+        {
+            pointHPBar.color = Color.yellow;
+        }
+        else
+        {
+            pointHPBar.color = Color.green;
+        }
     }
 
     public void UpdateWaveCount()

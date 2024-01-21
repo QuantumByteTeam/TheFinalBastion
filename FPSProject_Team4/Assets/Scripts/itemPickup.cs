@@ -21,6 +21,7 @@ public class itemPickup : MonoBehaviour
             triggerSet = true;
             //give stats to player
             GameManager.instance.playerScript.GetGunStats(item);
+            UIManager.instance.updateSelection(GameManager.instance.playerScript.SelectedItem);
             Destroy(gameObject);
         }
 
