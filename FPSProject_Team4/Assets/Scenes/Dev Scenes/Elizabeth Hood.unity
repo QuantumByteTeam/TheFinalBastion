@@ -310,6 +310,10 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 617095621014933166, guid: 805cea679bdfe3842b9a15b540feec03, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1231204862607263131, guid: 805cea679bdfe3842b9a15b540feec03, type: 3}
       propertyPath: m_Name
       value: Triple Box
@@ -362,9 +366,17 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2731062662892747946, guid: 805cea679bdfe3842b9a15b540feec03, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4904827263369127701, guid: 805cea679bdfe3842b9a15b540feec03, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4904827263369127701, guid: 805cea679bdfe3842b9a15b540feec03, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -448,6 +460,10 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 617095621014933166, guid: 805cea679bdfe3842b9a15b540feec03, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1231204862607263131, guid: 805cea679bdfe3842b9a15b540feec03, type: 3}
       propertyPath: m_Name
       value: Triple Box (1)
@@ -500,9 +516,17 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2731062662892747946, guid: 805cea679bdfe3842b9a15b540feec03, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4904827263369127701, guid: 805cea679bdfe3842b9a15b540feec03, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4904827263369127701, guid: 805cea679bdfe3842b9a15b540feec03, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
