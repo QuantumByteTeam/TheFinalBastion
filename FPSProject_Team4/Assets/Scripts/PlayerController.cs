@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour, IDamageable
                         {
                             Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployable, Camera.main.transform.position + (Camera.main.transform.forward* inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployDistance), Camera.main.transform.rotation);
                             inventory.Remove(SelectedItem);
-                            UIManager.instance.updateHotbar();
+                            //UIManager.instance.updateHotbar(); <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<commented out 
                             UIManager.instance.UpdateAmmo();
                         }
                         
@@ -469,7 +469,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && SelectedItem > 0)//scrolling up, -1 so that ur one less than out of bounds
         {
             SelectedItem--;
-            UIManager.instance.updateSelection(SelectedItem);
+            //UIManager.instance.updateSelection(SelectedItem); <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<commented out 
             //if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
             //{
             //    SelectedGun--;
@@ -480,7 +480,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         else if (Input.GetAxis("Mouse ScrollWheel") < 0 && SelectedItem < inventory.hotbarInventory.Count - 1) //scrolling down, makes sure we never get past 0
         {
             SelectedItem++;
-            UIManager.instance.updateSelection(SelectedItem);
+            //UIManager.instance.updateSelection(SelectedItem); <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<commented out 
             //if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
             //{
             //    SelectedGun++;
@@ -518,7 +518,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             ChangeGun();
         }
 
-        UIManager.instance.updateSelection(SelectedItem);
+        //UIManager.instance.updateSelection(SelectedItem); <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<commented out 
     }
 
     void ChangeGun() //has double pump exploit, BUG WHEN A GUN IS PICKEDUP FIRERATE DOUBLES, temp fix by moving the vars into get stats
@@ -553,7 +553,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         GunTrig.GetComponent<MeshRenderer>().sharedMaterial = inventory.hotbarInventory.ElementAt(SelectedItem).Key.TrigModel.GetComponent<MeshRenderer>().sharedMaterial; //sets the mag texture/renderer
 
         UIManager.instance.UpdateAmmo();
-        UIManager.instance.updateHotbar();
+        //UIManager.instance.updateHotbar(); <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<commented out 
 
         IsShooting = false;
 
