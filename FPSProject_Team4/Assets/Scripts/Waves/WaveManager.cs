@@ -89,7 +89,19 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
-        spawners.AddRange(GameObject.FindGameObjectsWithTag("EnemySpawner"));
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("EnemySpawner"))
+        {
+            EnemySpawner spawner = obj.GetComponent<EnemySpawner>();
+
+            if (spawner != null)
+            {
+                spawners.Add(spawner);
+            }
+            else
+            {
+                Debug.LogError("GameObject found with tag 'EnemySpawner' but does not have component 'EnemySpawner'.");
+            }
+        }
     }
 
     public void Run()
