@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     private int JumpCount; //amt of jumps player has currently remaining
     private bool IsShooting;
     public float HPOriginal; //default starting HP (changed to float)
+    [SerializeField] Transform ADSPosition;
+    [SerializeField] Transform gunPosition;
 
     int SelectedGun; //current gun the player is holding
     bool isPlayingSteps;
@@ -77,13 +79,15 @@ public class PlayerController : MonoBehaviour, IDamageable
     bool holdingGun;
     [SerializeField] float FOV;
 
+    
+
 
     private void Start()
     {
         HPOriginal = HP; //sets default hp to player's current HP
         respawnPlayer();
         controller.enabled = true;
-        
+
         
     }
 
@@ -113,17 +117,21 @@ public class PlayerController : MonoBehaviour, IDamageable
 
                     anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animSpeed, Time.deltaTime * animSpeedTransition));
 
-
+                    
 
                     if(Input.GetButton("ADS"))
                     {
                         isADS = true;
                         Camera.main.fieldOfView = FOV * 0.75f;
+                        GunModel.transform.position = ADSPosition.transform.position;
+                        GunModel.transform.rotation = ADSPosition.transform.rotation;
                     }
                     else
                     {
                         isADS = false;
                         Camera.main.fieldOfView = FOV;
+                        GunModel.transform.position = gunPosition.transform.position;
+                        GunModel.transform.rotation = gunPosition.transform.rotation;
                     }
 
 
