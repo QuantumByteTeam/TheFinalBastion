@@ -4,7 +4,7 @@ using UnityEngine;
 
 //[CreateAssetMenu(menuName = "PowerUps/DmgBuff")]
 
-/*public class dmgPickUp : powerUpEffect
+public class dmgPickUp : powerUpEffect
 {
     public int amount;
 
@@ -12,4 +12,4 @@ using UnityEngine;
     {
         target.GetComponent<gunStats>().ShootDamage *= amount;
     }
-}*/
+}

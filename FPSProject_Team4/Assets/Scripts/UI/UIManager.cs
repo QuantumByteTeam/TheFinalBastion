@@ -40,6 +40,7 @@ public class UIManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        menuActive = null;
     }
 
     private void Start()
@@ -55,7 +56,7 @@ public class UIManager : MonoBehaviour
 
     public void DisplayOptionsMenu()
     {
-        menuActive = menuOptions;
+        Debug.Log("paused");
         menuOptions.SetActive(true);
     }
 
