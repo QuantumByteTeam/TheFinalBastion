@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu]
-
-public class EnemyProbability : ScriptableObject
+public class EnemyData : ScriptableObject
 {
     public GameObject enemy;
-    public float probability;
-    public int coinKillReward;
 }

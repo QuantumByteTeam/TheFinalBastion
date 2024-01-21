@@ -9338,12 +9338,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0082fe8a0c5bddc49b2e07fa189320e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uniformRand: 1
-  enemyP: []
-  baseEnemyCount: 1
-  enemyCountMultiplier: 2
-  waveIntermissionTime: 0
   currentWave: 0
+  spawners: []
+  enemies:
+  - {fileID: 11400000, guid: ad5ee87c1046ce34aaef83b607bc1906, type: 2}
+  - {fileID: 11400000, guid: 635e3018f4177264bac94d2807f704a5, type: 2}
+  - {fileID: 11400000, guid: 82ba5e32aad963949a693570382403c4, type: 2}
+  - {fileID: 11400000, guid: 24455c35a20c0a840a7398e866d912e7, type: 2}
+  - {fileID: 11400000, guid: e627fb49576308f4ebcecd5557a2916f, type: 2}
+  intermissionTimes:
+    start: 0
+    regular: 0
+    afterSpecial: 0
+    afterBoss: 0
 --- !u!1 &8130932721681096757
 GameObject:
   m_ObjectHideFlags: 0
