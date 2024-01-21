@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class turret : MonoBehaviour
+public class turret : MonoBehaviour, IDamageable
 {
     [SerializeField] public int viewCone;
     [SerializeField] int targetFaceSpeed;
@@ -21,6 +21,8 @@ public class turret : MonoBehaviour
     [SerializeField] int bulletSpeed;
     [SerializeField] public float armorPen;
 
+    [SerializeField] public float hp;
+
     int EnemyInRange;
     bool isShooting;
 
@@ -31,6 +33,15 @@ public class turret : MonoBehaviour
         if (EnemyInRange > 0 && canSeeTarget(closestEnemy()))
         {
 
+        }
+    }
+
+    public void takeDamage(float amount, float armorPen)
+    {
+        hp -= amount;
+        if(hp <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 

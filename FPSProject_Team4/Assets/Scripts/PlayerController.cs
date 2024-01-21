@@ -66,6 +66,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     bool isPlayingShoot;
     bool isCrouching;
 
+    public float damageModifier;
+
     //added by John
     public int ammoCount;
     public int ammoMag;
@@ -369,7 +371,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
                 if (hit.transform != transform && dmg != null)
                 {
-                    dmg.takeDamage(inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootDamage, inventory.hotbarInventory.ElementAt(SelectedItem).Key.armorPen);
+                    dmg.takeDamage(inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootDamage*damageModifier, inventory.hotbarInventory.ElementAt(SelectedItem).Key.armorPen);
                 }
             }
             UIManager.instance.UpdateAmmo();
