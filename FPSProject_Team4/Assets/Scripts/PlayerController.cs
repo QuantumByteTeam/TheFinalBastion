@@ -65,6 +65,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     bool isPlayingReload;
     bool isPlayingShoot;
     bool isCrouching;
+    bool isHealing;
 
     public float damageModifier;
 
@@ -430,6 +431,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         StartCoroutine(playerFlashDamage());
         aud.PlayOneShot(SoundHurt[UnityEngine.Random.Range(0, SoundHurt.Length-1)], SoundHurtVol); //plays audio randomly from the whole range of tracks when player hurt
         UIManager.instance.UpdatePlayerHP();
+        StopCoroutine(Cooldown());
 
         if (HP <= 0)
         {
@@ -443,6 +445,39 @@ public class PlayerController : MonoBehaviour, IDamageable
         UIManager.instance.playerDamageScreen.SetActive(true);
         yield return new WaitForSeconds(.1f);
         UIManager.instance.playerDamageScreen.SetActive(false);
+    }
+
+    void PlayerRegen()
+    {
+        if (!isHealing)
+        {
+            isHealing = true;
+
+            if (HP > (HPOriginal * 0.75f))
+            {
+                HP = HPOriginal;
+            }
+            else if (HP > (HPOriginal * 0.5f))
+            {
+                HP = HPOriginal * 0.75f;
+            }
+            else if (HP > (HPOriginal * 0.25f))
+            {
+                HP = HPOriginal * 0.5f;
+            }
+            else
+            {
+                HP = HPOriginal * 0.25f;
+            }
+
+            StartCoroutine(Cooldown());
+        }
+    }
+
+    IEnumerator Cooldown()
+    {
+        yield return new WaitForSeconds(10);
+        isHealing = false;
     }
 
     public void GetGunStats(inventoryItem item) //gives the current picked up/equipped gun the proper stats
