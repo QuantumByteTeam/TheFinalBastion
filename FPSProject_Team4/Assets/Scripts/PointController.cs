@@ -18,7 +18,7 @@ public class PointController : MonoBehaviour, IDamageable
     public void takeDamage(float amount, float armorPen)
     {
         health -= amount;
-        UIManager.instance.UpdatePointHP(health, healthOrig);
+        //UIManager.instance.UpdatePointHP(health, healthOrig); <<<<<<<<<<<<<< commented out
         GameManager.instance.score -= (int)amount;
         if (health <= 0)
         {
@@ -31,8 +31,8 @@ public class PointController : MonoBehaviour, IDamageable
     {
         if (other.tag == "Player")
         {
-            UIManager.instance.UpdatePointHP(true);
-            UIManager.instance.UpdatePointHP(health, healthOrig);
+            //UIManager.instance.UpdatePointHP(true);
+            //UIManager.instance.UpdatePointHP(health, healthOrig);
             
         }
     }
@@ -41,7 +41,7 @@ public class PointController : MonoBehaviour, IDamageable
     {
         if (other.tag == "Player")
         {
-            UIManager.instance.UpdatePointHP(false);
+            //UIManager.instance.UpdatePointHP(false); <<<<<<<<<<< commented out
         }
     }
 }

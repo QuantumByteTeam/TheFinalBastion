@@ -4,15 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-using System.Linq;
-using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
     [SerializeField] Image playerHPBar;
-    [SerializeField] GameObject pointHPElement;
     [SerializeField] Image pointHPBar;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuOptions;
@@ -23,14 +20,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text waveCountText;
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text coinCountText;
-    [SerializeField] TMP_Text scoreCountText;
     public GameObject playerDamageScreen;
     public GameObject playerFlashScreen;
     public GameObject CraftingUI;
 
-    [SerializeField] GameObject selectionBox;
-    [SerializeField] GameObject[] hotbarSlots = new GameObject[9];
-    [SerializeField] Sprite emptySlotSprite;
+ 
 
     public GameObject menuActive;
 
@@ -95,29 +89,10 @@ public class UIManager : MonoBehaviour
         playerHPBar.fillAmount = (float)playerCont.HP / playerCont.HPOriginal;
     }
 
-    public void UpdatePointHP(float pointHP, float pointHPMax)
+    public void UpdatePointHP()
     {
-        //PointController pointCont = GameManager.instance.pointScript;
-        float ratio = pointHP / pointHPMax;
-        pointHPBar.fillAmount = ratio;
-
-        if (ratio <= 0.25f)
-        {
-            pointHPBar.color = Color.red;
-        }
-        else if (ratio <= 0.5f)
-        {
-            pointHPBar.color = Color.yellow;
-        }
-        else
-        {
-            pointHPBar.color = Color.green;
-        }
-    }
-
-    public void UpdatePointHP(bool pointHPVisible)
-    {
-        pointHPElement.SetActive(pointHPVisible);
+        PointController pointCont = GameManager.instance.pointScript;
+        pointHPBar.fillAmount = (float)pointCont.health / pointCont.healthOrig;
     }
 
     public void UpdateWaveCount()
@@ -149,17 +124,11 @@ public class UIManager : MonoBehaviour
             ammoCounterText.text = playerCont.inventory.hotbarInventory.ElementAt(playerCont.SelectedItem).Value.ToString();
             reserveAmmoText.text = "0";
         }
-        
     }
 
     public void UpdateBalance()
     {
         coinCountText.text = GameManager.instance.coins.ToString("0");
-    }
-
-    public void UpdateScore()
-    {
-        scoreCountText.text = GameManager.instance.score.ToString("0");
     }
 
     public IEnumerator reloading(float time)
@@ -186,27 +155,12 @@ public class UIManager : MonoBehaviour
     }
 
     
-    public void updateSelection(int selection)
+    public void exitToMainMenu()
     {
-        selectionBox.transform.localPosition = new Vector3((selection * (478f/8)) - 239f, -480, 0);
-        updateHotbar();
+        SceneManager.LoadScene("TitleMenu");
     }
 
-    public void updateHotbar()
-    {
-        int j = GameManager.instance.playerScript.inventory.hotbarInventory.Count;
-        for (int i = 0; i < j; i++)
-        {
-            hotbarSlots[i].GetComponent<Image>().sprite = GameManager.instance.playerScript.inventory.hotbarInventory.ElementAt(i).Key.returnIcon();
-        }
-        for (int i = j; i < 9; i++)
-        {
-            hotbarSlots[i].GetComponent<Image>().sprite = emptySlotSprite;
-        }
 
-        UpdateAmmo();
-
-    }
 
     public void blind()
     {
