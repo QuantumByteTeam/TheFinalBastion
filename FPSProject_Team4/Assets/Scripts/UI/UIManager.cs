@@ -134,7 +134,12 @@ public class UIManager : MonoBehaviour
     public void UpdateAmmo()
     {
         PlayerController playerCont = GameManager.instance.playerScript;
-        if (playerCont.inventory.hotbarInventory.ElementAt(playerCont.SelectedItem).Key.isGun)
+        if (playerCont.inventory.hotbarInventory.Count <= 0)
+        {
+            ammoCounterText.text = playerCont.ammoCount.ToString("0");
+            reserveAmmoText.text = playerCont.ammoReserve.ToString("0");
+        }
+        else if (playerCont.inventory.hotbarInventory.ElementAt(playerCont.SelectedItem).Key.isGun)
         {
             ammoCounterText.text = playerCont.ammoCount.ToString("0");
             reserveAmmoText.text = playerCont.ammoReserve.ToString("0");
@@ -209,10 +214,8 @@ public class UIManager : MonoBehaviour
     }
     public IEnumerator playerBlind()
     {
-        Debug.Log("Player blinded");
         playerFlashScreen.SetActive(true);
         yield return new WaitForSeconds(5f);
-        Debug.Log("Player not blinded");
         playerFlashScreen.SetActive(false);
     }
 

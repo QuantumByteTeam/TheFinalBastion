@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     //added by John
     public int ammoCount;
-    int ammoMag;
+    public int ammoMag;
     public int ammoReserve;
     private bool reloading;
     public bool armor; //was priv
@@ -135,14 +135,17 @@ public class PlayerController : MonoBehaviour, IDamageable
                     }
 
 
+                    if (Input.GetButtonDown("Drop") && invSize > 0)
+                    {
+                        inventory.drop(SelectedItem);
+                    }
 
-
-                    if (invSize > -1)
+                    if (invSize >= 0)
                     {
                         SelectItem();
                     }
 
-                    if (invSize > 0 && inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
+                    if (inventory.hotbarInventory.Count > 0 && inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
                     {
                         if (Input.GetButton("Shoot") && !IsShooting && !reloading)
                         {
@@ -155,7 +158,7 @@ public class PlayerController : MonoBehaviour, IDamageable
                         }
                         //SelectGun();
                     }
-                    else if (invSize > 0 && inventory.hotbarInventory.ElementAt(SelectedItem).Key.isDeployable)
+                    else if (inventory.hotbarInventory.Count > 0 && inventory.hotbarInventory.ElementAt(SelectedItem).Key.isDeployable)
                     {
                         if (Input.GetButtonDown("Shoot"))
                         {
@@ -344,7 +347,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             if (Physics.Raycast(Camera.main.transform.position, fwd, out hit, currentItem.ShootDist))
             //if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootDist))
             {
-                Debug.Log(bA);
+                //Debug.Log(bA);
                 Debug.DrawRay(Camera.main.transform.position, fwd, Color.yellow, 100);
                 if (hit.collider.tag == "Enemy")
                 {
@@ -437,12 +440,10 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         if (inventory.hotbarInventory.ContainsKey(item))
         {
-            Debug.LogWarning("Added to existing item");
             inventory.hotbarInventory[item] += 1;
         }
         else
         {
-            Debug.LogWarning("New item created");
             inventory.hotbarInventory.Add(item, 1);
         }
         
@@ -513,7 +514,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         GunTrig.GetComponent<MeshFilter>().sharedMesh = null;
         GunTrig.GetComponent<MeshRenderer>().sharedMaterial = null;
 
-        if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.Model != null)
+        if (inventory.hotbarInventory.Count > 0 && inventory.hotbarInventory.ElementAt(SelectedItem).Key.Model != null)
         {
             GunModel.GetComponent<MeshFilter>().sharedMesh = inventory.hotbarInventory.ElementAt(SelectedItem).Key.Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model
             GunModel.GetComponent<MeshRenderer>().sharedMaterial = inventory.hotbarInventory.ElementAt(SelectedItem).Key.Model.GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
@@ -521,7 +522,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         
 
 
-        if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
+        if (inventory.hotbarInventory.Count > 0 && inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
         {
             ChangeGun();
         }
