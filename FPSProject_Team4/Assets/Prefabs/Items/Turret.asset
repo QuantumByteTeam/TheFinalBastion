@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Turret
   m_EditorClassIdentifier: 
   isGun: 0
-  isDeployable: 0
+  isDeployable: 1
   isConsumable: 0
   itemSprite: {fileID: 0}
-  deployable: {fileID: 0}
-  droppedItem: {fileID: 0}
+  deployable: {fileID: 6322845423106370932, guid: 4b83d6ac4b6ae0a4e9f698bbdf7b5921, type: 3}
+  droppedItem: {fileID: 7484076976484053707, guid: 183b8aa68ee92c74c8b3d3a689b4862d, type: 3}
   deployDistance: 0
   ShootDamage: 0
   ShootRate: 0
@@ -34,7 +34,7 @@ MonoBehaviour:
   runningMultiplier: 0
   jumpingMultiplier: 0
   baseAccuracy: 0
-  Model: {fileID: 0}
+  Model: {fileID: 100008, guid: 018d5bd3bfb8b6a49a8b354ba11e4a8f, type: 3}
   MagModel: {fileID: 0}
   TrigModel: {fileID: 0}
   HitEffect: {fileID: 0}

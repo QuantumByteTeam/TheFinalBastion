@@ -23,8 +23,6 @@ public class itemPickup : MonoBehaviour
             GameManager.instance.playerScript.GetGunStats(item);
             Destroy(gameObject);
         }
-
-
     }
 
 

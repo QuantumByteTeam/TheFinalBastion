@@ -14,7 +14,6 @@ public class GunPickup : MonoBehaviour
         gun.ammoCount = gun.ammoMag;
         gun.ammoReserve = gun.ammoReserveDefault;//sets ammo to max amt that the gun can hold
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && !triggerSet && GameManager.instance.playerScript.inventory.hotbarInventory.Count < 9) 
