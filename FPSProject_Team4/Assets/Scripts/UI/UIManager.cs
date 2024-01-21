@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text coinCountText;
     public GameObject playerDamageScreen;
+    public GameObject playerFlashScreen;
     public GameObject CraftingUI;
 
  
@@ -108,8 +109,21 @@ public class UIManager : MonoBehaviour
     public void UpdateAmmo()
     {
         PlayerController playerCont = GameManager.instance.playerScript;
-        ammoCounterText.text = playerCont.ammoCount.ToString("0");
-        reserveAmmoText.text = playerCont.ammoReserve.ToString("0");
+        if (playerCont.inventory.hotbarInventory.Count <= 0)
+        {
+            ammoCounterText.text = playerCont.ammoCount.ToString("0");
+            reserveAmmoText.text = playerCont.ammoReserve.ToString("0");
+        }
+        else if (playerCont.inventory.hotbarInventory.ElementAt(playerCont.SelectedItem).Key.isGun)
+        {
+            ammoCounterText.text = playerCont.ammoCount.ToString("0");
+            reserveAmmoText.text = playerCont.ammoReserve.ToString("0");
+        }
+        else
+        {
+            ammoCounterText.text = playerCont.inventory.hotbarInventory.ElementAt(playerCont.SelectedItem).Value.ToString();
+            reserveAmmoText.text = "0";
+        }
     }
 
     public void UpdateBalance()
@@ -148,6 +162,15 @@ public class UIManager : MonoBehaviour
 
 
 
-
+    public void blind()
+    {
+        StartCoroutine(playerBlind());
+    }
+    public IEnumerator playerBlind()
+    {
+        playerFlashScreen.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        playerFlashScreen.SetActive(false);
+    }
 
 }

@@ -17,13 +17,12 @@ public class GunPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !triggerSet) //use interfaces (like IDamage) to change if u want entities to pick things up/take dmg etc.
+        if (other.CompareTag("Player") && !triggerSet && GameManager.instance.playerScript.inventory.hotbarInventory.Count < 9) 
         {
             triggerSet = true;
             //give stats to player
             GameManager.instance.playerScript.GetGunStats(gun);
             Destroy(gameObject);
-            Debug.Log("Gun picked up");
         }
 
 

@@ -65,6 +65,28 @@ public class flashbang : MonoBehaviour
                 }
 
             }
+            else if (enemies[i].tag == "Player")
+            {
+                Debug.DrawRay(transform.position, enemies[i].transform.position - transform.position, Color.red, 10);
+                RaycastHit hit;
+
+                Vector3 targetDirection = transform.position - Camera.main.transform.position;
+                float angleToTarget = Vector3.Angle(targetDirection, Camera.main.transform.forward);
+                Debug.LogWarning(angleToTarget);
+
+                if (Physics.Raycast(transform.position, enemies[i].transform.position - transform.position, out hit, explosionRadius))
+                {
+
+                    if (hit.collider.tag == "Player" && angleToTarget <= 45)
+                    {
+
+                        Debug.LogError("Hit");
+
+                        UIManager.instance.blind();
+
+                    }
+                }
+            }
         }
 
         Destroy(gameObject);
@@ -72,4 +94,6 @@ public class flashbang : MonoBehaviour
     }
 
     
+
+
 }
