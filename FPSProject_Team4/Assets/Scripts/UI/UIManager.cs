@@ -141,7 +141,10 @@ public class UIManager : MonoBehaviour
     }
 
     
-
+    public void exitToMainMenu()
+    {
+        SceneManager.LoadScene("TitleMenu");
+    }
 
 
 
