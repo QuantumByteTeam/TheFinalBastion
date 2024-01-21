@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text coinCountText;
     [SerializeField] TMP_Text scoreCountText;
     public GameObject playerDamageScreen;
+    public GameObject playerFlashScreen;
     public GameObject CraftingUI;
 
     [SerializeField] GameObject selectionBox;
@@ -202,6 +203,17 @@ public class UIManager : MonoBehaviour
 
     }
 
-
+    public void blind()
+    {
+        StartCoroutine(playerBlind());
+    }
+    public IEnumerator playerBlind()
+    {
+        Debug.Log("Player blinded");
+        playerFlashScreen.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        Debug.Log("Player not blinded");
+        playerFlashScreen.SetActive(false);
+    }
 
 }
