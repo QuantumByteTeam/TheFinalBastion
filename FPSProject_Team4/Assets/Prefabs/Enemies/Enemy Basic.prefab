@@ -73,6 +73,8 @@ MonoBehaviour:
   bulletDamage: 1
   bulletSpeed: 25
   point: {fileID: 0}
+  isBuffed: 0
+  reward: 100
   armor: 0
 --- !u!195 &6816173695710615065
 NavMeshAgent:

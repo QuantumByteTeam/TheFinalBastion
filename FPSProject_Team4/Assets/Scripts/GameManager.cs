@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public PlayerController playerScript;
 
     public GameObject point;
-    public PointController pointScript;
+    //public PointController pointScript;
 
     public GameObject wave;
     public WaveManager waveScript;
@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     // public int waveCount;
     public int coins;
     float timescaleOG;
+
+    public int score;
     
     // Start is called before the first frame update
     void Awake()
@@ -34,7 +36,7 @@ public class GameManager : MonoBehaviour
         playerScript = player.GetComponent<PlayerController>();
         playerSpawnPos = GameObject.FindWithTag("PlayerSpawn");
         point = GameObject.FindWithTag("Point");
-        pointScript = point.GetComponent<PointController>();
+        //pointScript = point.GetComponent<PointController>();
         wave = GameObject.FindWithTag("WaveManager");
         waveScript = wave.GetComponent<WaveManager>();
         timescaleOG = Time.timeScale;
@@ -57,6 +59,8 @@ public class GameManager : MonoBehaviour
                 UIManager.instance.DisplayStoreMenu();
             }
         }
+
+        UIManager.instance.UpdateScore(); //move this elsewhere to it isnt being called every frame
     }
 
     public void StatePaused()

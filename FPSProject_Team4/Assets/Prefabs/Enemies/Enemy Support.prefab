@@ -160,6 +160,7 @@ MonoBehaviour:
   bulletSpeed: 25
   point: {fileID: 0}
   isBuffed: 0
+  reward: 150
   armor: 0
 --- !u!114 &2177037421144176401
 MonoBehaviour:
@@ -173,24 +174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88211aa800966724abb8a2dc0027e258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 45
-  buffRadius: 20
-  enableBuffArmor: 1
-  armorDuration: 30
-  enableBuffRegen: 1
-  healthLimitMult: 2
-  regenAmount: 1
-  regenRate: 2
-  regenDuration: 30
-  enableBuffSpeed: 1
-  speedMult: 1.5
-  speedDuration: 30
-  enableBuffDamage: 1
-  damageMult: 2
-  damageDuration: 30
-  enableBuffAtkSpeed: 1
-  atkSpeedMult: 2
-  atkSpeedDuration: 30
 --- !u!195 &1475220195424088303
 NavMeshAgent:
   m_ObjectHideFlags: 0

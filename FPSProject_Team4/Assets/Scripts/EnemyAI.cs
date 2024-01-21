@@ -15,7 +15,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     [Header("----- Stats -----")]
     [SerializeField] public float health;
-    [SerializeField] int viewCone;
+    [SerializeField] public int viewCone;
     [SerializeField] int targetFaceSpeed;
     [SerializeField] bool shouldTargetPlayer;
     [SerializeField] bool shouldTargetPoint;
@@ -29,7 +29,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [Header("----- Weapon Stats -----")]
     [SerializeField] GameObject bullet;
     [SerializeField] Transform firePos;
-    [SerializeField] Transform headPos;
+    [SerializeField] public Transform headPos;
     [SerializeField] public float fireRate;
     [SerializeField] public int bulletDamage;
     [SerializeField] int bulletSpeed;
@@ -42,6 +42,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     bool playerInRange;
     float randTime;
     float timer;
+    [SerializeField] int reward;
     Color colorOrig;
 
     //John
@@ -244,8 +245,11 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
+            Debug.Log("Enemy Killed");
             GameManager.instance.UpdateEnemyCount(-1);
             GetComponent<LootBag>().InstantiateLoot(transform.position);
+            GameManager.instance.score += reward;
+            GameManager.instance.coins += reward;
             Destroy(gameObject);
         }
         else
@@ -259,5 +263,36 @@ public class EnemyAI : MonoBehaviour, IDamageable
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.1f);
         model.material.color = colorOrig;
+    }
+
+    public bool stopShoot(float time)
+    {
+        StopCoroutine(blind(0));
+        StopCoroutine(shoot());
+        isShooting = true;
+        StartCoroutine(blind(time));
+        return true;
+    }
+
+    public IEnumerator blind(float time)
+    {
+        
+            
+        Debug.LogError("Enemy Stopped Shooting");
+        float temp = fireRate;
+        int temp2 = targetFaceSpeed;
+        NavMeshAgent agent = GetComponent<NavMeshAgent>();
+
+        fireRate = 100;
+        Debug.LogError("Enemy firerate: 5");
+        agent.speed = 0;
+        Debug.LogError("Enemy Speed: 0");
+        targetFaceSpeed = 0;
+        yield return new WaitForSeconds(time);
+        targetFaceSpeed = temp2;
+        fireRate = temp;
+        isShooting = false;
+        agent.speed = 3.5f;
+        
     }
 }

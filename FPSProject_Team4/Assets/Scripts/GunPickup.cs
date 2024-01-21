@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GunPickup : MonoBehaviour
 {
-    [SerializeField] gunStats gun;
+    [SerializeField] inventoryItem gun;
 
     bool triggerSet; //code that fixes a bug with picking up multiple of the same type of gun (activates trigger multiple times)
 
@@ -23,6 +23,7 @@ public class GunPickup : MonoBehaviour
             //give stats to player
             GameManager.instance.playerScript.GetGunStats(gun);
             Destroy(gameObject);
+            Debug.Log("Gun picked up");
         }
 
 
