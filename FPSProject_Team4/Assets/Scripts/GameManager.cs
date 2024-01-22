@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using TMPro;
 
 
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour
     float timescaleOG;
 
     public int score;
+
+    public UnityEvent waveEndEvent;
     
     // Start is called before the first frame update
     void Awake()
@@ -41,6 +44,11 @@ public class GameManager : MonoBehaviour
         waveScript = wave.GetComponent<WaveManager>();
         timescaleOG = Time.timeScale;
         coins = 0;
+    }
+
+    void Start()
+    {
+        WaveManager.instance.Run();
     }
 
     // Update is called once per frame
@@ -100,9 +108,9 @@ public class GameManager : MonoBehaviour
         enemiesRemaining = Mathf.Max(enemiesRemaining, 0);
         UIManager.instance.UpdateRemainingEnemies();
 
-        if (enemiesRemaining <= 0)
+        if (enemiesRemaining < 1)
         {
-            StartCoroutine(WaveManager.instance.StartWave());
+            waveEndEvent.Invoke();
         }
     }
     

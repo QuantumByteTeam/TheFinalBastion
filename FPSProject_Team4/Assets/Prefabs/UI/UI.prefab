@@ -2271,6 +2271,21 @@ MonoBehaviour:
   enemiesRemaining: 0
   coins: 0
   score: 0
+  waveEndEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8622480357131205477}
+        m_TargetAssemblyTypeName: WaveManager, Assembly-CSharp
+        m_MethodName: OnWaveEnd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2107425608203563625
 GameObject:
   m_ObjectHideFlags: 0
@@ -6075,16 +6090,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWave: 0
+  startEnemyCount: 1
   enemyCountMultiplier: 1
   bossRoundInterval: 2
   spawners: []
+  spawnDelay: 0
   roundData:
   - name: regular
-    probability: 1
-    enemyData: []
+    type: 0
+    probability: 0.75
+    enemyData:
+    - enemyRef: {fileID: 11400000, guid: ad5ee87c1046ce34aaef83b607bc1906, type: 2}
+      probability: 0.75
+    - enemyRef: {fileID: 11400000, guid: 82ba5e32aad963949a693570382403c4, type: 2}
+      probability: 0.25
+  - name: Special
+    type: 1
+    probability: 0.25
+    enemyData:
+    - enemyRef: {fileID: 11400000, guid: e627fb49576308f4ebcecd5557a2916f, type: 2}
+      probability: 1
   intermissionTimes:
     start: 0
-    regular: 0
+    afterRegular: 0
     afterSpecial: 0
     afterBoss: 0
 --- !u!1 &4243788807873311542
@@ -9092,7 +9120,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2913885573835126036
 RectTransform:
   m_ObjectHideFlags: 0
