@@ -79,8 +79,9 @@ public class flashbang : MonoBehaviour
 
                     if (hit.collider.tag == "Player" && angleToTarget <= 45)
                     {
-
                         Debug.LogError("Hit");
+                        Debug.LogError(hit.collider.tag);
+                        Debug.LogError(angleToTarget);
 
                         UIManager.instance.blind();
 

@@ -17,6 +17,10 @@ MonoBehaviour:
   isConsumable: 0
   itemSprite: {fileID: 0}
   deployable: {fileID: 3428009059955794112, guid: b54fe1b31023c0f448d5b2b481542d72, type: 3}
+<<<<<<< Updated upstream
+=======
+  droppedItem: {fileID: 3735391452281817817, guid: b964ef15a0de3c84998ddf1844203f42, type: 3}
+>>>>>>> Stashed changes
   deployDistance: 0
   ShootDamage: 0
   ShootRate: 0

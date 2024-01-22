@@ -137,6 +137,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
                     if (Input.GetButtonDown("Drop") && invSize > 0)
                     {
+                        Debug.Log("Dropped");
                         inventory.drop(SelectedItem);
                     }
 
