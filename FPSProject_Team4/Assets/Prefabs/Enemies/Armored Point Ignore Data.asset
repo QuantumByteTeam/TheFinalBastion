@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c36b7ca5460f07448f8f352215e0b80, type: 3}
-  m_Name: Probability - Enemy Support
+  m_Name: Armored Point Ignore Data
   m_EditorClassIdentifier: 
-  enemy: {fileID: 3001416707534194424, guid: 113eb89b0b602dd46b59e680b9e8b4be, type: 3}
-  probability: 10
+  enemy: {fileID: 1722172535831231147, guid: 3c0d81bf8ab1e3646a28cd25f9b46e96, type: 3}
+  probability: 15
   coinKillReward: 0

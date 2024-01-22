@@ -10,8 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c36b7ca5460f07448f8f352215e0b80, type: 3}
-  m_Name: Probability - Basic
+  m_Name: Roller Data
   m_EditorClassIdentifier: 
-  enemy: {fileID: 1277755095150470934, guid: 4b2922f080dd4174d8d836fcaaf4e54e, type: 3}
-  probability: 30
-  coinKillReward: 0
+  enemy: {fileID: 7147672459667256840, guid: 6c5e42c78396fe74e8462818c3e08268, type: 3}
