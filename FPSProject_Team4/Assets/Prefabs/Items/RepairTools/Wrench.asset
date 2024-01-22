@@ -17,7 +17,7 @@ MonoBehaviour:
   isConsumable: 1
   itemSprite: {fileID: 0}
   deployable: {fileID: 0}
-  droppedItem: {fileID: 0}
+  droppedItem: {fileID: 8870564053542319469, guid: 3cca0385ee94fd548bcb7748880bbfff, type: 3}
   deployDistance: 0
   ShootDamage: 50
   ShootRate: 0
@@ -34,7 +34,7 @@ MonoBehaviour:
   runningMultiplier: 0
   jumpingMultiplier: 0
   baseAccuracy: 0
-  Model: {fileID: 4227466390941291970, guid: 2469f8f1db2003741a79a4a496f0384b, type: 3}
+  Model: {fileID: 100000, guid: e3cb91db514d326458c1bbae7e51206a, type: 3}
   MagModel: {fileID: 0}
   TrigModel: {fileID: 0}
   HitEffect: {fileID: 0}
