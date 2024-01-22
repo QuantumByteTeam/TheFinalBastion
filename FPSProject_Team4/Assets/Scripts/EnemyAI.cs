@@ -281,13 +281,13 @@ public class EnemyAI : MonoBehaviour, IDamageable
         if (health <= 0)
         {
             GameManager.instance.UpdateEnemyCount(-1);
-            LootBag lootBag = GetComponent<LootBag>();
-            if (lootBag)
-            {
-                lootBag.InstantiateLoot(transform.position);
-                GameManager.instance.score += reward;
-                GameManager.instance.coins += reward;
-            }
+            //LootBag lootBag = GetComponent<LootBag>();
+            //if (lootBag)
+            //{
+            //    lootBag.InstantiateLoot(transform.position);
+            //    GameManager.instance.score += reward;
+            //    GameManager.instance.coins += reward;
+            //}
             
             Destroy(gameObject);
         }
