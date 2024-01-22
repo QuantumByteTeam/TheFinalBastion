@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RollingMechanics : MonoBehaviour
 {
-    [SerializeField] float rollingSpeed;
+    [SerializeField] public float rollingSpeed;
     [SerializeField] float damageAmount;
     [SerializeField] float knockbackForce;
     [SerializeField] float knockbackDuration;
@@ -54,7 +54,6 @@ public class RollingMechanics : MonoBehaviour
     {
         canRoll = false;
         EnableCollision();
-        StartRolling(rollingSpeed);
 
         yield return new WaitForSeconds(1.0f);
 
@@ -66,11 +65,7 @@ public class RollingMechanics : MonoBehaviour
         canRoll = true;
     }
 
-    void StartRolling(float speed)
-    {
-        //Include enemy AI seeing and chasing behavior in here somehow
-        //Nav mesh will go towards player in the if statement in enemy ai when it sees the player
-    }
+    
 
     void StopRolling()
     {
@@ -90,6 +85,6 @@ public class RollingMechanics : MonoBehaviour
     {
         StopRolling();
         yield return new WaitForSeconds(knockbackDuration);
-        StartRolling(rollingSpeed);
+        //StartRolling(rollingSpeed);
     }
 }

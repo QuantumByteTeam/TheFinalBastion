@@ -40,10 +40,14 @@ public class EnemyAI : MonoBehaviour, IDamageable
     public bool isBuffed = false;
     bool isShooting;
     bool playerInRange;
+    bool isRoller;
+    bool isExploder;
     float randTime;
     float timer;
     [SerializeField] int reward;
     Color colorOrig;
+    RollingMechanics roller;
+    ExplodingMechanic exploder;
 
     //John
     public bool armor;
@@ -53,6 +57,16 @@ public class EnemyAI : MonoBehaviour, IDamageable
         point = GameManager.instance.point;
         colorOrig = model.material.color;
         GameManager.instance.UpdateEnemyCount(1);
+        if (GetComponent<RollingMechanics>() != null)
+        {
+            roller = GetComponent<RollingMechanics>();
+            isRoller = true;
+        }
+        if (GetComponent<ExplodingMechanic>() != null)
+        {
+            exploder = GetComponent<ExplodingMechanic>();
+            isExploder = true;
+        }
     }
 
     void Update()
@@ -98,20 +112,29 @@ public class EnemyAI : MonoBehaviour, IDamageable
                 agent.SetDestination(targetPos.position);
                 //SpreadOut(targetDirection);
 
-                if (!isShooting)
+                if (!isRoller && !isExploder)
                 {
-                    StartCoroutine(shoot());
+                    if (!isShooting)
+                    {
+                        StartCoroutine(shoot());
+                    }
                 }
 
-                
-                if (agent.remainingDistance < agent.stoppingDistance)
+                if (!isRoller)
                 {
-                    faceTarget(targetDirection);
+                    if (agent.remainingDistance < agent.stoppingDistance)
+                    {
+                        faceTarget(targetDirection);
+                    }
                 }
-
+                
+                if (isRoller)
+                {
+                    agent.speed = roller.rollingSpeed;
+                }
                 
 
-                return true;
+                
             }
             else if (hit.collider.CompareTag("Enemy"))
             {
@@ -133,7 +156,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
                     faceTarget(targetDirection);
                 }
             }
-            
+            return true;
+
         }
 
         return false;
@@ -168,6 +192,13 @@ public class EnemyAI : MonoBehaviour, IDamageable
         //firePos.rotation = Quaternion.Euler(headPos.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
     }
 
+    public void StartRolling(float speed)
+    {
+        //Include enemy AI seeing and chasing behavior in here somehow
+        //Nav mesh will go towards player in the if statement in enemy ai when it sees the player
+
+    }
+
     IEnumerator shoot()
     {
         isShooting = true;
@@ -192,7 +223,11 @@ public class EnemyAI : MonoBehaviour, IDamageable
                 bulletComp.run();
 
                 yield return new WaitForSeconds(fireRate);
+
+                Destroy(obj);
             }
+
+            
         }
 
         isShooting = false;
