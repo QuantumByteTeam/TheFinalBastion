@@ -2688,22 +2688,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8622480357131205477, guid: 0921d070520c32d4590ce60ea097e716, type: 3}
-      propertyPath: roundData.Array.data[0].enemyData.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8622480357131205477, guid: 0921d070520c32d4590ce60ea097e716, type: 3}
-      propertyPath: roundData.Array.data[0].enemyData.Array.data[2].enemyRef
-      value: 
-      objectReference: {fileID: 11400000, guid: b0edbd4f1167e0049988adbc52622aef, type: 2}
-    - target: {fileID: 8622480357131205477, guid: 0921d070520c32d4590ce60ea097e716, type: 3}
-      propertyPath: roundData.Array.data[0].enemyData.Array.data[0].probability
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8622480357131205477, guid: 0921d070520c32d4590ce60ea097e716, type: 3}
-      propertyPath: roundData.Array.data[0].enemyData.Array.data[2].probability
-      value: 0.25
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7871,7 +7855,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8927877882277990530, guid: e22999e527439a74391ad91bafb1eead, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 288.17
+      value: 273.8
       objectReference: {fileID: 0}
     - target: {fileID: 8927877882277990530, guid: e22999e527439a74391ad91bafb1eead, type: 3}
       propertyPath: m_LocalRotation.w

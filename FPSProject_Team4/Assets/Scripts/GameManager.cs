@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
         enemiesRemaining = Mathf.Max(enemiesRemaining, 0);
         UIManager.instance.UpdateRemainingEnemies();
 
-        if (enemiesRemaining < 1)
+        if (enemiesRemaining <= 0)
         {
             waveEndEvent.Invoke();
         }

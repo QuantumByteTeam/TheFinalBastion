@@ -1029,10 +1029,13 @@ MonoBehaviour:
   HPOriginal: 0
   ADSPosition: {fileID: 7097433012950497643}
   gunPosition: {fileID: 4692781281717760944}
+  damageModifier: 1
   ammoCount: 0
+  ammoMag: 0
   ammoReserve: 0
   armor: 0
   SelectedItem: 0
+  swap: 0
   FOV: 60
 --- !u!114 &888284606967919250
 MonoBehaviour:

@@ -132,7 +132,7 @@ public class WaveManager : MonoBehaviour
         currentWave++;
         UIManager.instance.UpdateWaveCount();
 
-        int enemyCount = Mathf.CeilToInt(startEnemyCount + enemyCountMultiplier * currentWave); // Enemy Count function, currently is linear
+        int enemyCount = Mathf.FloorToInt(startEnemyCount + enemyCountMultiplier * currentWave); // Enemy Count function, currently is linear
         totalEnemyCount = enemyCount;
 
         round = GetRandomRound();

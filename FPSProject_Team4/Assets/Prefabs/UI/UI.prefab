@@ -6094,26 +6094,34 @@ MonoBehaviour:
   enemyCountMultiplier: 1
   bossRoundInterval: 2
   spawners: []
-  spawnDelay: 0
+  spawnDelay: 0.1
   roundData:
   - name: regular
     type: 0
     probability: 0.75
     enemyData:
     - enemyRef: {fileID: 11400000, guid: ad5ee87c1046ce34aaef83b607bc1906, type: 2}
-      probability: 0.75
+      probability: 0.5
     - enemyRef: {fileID: 11400000, guid: 82ba5e32aad963949a693570382403c4, type: 2}
+      probability: 0.25
+    - enemyRef: {fileID: 11400000, guid: b0edbd4f1167e0049988adbc52622aef, type: 2}
       probability: 0.25
   - name: Special
     type: 1
     probability: 0.25
     enemyData:
     - enemyRef: {fileID: 11400000, guid: e627fb49576308f4ebcecd5557a2916f, type: 2}
-      probability: 1
+      probability: 0.1
+    - enemyRef: {fileID: 11400000, guid: ad5ee87c1046ce34aaef83b607bc1906, type: 2}
+      probability: 0.35
+    - enemyRef: {fileID: 11400000, guid: 635e3018f4177264bac94d2807f704a5, type: 2}
+      probability: 0.3
+    - enemyRef: {fileID: 11400000, guid: b0edbd4f1167e0049988adbc52622aef, type: 2}
+      probability: 0.25
   intermissionTimes:
-    start: 0
-    afterRegular: 0
-    afterSpecial: 0
+    start: 5
+    afterRegular: 5
+    afterSpecial: 10
     afterBoss: 0
 --- !u!1 &4243788807873311542
 GameObject:
