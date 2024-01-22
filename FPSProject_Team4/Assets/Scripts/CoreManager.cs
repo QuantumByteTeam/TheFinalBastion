@@ -14,7 +14,7 @@ public class CoreManager : MonoBehaviour
 
     public void RegisterCore(GameObject obj)
     {
-        //if (obj.GetComponent<Core>()) // TODO: Uncomment this check once Core is implemented
+        if (obj.GetComponent<PointController>()) // TODO: Uncomment this check once Core is implemented
         {
             cores.Add(obj);
         }
