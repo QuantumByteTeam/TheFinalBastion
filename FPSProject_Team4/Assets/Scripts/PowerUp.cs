@@ -8,9 +8,19 @@ public class PowerUp : MonoBehaviour
    
     private void OnTriggerEnter(Collider collision) //when player touches power up, it is destroyed then applied to player.
     {
-        Destroy(gameObject, 10); //power up despawns after certain amount of time
         Destroy(gameObject);
         powerUpEffect.Apply(collision.gameObject);
+    }
+
+    private void Awake()
+    {
+        StartCoroutine(fadePowerup());
+    }
+
+    IEnumerator fadePowerup()
+    {
+        yield return new WaitForSeconds(7);
+        Object.Destroy(this.gameObject);
     }
 
 }
