@@ -16,7 +16,6 @@ public class flashbang : MonoBehaviour
         rb.velocity = rb.transform.forward * throwForce;
         StartCoroutine(fuse(2.5f));
     }
-
     IEnumerator fuse(float time)
     {
         yield return new WaitForSeconds(time);
@@ -67,14 +66,14 @@ public class flashbang : MonoBehaviour
             }
             else if (enemies[i].tag == "Player")
             {
-                Debug.DrawRay(transform.position, enemies[i].transform.position - transform.position, Color.red, 10);
+                Debug.DrawRay(transform.position, enemies[i].transform.position - transform.position, Color.yellow, 10);
                 RaycastHit hit;
 
                 Vector3 targetDirection = transform.position - Camera.main.transform.position;
                 float angleToTarget = Vector3.Angle(targetDirection, Camera.main.transform.forward);
                 Debug.LogWarning(angleToTarget);
 
-                if (Physics.Raycast(transform.position, enemies[i].transform.position - transform.position, out hit, explosionRadius))
+                if (Physics.Raycast(Camera.main.transform.position, transform.position-Camera.main.transform.position, out hit, explosionRadius))
                 {
 
                     if (hit.collider.tag == "Player" && angleToTarget <= 45)
