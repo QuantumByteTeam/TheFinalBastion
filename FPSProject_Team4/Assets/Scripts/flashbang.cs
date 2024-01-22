@@ -76,7 +76,7 @@ public class flashbang : MonoBehaviour
                 if (Physics.Raycast(Camera.main.transform.position, transform.position-Camera.main.transform.position, out hit, explosionRadius))
                 {
 
-                    if (hit.collider.tag == "Player" && angleToTarget <= 45)
+                    if (hit.collider.tag == "Flashbang" && angleToTarget <= 45)
                     {
 
                         Debug.LogError("Hit");
