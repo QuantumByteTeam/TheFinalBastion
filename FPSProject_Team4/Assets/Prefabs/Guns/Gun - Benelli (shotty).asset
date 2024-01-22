@@ -15,7 +15,7 @@ MonoBehaviour:
   isGun: 1
   isDeployable: 0
   isConsumable: 0
-  itemSprite: {fileID: 21300000, guid: af2f137eaab0b8343be8ecb11bb1a240, type: 3}
+  itemSprite: {fileID: 21300000, guid: c572758b822481d45aa401bd1b6818cc, type: 3}
   deployable: {fileID: 0}
   droppedItem: {fileID: 9056801287884393424, guid: e22999e527439a74391ad91bafb1eead, type: 3}
   deployDistance: 0
