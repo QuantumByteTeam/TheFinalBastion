@@ -145,11 +145,11 @@ MonoBehaviour:
   targetFaceSpeed: 5
   shouldTargetPlayer: 1
   shouldTargetPoint: 0
-  canRoam: 0
+  canRoam: 1
   pointTargetRange: 15
   maxLookAngle: 45
-  walkRadius: 0
-  walkTimer: 0
+  walkRadius: 25
+  walkTimer: 3
   bullet: {fileID: 7580640331045285745, guid: 30a1178c0347c7d4babb706e0e172bc6, type: 3}
   firePos: {fileID: 6445924282795985040}
   headPos: {fileID: 5723957771939133525}

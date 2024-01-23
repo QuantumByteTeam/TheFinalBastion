@@ -39,6 +39,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     public bool isBuffed = false;
     bool isShooting;
+    bool isRoaming;
     bool playerInRange;
     bool isRoller;
     bool isExploder;
@@ -77,21 +78,21 @@ public class EnemyAI : MonoBehaviour, IDamageable
         } 
         else if (shouldTargetPoint && canSeeTarget(point.transform))
         {
-
+            Debug.Log("point seen");
         }
-        else if (canRoam && (!canSeeTarget(GameManager.instance.player.transform) || !canSeeTarget(point.transform)))
+        else
         {
             //Roam
-
-            StartCoroutine(roam());
-
+            if (canRoam && !isRoaming)
+            {
+                StartCoroutine(roam());
+            }
         }
     }
 
 
     bool canSeeTarget(Transform targetPos)
     {
-        Quaternion originalRotation = firePos.rotation;
         Vector3 targetDirection = targetPos.position - headPos.position;
         float angleToTarget = Vector3.Angle(targetDirection, transform.forward);
 
@@ -109,6 +110,11 @@ public class EnemyAI : MonoBehaviour, IDamageable
             // FIXME: If point not hit, does not set destination
             if ((hit.collider.CompareTag("Player") && angleToTarget <= viewCone))
             {
+                if (isRoaming)
+                {
+                    StopCoroutine(roam());
+                    isRoaming = false;
+                }
                 agent.SetDestination(targetPos.position);
                 //SpreadOut(targetDirection);
 
@@ -141,8 +147,13 @@ public class EnemyAI : MonoBehaviour, IDamageable
                 StopCoroutine(shoot());
                 isShooting = false;
             }
-            else if (hit.collider.CompareTag("Point"))
+            else if (hit.collider.CompareTag("Point") && angleToTarget <= viewCone)
             {
+                if (isRoaming)
+                {
+                    StopCoroutine(roam());
+                    isRoaming = false;
+                }
                 agent.SetDestination(point.transform.position);
 
                 if (!isShooting)
@@ -235,6 +246,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     IEnumerator roam()
     {
+        isRoaming = true;
+
         randTime = UnityEngine.Random.Range(0.5f, 3f);
 
         Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * walkRadius;
@@ -246,7 +259,12 @@ public class EnemyAI : MonoBehaviour, IDamageable
         NavMesh.SamplePosition(randomDirection, out hit, walkRadius, -1);
         agent.SetDestination(hit.position);
 
+        // Wait until the agent has reached its destination
+        yield return new WaitUntil(() => !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance);
+
         yield return new WaitForSeconds(randTime);
+
+        isRoaming = false;
     }
 
     private void OnTriggerEnter(Collider other)
