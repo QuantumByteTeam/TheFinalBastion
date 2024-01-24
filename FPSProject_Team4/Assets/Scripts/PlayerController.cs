@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] private Vector3 crouchingScale = new Vector3(1, 0.5f, 1);
     [SerializeField] private Vector3 standingScale = new Vector3(1, 1, 1);
 
+    CharacterController colliderHeight;
+
 
     [Header("----- Weapon -----")]
     public List<gunStats> gunList = new List<gunStats>();
@@ -292,13 +294,15 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         if (Input.GetButtonDown("Crouch"))
         {
-            this.transform.localScale = crouchingScale;
+            colliderHeight = GetComponent<CharacterController>();
+            colliderHeight.height = 1.0f;
             isCrouching = true;
         }
 
         else if (Input.GetButtonUp("Crouch"))
         {
-            this.transform.localScale = standingScale;
+            colliderHeight = GetComponent<CharacterController>();
+            colliderHeight.height = 2.0f;
             isCrouching = false;
         }
     }
