@@ -10,7 +10,7 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour, IDamageable
 {
     [Header("----- Components -----")]
-    [SerializeField] NavMeshAgent agent;
+    [SerializeField] public NavMeshAgent agent;
     [SerializeField] Renderer model;
 
     [Header("----- Stats -----")]
@@ -137,6 +137,10 @@ public class EnemyAI : MonoBehaviour, IDamageable
                 if (isRoller)
                 {
                     agent.speed = roller.rollingSpeed;
+                    if (agent.remainingDistance == agent.stoppingDistance)
+                    {
+                        roller.InitiateRollingAttack();
+                    }
                 }
                 
 

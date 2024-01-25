@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class RollingMechanics : MonoBehaviour
 {
@@ -10,7 +11,6 @@ public class RollingMechanics : MonoBehaviour
     [SerializeField] float knockbackDuration;
 
     [SerializeField] Collider damageCollider;
-    [SerializeField] Rigidbody rigidbody;
 
     EnemyAI enemyAI;
 
@@ -19,7 +19,7 @@ public class RollingMechanics : MonoBehaviour
     private void Start()
     {
         canRoll = true;
-        damageCollider.enabled = false;
+        damageCollider.enabled = true; //fix later
         enemyAI = GetComponent<EnemyAI>();
     }
 
@@ -35,10 +35,11 @@ public class RollingMechanics : MonoBehaviour
     // OnTriggerEnter is called when the rolling enemy collides with another collider
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Point"))
         {
             // Deal damage to the player upon collision
             other.GetComponent<IDamageable>().takeDamage(damageAmount, 1f);
+
         }
     }
 
@@ -57,10 +58,10 @@ public class RollingMechanics : MonoBehaviour
 
         yield return new WaitForSeconds(1.0f);
 
-        StopRolling();
+        
         ApplyKnockback();
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(knockbackDuration);
 
         canRoll = true;
     }
@@ -69,22 +70,28 @@ public class RollingMechanics : MonoBehaviour
 
     void StopRolling()
     {
-        rigidbody.velocity = Vector3.zero;
+        enemyAI.agent.velocity = Vector3.zero;
         //Include Nav mesh agent things here as well or instead of this
     }
 
     void ApplyKnockback()
     {
-        Vector3 knockbackDirection = (GameManager.instance.player.transform.position - transform.position).normalized;
-        rigidbody.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
+        // Calculate the knockback direction
+        Vector3 knockbackDirection = (transform.position - GameManager.instance.player.transform.position).normalized;
+
+        Vector3 reverseDirection = -knockbackDirection;
+
+        // Update the NavMeshAgent destination to move in the opposite direction
+        enemyAI.agent.SetDestination(transform.position + reverseDirection * knockbackForce);
 
         StartCoroutine(StopRollingForDuration());
     }
 
     IEnumerator StopRollingForDuration()
     {
+        yield return new WaitUntil(() => enemyAI.agent.remainingDistance == 0);
         StopRolling();
         yield return new WaitForSeconds(knockbackDuration);
-        //StartRolling(rollingSpeed);
+        enemyAI.agent.speed = rollingSpeed;
     }
 }
