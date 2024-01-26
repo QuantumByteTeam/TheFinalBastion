@@ -28,6 +28,16 @@ public class RadarSwap : MonoBehaviour
         {
             RadarN();
         }
+        if (player.isSprinting)
+        {
+            GameManager.instance.playerScript.radarCam.orthographicSize = 60;
+            GameManager.instance.playerScript.radar.GetComponent<RadarPulse>().maxRange = 55;
+        }
+        else
+        {
+            GameManager.instance.playerScript.radarCam.orthographicSize = 45;
+            GameManager.instance.playerScript.radar.GetComponent<RadarPulse>().maxRange = 40;
+        }
     }
 
     void RadarW()

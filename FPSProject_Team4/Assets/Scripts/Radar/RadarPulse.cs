@@ -9,7 +9,7 @@ public class RadarPulse : MonoBehaviour
 
     private Transform pulseTf;
     private float curRange;
-    private float maxRange;
+    [SerializeField] public float maxRange;
 
     private Collider[] colPing;
     
@@ -17,7 +17,7 @@ public class RadarPulse : MonoBehaviour
     void Start()
     {
         pulseTf = transform.Find("/Player New/PlayerRadar/Pulse");
-        maxRange = 25f;
+        maxRange = 40f;
     }
 
     // Update is called once per frame
