@@ -30,7 +30,7 @@ public class TitleMenu : MonoBehaviour
 
     public void Options()
     {
-        //whoever is working on credits, this will be called when the options button is clicked
+        //whoever is working on Options menu, this will be called when the options button is clicked
     }
 
 }
