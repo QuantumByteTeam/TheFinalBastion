@@ -9,7 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7055764872824784015}
+  - component: {fileID: 81006629104303473}
   - component: {fileID: 1260381818708307882}
+  - component: {fileID: 1303864034587568488}
   m_Layer: 20
   m_Name: RadarIcon
   m_TagString: Untagged
@@ -32,6 +34,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2065604795450172919}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &81006629104303473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3354400394890826972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43adf9d0cba58ed44a192515a71e2ac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPinged: 0
+  isPlayer: 0
+  isEnemy: 0
+  isPoint: 1
+  isWeapon: 0
+  isItem: 0
+  isTurret: 0
 --- !u!212 &1260381818708307882
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -74,7 +95,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5e7c9237133d3a444a192b1809685ac1, type: 3}
-  m_Color: {r: 0, g: 0.5063429, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -84,6 +105,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!135 &1303864034587568488
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3354400394890826972}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.01
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8974552537905081539
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,3 +253,4 @@ MonoBehaviour:
   cost: 1
   mult: 1
   prompt: Repair
+  isAttacked: 0

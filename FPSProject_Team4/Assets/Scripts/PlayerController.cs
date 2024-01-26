@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     private bool GroundedPlayer; //is player grounded or not
     private Vector3 Move;
     private int JumpCount; //amt of jumps player has currently remaining
-    private bool IsShooting;
+    public bool IsShooting;
     public float HPOriginal; //default starting HP (changed to float)
     [SerializeField] Transform ADSPosition;
     [SerializeField] Transform gunPosition;
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     bool isWalking;
     bool isSprinting;
     bool isJumping;
-    bool isADS;
+    public bool isADS;
     bool isPlayingEmpty;
     bool isPlayingReload;
     bool isPlayingShoot;
@@ -83,10 +83,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     private int invSize;
     public bool swap;
     [SerializeField] float FOV;
-
-
-
-
+    
     private void Start()
     {
         HPOriginal = HP; //sets default hp to player's current HP

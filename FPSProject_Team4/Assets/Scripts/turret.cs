@@ -24,7 +24,7 @@ public class turret : MonoBehaviour, IDamageable
     [SerializeField] public float hp;
 
     int EnemyInRange;
-    bool isShooting;
+    public bool isShooting;
 
     Collider[] colliders;
 

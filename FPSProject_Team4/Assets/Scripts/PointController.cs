@@ -63,6 +63,10 @@ public class PointController : MonoBehaviour, Iinteractable, IDamageable, IRepai
     [Header("----- Interactable -----")]
     [SerializeField] string prompt;
 
+    [Header("----- Is Attacked -----")]
+    public bool isAttacked;
+    private float timer;
+
     private PlayerController player;
 
     void Start()
@@ -76,6 +80,20 @@ public class PointController : MonoBehaviour, Iinteractable, IDamageable, IRepai
         if (health > healthOrig)
         {
             health = healthOrig;
+        }
+
+        if (isAttacked)
+        {
+            timer += Time.deltaTime;
+        }
+        else
+        {
+            timer = 0;
+        }
+
+        if (timer > 10)
+        {
+            isAttacked = false;
         }
     }
     
@@ -101,6 +119,11 @@ public class PointController : MonoBehaviour, Iinteractable, IDamageable, IRepai
     
     public void takeDamage(float amount, float armorPen)
     {
+        if (!isAttacked)
+        {
+            isAttacked = true;
+        }
+        
         health -= amount;
         UIManager.instance.UpdatePointHP(health, healthOrig);
         GameManager.instance.score -= (int)amount;

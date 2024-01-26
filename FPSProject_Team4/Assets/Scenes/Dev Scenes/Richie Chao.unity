@@ -373,15 +373,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4589269014053491146, guid: 3cca0385ee94fd548bcb7748880bbfff, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.656914
-      objectReference: {fileID: 0}
-    - target: {fileID: 4589269014053491146, guid: 3cca0385ee94fd548bcb7748880bbfff, type: 3}
-      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4589269014053491146, guid: 3cca0385ee94fd548bcb7748880bbfff, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4589269014053491146, guid: 3cca0385ee94fd548bcb7748880bbfff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -24.519184
+      value: -26.49
       objectReference: {fileID: 0}
     - target: {fileID: 4589269014053491146, guid: 3cca0385ee94fd548bcb7748880bbfff, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2079,10 +2079,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8673169114531894945, guid: 0921d070520c32d4590ce60ea097e716, type: 3}
-      propertyPath: CraftingUI
-      value: 
-      objectReference: {fileID: 3438167789717575951, guid: f6afe5f04942cee4eb7edfa1eb20fb1b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

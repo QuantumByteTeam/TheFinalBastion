@@ -38,8 +38,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
     public GameObject point;
 
     public bool isBuffed = false;
-    bool isShooting;
-    bool isRoaming;
+    public bool isShooting;
+    public bool isRoaming;
     bool playerInRange;
     bool isRoller;
     bool isExploder;
@@ -78,7 +78,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         } 
         else if (shouldTargetPoint && canSeeTarget(point.transform))
         {
-            Debug.Log("point seen");
+            // Debug.Log("point seen");
         }
         else
         {
@@ -266,9 +266,11 @@ public class EnemyAI : MonoBehaviour, IDamageable
         // Wait until the agent has reached its destination
         yield return new WaitUntil(() => !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance);
 
+        isRoaming = false;
+        
         yield return new WaitForSeconds(randTime);
 
-        isRoaming = false;
+        // isRoaming = false;
     }
 
     private void OnTriggerEnter(Collider other)
