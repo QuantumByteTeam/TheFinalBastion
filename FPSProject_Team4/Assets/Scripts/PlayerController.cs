@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] CharacterController controller;
     [SerializeField] AudioSource aud;
     [SerializeField] Animator anim;
+    [SerializeField] public Camera radarCam;
+    [SerializeField] public GameObject radar;
 
     [Header("----- Stats -----")]
     public float HP; //configurable amt of HP
@@ -60,7 +62,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     int SelectedGun; //current gun the player is holding
     bool isPlayingSteps;
     bool isWalking;
-    bool isSprinting;
+    public bool isSprinting;
     bool isJumping;
     public bool isADS;
     bool isPlayingEmpty;
@@ -321,7 +323,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         if (currentItem.ammoCount > 0)
         {
-            if (!isPlayingShoot)
+            if (!isPlayingShoot && currentItem.isGun && !swap)
             {
                 StartCoroutine(ShootSound());
             }
@@ -358,8 +360,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             if (Physics.Raycast(Camera.main.transform.position, fwd, out hit, currentItem.ShootDist))
             //if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootDist))
             {
-                //Debug.Log(bA);
-                Debug.DrawRay(Camera.main.transform.position, fwd, Color.yellow, 100);
+                
                 if (hit.collider.tag == "Enemy")
                 {
                     Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.BloodEffect, hit.point, transform.rotation); //gun spark particle
@@ -402,11 +403,14 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     IEnumerator ShootSound()
     {
-        isPlayingShoot = true;
-        aud.PlayOneShot(inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootSound[UnityEngine.Random.Range(0, inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootSound.Length - 1)], inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootSoundVol); //plays the associated gun noise each time a bullet is shot
-        yield return new WaitForSeconds(inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootRate);
-        aud.PlayOneShot(inventory.hotbarInventory.ElementAt(SelectedItem).Key.CasingSound[UnityEngine.Random.Range(0, inventory.hotbarInventory.ElementAt(SelectedItem).Key.CasingSound.Length - 1)], inventory.hotbarInventory.ElementAt(SelectedItem).Key.CasingSoundVol); //plays the associated bullet casing drop noise each time a bullet is shot
-        isPlayingShoot = false;
+        if(inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun && !swap)
+        {
+            isPlayingShoot = true;
+            aud.PlayOneShot(inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootSound[UnityEngine.Random.Range(0, inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootSound.Length - 1)], inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootSoundVol); //plays the associated gun noise each time a bullet is shot
+            yield return new WaitForSeconds(inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootRate);
+            aud.PlayOneShot(inventory.hotbarInventory.ElementAt(SelectedItem).Key.CasingSound[UnityEngine.Random.Range(0, inventory.hotbarInventory.ElementAt(SelectedItem).Key.CasingSound.Length - 1)], inventory.hotbarInventory.ElementAt(SelectedItem).Key.CasingSoundVol); //plays the associated bullet casing drop noise each time a bullet is shot
+            isPlayingShoot = false;
+        }
     }
 
     IEnumerator playEmptySound()
@@ -496,8 +500,9 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
 
 
-        StopAllCoroutines(); // <<<<<<<<<<<<<<<<<<<<<<<<<<< may be a cause of error in the future
-        StartCoroutine(playSteps());
+        //StopAllCoroutines(); // <<<<<<<<<<<<<<<<<<<<<<<<<<< may be a cause of error in the future
+        
+        //StartCoroutine(playSteps());
 
         ChangeItem();
 
@@ -549,7 +554,16 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public void ChangeItem()
     {
-        StopAllCoroutines();
+        //StopAllCoroutines();
+        if(Input.GetButtonDown("Shoot"))
+        {
+            swap = true;
+        }
+        
+        StopCoroutine(Shoot());
+        StopCoroutine(playEmptySound());
+        StopCoroutine(ShootSound());
+        
 
         IsShooting = false;
         isPlayingShoot = false;
@@ -583,8 +597,10 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 
 
-        StopAllCoroutines(); //Fixes double fire rate bug, <<<<<<<<<<<<<<<<<<<<<<<<<<< may be a cause of error in the future
-        StartCoroutine(playSteps());
+        //StopAllCoroutines();
+        StopCoroutine(Shoot());
+        StopCoroutine(playEmptySound());
+        StopCoroutine(ShootSound());
 
         //armorPen = inventory.hotbarInventory.ElementAt(SelectedItem).Key.armorPen;
 

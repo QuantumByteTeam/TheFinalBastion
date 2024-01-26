@@ -339,17 +339,12 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     public IEnumerator blind(float time)
     {
-        
-            
-        Debug.LogError("Enemy Stopped Shooting");
         float temp = fireRate;
         int temp2 = targetFaceSpeed;
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
 
         fireRate = 100;
-        Debug.LogError("Enemy firerate: 5");
         agent.speed = 0;
-        Debug.LogError("Enemy Speed: 0");
         targetFaceSpeed = 0;
         yield return new WaitForSeconds(time);
         targetFaceSpeed = temp2;

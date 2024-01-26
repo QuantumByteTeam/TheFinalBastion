@@ -39,14 +39,9 @@ public class Mine : MonoBehaviour
 
                         if (Physics.Raycast(transform.position, enemies[i].transform.position - transform.position, out hit, explosionRadius))
                         {
-
                             if (hit.collider.tag == "Enemy")
                             {
-
-                                Debug.LogError("Hit");
-
                                 dmg.takeDamage(explosionDamage, armorPen);
-
                             }
                         }
                     }
