@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour, Iinteractable
+public class Door : MonoBehaviour, ISimpleInteractable
 {
 
     [SerializeField] private string prompt;
 
     public string InteractionPrompt => prompt;
 
-    public bool Interact(Interactor interactor)
+    public void SimpleInteract(SimpleInteractor Simpleinteractor)
     {
         /*var inventory = interactor.GetComponent<InventoryBool>(); //uncomment this code when starting on repair systems
 
@@ -25,13 +25,9 @@ public class Door : MonoBehaviour, Iinteractable
 
 
 
-        Debug.Log("Opening door!");
-        return true;
+        Debug.Log("Opening/Closing Door");
+
     }
 
-
-
-
-
-    
+   
 }
