@@ -36,15 +36,15 @@ public class Interactor : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.Q))
             {
 
-                Cursor.lockState = CursorLockMode.None;
+                Cursor.lockState = CursorLockMode.Confined;
                 UIManager.instance.CraftingUI.SetActive(false); //turns off crafting UI
                 Cursor.visible = false;
                 GameManager.instance.ActiveUnpause(); //unpauses the game for ALL menu's accessed by interaction
             }
-            else if (interactable != null && Input.GetKeyDown(KeyCode.E))
+            /*else if (interactable != null && Input.GetKeyDown(KeyCode.E)) //commented out 1/25
             {
                 interactable.Interact(this); //for simple things like doors, has NO pause effects
-            }
+            }*/
                 }
                 else
                 {
