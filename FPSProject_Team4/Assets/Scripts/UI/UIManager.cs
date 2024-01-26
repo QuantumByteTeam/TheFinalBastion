@@ -62,6 +62,7 @@ public class UIManager : MonoBehaviour
     public void closeOptionsMenu()
     {
         menuOptions.SetActive(false);
+        menuActive.SetActive(true);
     }
 
     public void DisplayLoseMenu()
@@ -202,7 +203,7 @@ public class UIManager : MonoBehaviour
     }
     public void exitToMainMenu()
     {
-        SceneManager.LoadScene("TitleMenu");
+        SceneManager.LoadScene("Main Menu");
     }
 
 

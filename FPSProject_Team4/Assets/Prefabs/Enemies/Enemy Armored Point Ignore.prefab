@@ -52,6 +52,7 @@ MonoBehaviour:
   isPoint: 0
   isWeapon: 0
   isItem: 0
+  isTurret: 0
 --- !u!212 &4906969075419655740
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -142,6 +143,7 @@ GameObject:
   - component: {fileID: 3227608371496112310}
   - component: {fileID: 1966695397752721227}
   - component: {fileID: 4308683069543837300}
+  - component: {fileID: -3837486016701599341}
   m_Layer: 19
   m_Name: Enemy Armored Point Ignore
   m_TagString: Enemy
@@ -436,6 +438,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-3837486016701599341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722172535831231147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf7bceb44a2b6347948115e24b7d6c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemDropsPrefab: {fileID: 0}
+  lootList:
+  - {fileID: 11400000, guid: 4ccd886745a54114c911a92a417d8207, type: 2}
+  - {fileID: 11400000, guid: e8d04b476d199f24a8637b92170ba1de, type: 2}
+  - {fileID: 11400000, guid: 81a015e0a148dd842a70900f00792576, type: 2}
 --- !u!1 &1814709559962558461
 GameObject:
   m_ObjectHideFlags: 0

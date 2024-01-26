@@ -230,6 +230,7 @@ MonoBehaviour:
   itemDropsPrefab: {fileID: 7119326757821012853, guid: a4e4a424f3e005e4ab655e62b610cb08, type: 3}
   lootList:
   - {fileID: 11400000, guid: 4ccd886745a54114c911a92a417d8207, type: 2}
+  - {fileID: 11400000, guid: 2a6596511773adf48b650a922b201130, type: 2}
 --- !u!82 &2560077517623344602
 AudioSource:
   m_ObjectHideFlags: 0
@@ -441,6 +442,7 @@ MonoBehaviour:
   isPoint: 0
   isWeapon: 0
   isItem: 0
+  isTurret: 0
 --- !u!212 &7065141109982260429
 SpriteRenderer:
   m_ObjectHideFlags: 0

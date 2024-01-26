@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7041437091442426586}
   - component: {fileID: -5039189745956767537}
   - component: {fileID: 2560077517623344602}
+  - component: {fileID: -2244767174821851914}
   m_Layer: 19
   m_Name: Enemy Basic Point Ignore
   m_TagString: Enemy
@@ -236,7 +237,7 @@ AudioSource:
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 50
-  Pan2D: 0
+  Pan2D: -0.802
   rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
@@ -310,6 +311,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-2244767174821851914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277755095150470934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf7bceb44a2b6347948115e24b7d6c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemDropsPrefab: {fileID: 7119326757821012853, guid: a4e4a424f3e005e4ab655e62b610cb08, type: 3}
+  lootList:
+  - {fileID: 11400000, guid: 2a6596511773adf48b650a922b201130, type: 2}
+  - {fileID: 11400000, guid: 4ccd886745a54114c911a92a417d8207, type: 2}
 --- !u!1 &2878983257175420442
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,6 +379,7 @@ MonoBehaviour:
   isPoint: 0
   isWeapon: 0
   isItem: 0
+  isTurret: 0
 --- !u!212 &5589599940731107832
 SpriteRenderer:
   m_ObjectHideFlags: 0
