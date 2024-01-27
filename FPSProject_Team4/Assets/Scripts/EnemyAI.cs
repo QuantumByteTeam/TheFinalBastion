@@ -39,7 +39,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     public GameObject point;
     public GameObject randomPoint;
 
-
+    public bool isDead;
     public bool isBuffed = false;
     public bool isShooting;
     public bool isRoaming;
@@ -58,6 +58,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     void Start()
     {
+        isDead = false;
         point = CoreManager.instance.GetClosestToPosition(transform.position);
         randomPoint = CoreManager.instance.GetRandomPoint();
         colorOrig = model.material.color;
@@ -84,35 +85,38 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     void Update()
     {
-        point = CoreManager.instance.GetClosestToPosition(transform.position);
-        
-        if (shouldTargetPlayer && playerInRange)
+        if (!isDead)
         {
-            //Debug.Log("Targeting Player");
-            //canSeeTarget(GameManager.instance.player.transform);
-            agent.SetDestination(GameManager.instance.player.transform.position);
-            hasTargetLOS(GameManager.instance.player.transform);
-        }
-        else if (shouldTargetRandom)
-        {
-            agent.SetDestination(randomPoint.transform.position);
-            randomPoint.GetComponent<PointController>().isTargeted = true;
-            hasTargetLOS(randomPoint.transform);
-        }
-        else if (shouldTargetPoint)
-        {
-            //Debug.Log("Targeting Point");
-            //canSeeTarget(CoreManager.instance.GetClosestToPosition(transform.position).transform);
-            agent.SetDestination(point.transform.position);
-            point.GetComponent<PointController>().isTargeted = true;
-            hasTargetLOS(point.transform);
-        }
-        else
-        {
-            //Roam
-            if (canRoam && !isRoaming)
+            point = CoreManager.instance.GetClosestToPosition(transform.position);
+
+            if (shouldTargetPlayer && playerInRange)
             {
-                StartCoroutine(roam());
+                //Debug.Log("Targeting Player");
+                //canSeeTarget(GameManager.instance.player.transform);
+                agent.SetDestination(GameManager.instance.player.transform.position);
+                hasTargetLOS(GameManager.instance.player.transform);
+            }
+            else if (shouldTargetRandom)
+            {
+                agent.SetDestination(randomPoint.transform.position);
+                randomPoint.GetComponent<PointController>().isTargeted = true;
+                hasTargetLOS(randomPoint.transform);
+            }
+            else if (shouldTargetPoint)
+            {
+                //Debug.Log("Targeting Point");
+                //canSeeTarget(CoreManager.instance.GetClosestToPosition(transform.position).transform);
+                agent.SetDestination(point.transform.position);
+                point.GetComponent<PointController>().isTargeted = true;
+                hasTargetLOS(point.transform);
+            }
+            else
+            {
+                //Roam
+                if (canRoam && !isRoaming)
+                {
+                    StartCoroutine(roam());
+                }
             }
         }
     }
@@ -387,37 +391,42 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     public void takeDamage(float amount, float armorPen)
     {
-        if (armor)
+        if(!isDead)
         {
-            health -= amount * armorPen;
-        }
-        else
-        {
-            health -= amount;
-        }
+            if (armor)
+            {
+                health -= amount * armorPen;
+            }
+            else
+            {
+                health -= amount;
+            }
 
-        StartCoroutine(indicateDamage());
+            StartCoroutine(indicateDamage());
 
-        if (health <= 0)
-        {
-            GameManager.instance.UpdateEnemyCount(-1);
+            if (health <= 0)
+            {
+                gameObject.GetComponent<Collider>().enabled = false;
+                isDead = true;
+                GameManager.instance.UpdateEnemyCount(-1);
 
-            GameManager.instance.score += reward;
+                GameManager.instance.score += reward;
 
-            UIManager.instance.UpdateScore();
-            //LootBag lootBag = GetComponent<LootBag>();
-            //if (lootBag)
-            //{
-            //    lootBag.InstantiateLoot(transform.position);
-            //    GameManager.instance.score += reward;
-            //    GameManager.instance.coins += reward;
-            //}
+                UIManager.instance.UpdateScore();
+                //LootBag lootBag = GetComponent<LootBag>();
+                //if (lootBag)
+                //{
+                //    lootBag.InstantiateLoot(transform.position);
+                //    GameManager.instance.score += reward;
+                //    GameManager.instance.coins += reward;
+                //}
 
-            Destroy(gameObject);
-        }
-        else
-        {
-            agent.SetDestination(GameManager.instance.player.transform.position);
+                Destroy(gameObject);
+            }
+            else
+            {
+                agent.SetDestination(GameManager.instance.player.transform.position);
+            }
         }
     }
 

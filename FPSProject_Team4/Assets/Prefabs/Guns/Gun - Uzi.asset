@@ -15,6 +15,8 @@ MonoBehaviour:
   isGun: 1
   isDeployable: 0
   isConsumable: 0
+  isShotgun: 0
+  numberOfShot: 0
   itemSprite: {fileID: 21300000, guid: af2f137eaab0b8343be8ecb11bb1a240, type: 3}
   deployable: {fileID: 0}
   droppedItem: {fileID: 5924633815591688547, guid: f69d7b8595995c0489b57734f0b6ab5a, type: 3}
@@ -22,10 +24,11 @@ MonoBehaviour:
   ShootDamage: 20
   ShootRate: 0.1
   ShootDist: 125
+  damageFalloffPerMeter: 0.005
   ammoCount: 32
   ammoMag: 32
-  ammoReserve: 87
-  ammoReserveDefault: 100
+  ammoReserve: 319
+  ammoReserveDefault: 320
   armorPen: 0.575
   reloadTime: 0.85
   crouchingMultiplier: 0.5

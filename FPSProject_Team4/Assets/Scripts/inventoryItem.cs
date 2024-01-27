@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 [CreateAssetMenu(menuName = "Inventory Item")]
 public class inventoryItem : ScriptableObject
@@ -10,6 +11,8 @@ public class inventoryItem : ScriptableObject
     public bool isGun;
     public bool isDeployable;
     public bool isConsumable;
+    public bool isShotgun;
+    public int numberOfShot;
     [SerializeField] Sprite itemSprite;
     public GameObject deployable;
     public GameObject droppedItem;
@@ -25,6 +28,7 @@ public class inventoryItem : ScriptableObject
     public int ShootDamage;
     public float ShootRate;
     public int ShootDist;
+    public float damageFalloffPerMeter;
 
     public int ammoCount;
     public int ammoMag;

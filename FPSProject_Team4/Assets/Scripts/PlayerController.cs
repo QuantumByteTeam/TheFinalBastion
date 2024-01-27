@@ -332,7 +332,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             ammoCount--;
             currentItem.ammoCount--;
             RaycastHit hit;
-            Vector3 fwd = Camera.main.transform.forward;
+            
             float bA = currentItem.baseAccuracy;
 
             if (isSprinting)
@@ -356,40 +356,52 @@ public class PlayerController : MonoBehaviour, IDamageable
                 bA = bA * currentItem.adsMultiplier;
             }
 
-            fwd = fwd + Camera.main.transform.TransformDirection(new Vector3(UnityEngine.Random.Range(-bA, bA), UnityEngine.Random.Range(-bA, bA)));
+            int temp = 1;
 
-            if (Physics.Raycast(Camera.main.transform.position, fwd, out hit, currentItem.ShootDist))
-            //if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootDist))
+            if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.isShotgun)
             {
-                
-                if (hit.collider.tag == "Enemy")
+                temp = inventory.hotbarInventory.ElementAt(SelectedItem).Key.numberOfShot;
+            }
+            for (int i = 0; i < temp; i++)
+            {
+                Vector3 fwd = Camera.main.transform.forward;
+                fwd = fwd + Camera.main.transform.TransformDirection(new Vector3(UnityEngine.Random.Range(-bA, bA), UnityEngine.Random.Range(-bA, bA)));
+                Debug.DrawRay(Camera.main.transform.position, fwd, Color.cyan, 10);
+                if (Physics.Raycast(Camera.main.transform.position, fwd, out hit, currentItem.ShootDist))
                 {
-                    Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.BloodEffect, hit.point, transform.rotation); //gun spark particle
-                }
-                else
-                {
-                    Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.HitEffect, hit.point, transform.rotation); //gun spark particle
-                }
+                    if (hit.collider.tag == "Enemy")
+                    {
+                        Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.BloodEffect, hit.point, transform.rotation); //gun spark particle
+                    }
+                    else
+                    {
+                        Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.HitEffect, hit.point, transform.rotation); //gun spark particle
+                    }
 
-                IDamageable dmg = hit.collider.GetComponent<IDamageable>();
+                    IDamageable dmg = hit.collider.GetComponent<IDamageable>();
 
-                if (hit.transform != transform && dmg != null)
-                {
-                    dmg.takeDamage(inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootDamage * damageModifier, inventory.hotbarInventory.ElementAt(SelectedItem).Key.armorPen);
+                    if (hit.transform != transform && dmg != null)
+                    {
+                        float falloff = inventory.hotbarInventory.ElementAt(SelectedItem).Key.damageFalloffPerMeter * Vector3.Distance(Camera.main.transform.position, hit.point);
+                        dmg.takeDamage(inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootDamage * damageModifier * (1 - falloff), inventory.hotbarInventory.ElementAt(SelectedItem).Key.armorPen);
+                    }
                 }
             }
+            
             UIManager.instance.UpdateAmmo();
             IsShooting = true;
             yield return new WaitForSeconds(inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootRate);
             IsShooting = false;
 
-            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootDist))
-            {
-                if (hit.collider.gameObject.GetComponent<ImpactAudio>())
-                {
-                    hit.collider.gameObject.GetComponent<ImpactAudio>().playImpact();
-                }
-            }
+            //if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootDist))
+            //{
+            //    if (hit.collider.gameObject.GetComponent<ImpactAudio>())
+            //    {
+            //        hit.collider.gameObject.GetComponent<ImpactAudio>().playImpact();
+            //    }
+            //}
+
+            //Causing soundHurt to play whenever an enemy is shot
         }
         else
         {
@@ -436,6 +448,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         } //player takes dmg
 
         StartCoroutine(playerFlashDamage());
+        Debug.Log("Playing Hurt");
         aud.PlayOneShot(SoundHurt[UnityEngine.Random.Range(0, SoundHurt.Length - 1)], SoundHurtVol); //plays audio randomly from the whole range of tracks when player hurt
         UIManager.instance.UpdatePlayerHP();
 
