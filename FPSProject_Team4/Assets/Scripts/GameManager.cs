@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        //UIManager.instance.UpdateScore(); //move this elsewhere to it isnt being called every frame commenting out
+        //UIManager.instance.UpdateScore(); //move this elsewhere so it isnt being called every frame commenting out
     }
 
     public void StatePaused()

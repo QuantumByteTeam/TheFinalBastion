@@ -67,12 +67,15 @@ public class PointController : MonoBehaviour, Iinteractable, IDamageable, IRepai
     public bool isAttacked;
     private float timer;
 
+    private bool playerOnPoint;
     private PlayerController player;
 
     void Start()
     {
         healthOrig = health;
         player = GameManager.instance.playerScript;
+        CoreManager.instance.RegisterCore(gameObject);
+
     }
 
     void Update()
@@ -125,7 +128,14 @@ public class PointController : MonoBehaviour, Iinteractable, IDamageable, IRepai
         }
         
         health -= amount;
-        UIManager.instance.UpdatePointHP(health, healthOrig);
+        GameManager.instance.score -= (int)amount;
+        UIManager.instance.UpdateScore();
+
+        if (playerOnPoint)
+        {
+            UIManager.instance.UpdatePointHP(health, healthOrig);
+        }
+        
         GameManager.instance.score -= (int)amount;
         if (health <= 0)
         {
@@ -138,6 +148,7 @@ public class PointController : MonoBehaviour, Iinteractable, IDamageable, IRepai
     {
         if (other.tag == "Player")
         {
+            playerOnPoint = true;
             UIManager.instance.UpdatePointHP(true);
             UIManager.instance.UpdatePointHP(health, healthOrig);
 
@@ -148,6 +159,7 @@ public class PointController : MonoBehaviour, Iinteractable, IDamageable, IRepai
     {
         if (other.tag == "Player")
         {
+            playerOnPoint = false;
             UIManager.instance.UpdatePointHP(false);
         }
     }
@@ -155,6 +167,8 @@ public class PointController : MonoBehaviour, Iinteractable, IDamageable, IRepai
     public void RepairSystem(inventoryItem requiredTool, int useCost = 1, float repairMult = 1)
     {
         health += reqTool.ShootDamage * repairMult;
+        GameManager.instance.score += (int)(reqTool.ShootDamage* repairMult*0.5);
+        UIManager.instance.UpdateScore();
         reqTool.ammoCount -= useCost;
         UIManager.instance.UpdatePointHP(true);
     }

@@ -94,6 +94,9 @@ public class WaveManager : MonoBehaviour
     {
         isWaveRunning = false;
 
+        GameManager.instance.score += (900 + (100 * currentWave));
+        UIManager.instance.UpdateScore();
+
         float time;
         switch (round.type)
         {

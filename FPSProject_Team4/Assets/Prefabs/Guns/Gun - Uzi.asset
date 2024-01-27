@@ -21,10 +21,10 @@ MonoBehaviour:
   deployDistance: 0
   ShootDamage: 20
   ShootRate: 0.1
-  ShootDist: 25
+  ShootDist: 125
   ammoCount: 32
   ammoMag: 32
-  ammoReserve: 100
+  ammoReserve: 38
   ammoReserveDefault: 100
   armorPen: 0.575
   reloadTime: 0.85

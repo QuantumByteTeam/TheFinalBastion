@@ -7,7 +7,7 @@ public class CoreManager : MonoBehaviour
     public static CoreManager instance;
     public List<GameObject> cores;
 
-    void Start()
+    void Awake()
     {
         instance = this;
     }

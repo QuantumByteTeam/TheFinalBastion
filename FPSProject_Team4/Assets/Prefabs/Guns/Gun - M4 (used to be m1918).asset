@@ -21,7 +21,7 @@ MonoBehaviour:
   deployDistance: 0
   ShootDamage: 35
   ShootRate: 0.15
-  ShootDist: 50
+  ShootDist: 250
   ammoCount: 20
   ammoMag: 20
   ammoReserve: 120

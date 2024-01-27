@@ -555,10 +555,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     public void ChangeItem()
     {
         //StopAllCoroutines();
-        if(Input.GetButtonDown("Shoot"))
-        {
-            swap = true;
-        }
+        
         
         StopCoroutine(Shoot());
         StopCoroutine(playEmptySound());

@@ -37,10 +37,11 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [Header("----- Target -----")]
     public GameObject point;
 
+
     public bool isBuffed = false;
     public bool isShooting;
     public bool isRoaming;
-    bool playerInRange;
+    bool playerInRange = false;
     bool isRoller;
     bool isExploder;
     float randTime;
@@ -55,7 +56,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     void Start()
     {
-        point = GameManager.instance.point;
+        point = CoreManager.instance.GetClosestToPosition(transform.position);
         colorOrig = model.material.color;
         GameManager.instance.UpdateEnemyCount(1);
         if (GetComponent<RollingMechanics>() != null)
@@ -68,23 +69,39 @@ public class EnemyAI : MonoBehaviour, IDamageable
             exploder = GetComponent<ExplodingMechanic>();
             isExploder = true;
         }
+        //if (shouldTargetPlayer)
+        //{
+        //    agent.SetDestination(GameManager.instance.player.transform.position);
+        //}
+        //else if (shouldTargetPoint)
+        //{
+        //    agent.SetDestination(CoreManager.instance.GetClosestToPosition(transform.position).transform.position);
+        //}
     }
 
     void Update()
     {
-        if (shouldTargetPlayer && playerInRange && canSeeTarget(GameManager.instance.player.transform))
+        point = CoreManager.instance.GetClosestToPosition(transform.position);
+        if (shouldTargetPlayer && playerInRange)
         {
-            
-        } 
-        else if (shouldTargetPoint && canSeeTarget(point.transform))
+            //Debug.Log("Targeting Player");
+            //canSeeTarget(GameManager.instance.player.transform);
+            agent.SetDestination(GameManager.instance.player.transform.position);
+            hasTargetLOS(GameManager.instance.player.transform);
+        }
+        else if (shouldTargetPoint)
         {
-            // Debug.Log("point seen");
+            //Debug.Log("Targeting Point");
+            //canSeeTarget(CoreManager.instance.GetClosestToPosition(transform.position).transform);
+            agent.SetDestination(point.transform.position);
+            hasTargetLOS(point.transform);
         }
         else
         {
             //Roam
             if (canRoam && !isRoaming)
             {
+                Debug.Log("Roaming");
                 StartCoroutine(roam());
             }
         }
@@ -158,7 +175,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
                     StopCoroutine(roam());
                     isRoaming = false;
                 }
-                agent.SetDestination(point.transform.position);
+                agent.SetDestination(CoreManager.instance.GetClosestToPosition(transform.position).transform.position);
 
                 if (!isShooting)
                 {
@@ -176,6 +193,89 @@ public class EnemyAI : MonoBehaviour, IDamageable
         }
 
         return false;
+    }
+
+    void hasTargetLOS(Transform target)
+    {
+        Vector3 targetDirection = target.position - headPos.position;
+        float angleToTarget = Vector3.Angle(targetDirection, transform.forward);
+
+        Debug.DrawRay(headPos.position, targetDirection);
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(headPos.position, targetDirection, out hit))
+        {
+            // Calculate the direction to the target
+            Vector3 fireToTarget = (target.position - firePos.position).normalized;
+            firePos.rotation = Quaternion.LookRotation(fireToTarget);
+
+
+            // FIXME: If point not hit, does not set destination
+            if (hit.collider.CompareTag("Player"))
+            {
+                if (isRoaming)
+                {
+                    StopCoroutine(roam());
+                    isRoaming = false;
+                }
+                agent.SetDestination(target.position);
+
+                if (!isRoller && !isExploder)
+                {
+                    if (!isShooting)
+                    {
+                        StartCoroutine(shoot());
+                    }
+                }
+
+                if (!isRoller)
+                {
+                    if (agent.remainingDistance < agent.stoppingDistance)
+                    {
+                        faceTarget(targetDirection);
+                    }
+                }
+
+                if (isRoller)
+                {
+                    agent.speed = roller.rollingSpeed;
+                    if (agent.remainingDistance == agent.stoppingDistance)
+                    {
+                        roller.InitiateRollingAttack();
+                    }
+                }
+
+
+
+            }
+            else if (hit.collider.CompareTag("Enemy"))
+            {
+                StopCoroutine(shoot());
+                isShooting = false;
+            }
+            else if (hit.collider.CompareTag("Point"))
+            {
+                if (isRoaming)
+                {
+                    StopCoroutine(roam());
+                    isRoaming = false;
+                }
+                //agent.SetDestination(CoreManager.instance.GetClosestToPosition(transform.position).transform.position);
+
+                if (!isShooting)
+                {
+                    StartCoroutine(shoot());
+                }
+
+
+                if (agent.remainingDistance < agent.stoppingDistance)
+                {
+                    faceTarget(targetDirection);
+                }
+            }
+
+        }
     }
 
     //TODO: Figure out how to get enemies to spread around a target
@@ -227,7 +327,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
             // Check if the hit object implements IDamagable
             IDamageable damageable = hit.collider.GetComponent<IDamageable>();
 
-            if (damageable != null)
+            if (damageable != null && hit.collider.tag != "Enemy")
             {
                 // Instantiate and configure the bullet
                 GameObject obj = Instantiate(bullet, firePos.position, firePos.rotation);
@@ -305,6 +405,10 @@ public class EnemyAI : MonoBehaviour, IDamageable
         if (health <= 0)
         {
             GameManager.instance.UpdateEnemyCount(-1);
+
+            GameManager.instance.score += reward;
+
+            UIManager.instance.UpdateScore();
             //LootBag lootBag = GetComponent<LootBag>();
             //if (lootBag)
             //{
@@ -312,7 +416,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
             //    GameManager.instance.score += reward;
             //    GameManager.instance.coins += reward;
             //}
-            
+
             Destroy(gameObject);
         }
         else

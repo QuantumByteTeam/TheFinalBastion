@@ -83,6 +83,7 @@ MonoBehaviour:
   isPoint: 0
   isWeapon: 0
   isItem: 0
+  isTurret: 0
 --- !u!212 &1002827024048101976
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -255,7 +256,7 @@ MonoBehaviour:
   isBuffed: 0
   isShooting: 0
   isRoaming: 0
-  reward: 0
+  reward: 75
   armor: 0
 --- !u!23 &2543124404250138485
 MeshRenderer:
