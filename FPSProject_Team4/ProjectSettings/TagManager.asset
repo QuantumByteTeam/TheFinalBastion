@@ -15,6 +15,7 @@ TagManager:
   - ActivePauseNeeded
   - Flashbang
   - Trap
+  - Teleporter
   layers:
   - Default
   - TransparentFX

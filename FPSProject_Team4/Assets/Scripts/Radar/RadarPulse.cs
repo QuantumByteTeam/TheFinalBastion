@@ -6,10 +6,10 @@ public class RadarPulse : MonoBehaviour
 {
     [Header("----- Radar Pulse -----")]
     [SerializeField] float radarSpeed;
+    public float maxRange;
 
     private Transform pulseTf;
     private float curRange;
-    [SerializeField] public float maxRange;
 
     private Collider[] colPing;
     

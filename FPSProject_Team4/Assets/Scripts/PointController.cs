@@ -49,7 +49,7 @@ public class PointController : MonoBehaviour, IDamageable
 }
 */
 
-public class PointController : MonoBehaviour, Iinteractable, IDamageable, IRepairable
+public class PointController : MonoBehaviour, ISimpleInteractable, IDamageable, IRepairable
 {
     [Header("----- Health -----")]
     public float health;
@@ -102,14 +102,12 @@ public class PointController : MonoBehaviour, Iinteractable, IDamageable, IRepai
     
     public string InteractionPrompt => prompt;
 
-    public bool Interact(Interactor interactor)
+    public void SimpleInteract(SimpleInteractor simpleInteractor)
     {
         if (health < healthOrig)
         {
             Repair();
         }
-        
-        return true;
     }
 
     void Repair()

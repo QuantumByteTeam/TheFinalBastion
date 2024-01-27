@@ -179,7 +179,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 524407
+    m_Bits: 524535
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -414,6 +414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radarSpeed: 10
+  maxRange: 0
 --- !u!1 &4396436533674926331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,6 +1183,7 @@ MonoBehaviour:
   HPOriginal: 0
   ADSPosition: {fileID: 7097433012950497643}
   gunPosition: {fileID: 4692781281717760944}
+  isSprinting: 0
   isADS: 0
   damageModifier: 1
   ammoCount: 0

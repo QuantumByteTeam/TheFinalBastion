@@ -12,8 +12,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] CharacterController controller;
     [SerializeField] AudioSource aud;
     [SerializeField] Animator anim;
-    [SerializeField] public Camera radarCam;
-    [SerializeField] public GameObject radar;
+    // [SerializeField] public Camera radarCam;
+    // [SerializeField] public GameObject radar;
 
     [Header("----- Stats -----")]
     public float HP; //configurable amt of HP
