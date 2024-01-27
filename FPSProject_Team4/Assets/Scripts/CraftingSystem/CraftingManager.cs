@@ -16,6 +16,8 @@ public class CraftingManager : MonoBehaviour
     public CraftingItem[] recipeResults;
     public CraftingSlot resultSlot;
     bool Craftable = false;
+    public string currRecipeString;
+    public int nonNullSlotsCount;
 
     private void Update()
     {
@@ -48,22 +50,40 @@ public class CraftingManager : MonoBehaviour
                 
             }
         }
+        if (Input.GetKeyDown(KeyCode.Q)) //clears the UI when exiting
+        {
+            foreach (CraftingSlot slot in craftingSlots) //clears all crafting slots
+            {
+                if (slot != null)
+                {
+                    slot.item = null;
+                    slot.gameObject.SetActive(false);
+                    slot.GetComponent<Image>().sprite = null;
+                }
+            }
+            //clears result slot when exiting
+            resultSlot.item = null;
+            resultSlot.gameObject.SetActive(false);
+            resultSlot.GetComponent<Image>().sprite = null;
+            Craftable = false;
 
+        }
 
     }
 
-    void CheckForRecipe()
+    void CheckForRecipe(params CraftingSlot[] slots)
     {
-
+        nonNullSlotsCount = 0;
         //Craftable = false; 1/26 commented out
         resultSlot.gameObject.SetActive(false); 
         resultSlot.item = null;
 
-        string currRecipeString = "";
+        currRecipeString = "";
         foreach(CraftingItem item in itemList)
         {
             if (item != null)
             {
+                nonNullSlotsCount++;
                 currRecipeString += item.itemName;
             }
             else
@@ -74,18 +94,19 @@ public class CraftingManager : MonoBehaviour
 
         for (int i = 0; i < recipes.Length; i++)
         {
-            if (recipes[i] == currRecipeString)
+            if (recipes[i] == currRecipeString && nonNullSlotsCount >= 2) //if recipe is found then show/add item in result slot // <<<<<<< may need to remove this logic bc its like an endless loop and this is likely what causes things to just appear craftable
             {
                 resultSlot.gameObject.SetActive(true);
                 resultSlot.GetComponent<Image>().sprite = recipeResults[i].GetComponent<Image>().sprite;
                 resultSlot.item = recipeResults[i];
-                Craftable = true;
+                
+
                 
             }
-            else
-            {
-                Craftable = false;
-            }
+            
+            
+                
+            
         }
 
 
@@ -101,33 +122,45 @@ public class CraftingManager : MonoBehaviour
         CheckForRecipe();
     }
 
-    public void OnConfirmRecipe(CraftingSlot slot) // <<< middle of this code kinda works it atleast returns the craftable item in the result slot now, doesnt clear corectly still
+    public void OnConfirmRecipe() 
     {
-        if (Craftable == true)
+        
+        for (int i = 0; i < recipes.Length; i++)
         {
-
-
-            //slot.gameObject.SetActive(true);
-            //resultSlot.item = list of some sort              ( code for obtaining the item goes here )
-
-            //lines below clear the item from the result slot
-
-            for (int i = 0; i < craftingSlots.Length; i++)
+            if (recipes[i] == currRecipeString)
             {
-                craftingSlots[i].item = null;
-                itemList[i] = null;
-                craftingSlots[i].gameObject.SetActive(false);
+                Craftable = true;
             }
-
-            resultSlot.item = null;
-            resultSlot.gameObject.SetActive(false);
-
-            Craftable= false;
-
-            //slot.item = null;
-            //slot.gameObject.SetActive(false);
-
         }
+            if (Craftable == true && nonNullSlotsCount >= 2) // didnt work, try setting the crafting string to something that cant ever be crafted to set it back to normal as a fix (null,cloth,null,chip) << also didnt work
+            {
+            // Handle the crafted item (obtain and use it)
+
+            // Clear the crafting slots
+                resultSlot.item = null;
+                resultSlot.gameObject.SetActive(false);
+                resultSlot.GetComponent<Image>().sprite = null;
+                foreach (CraftingSlot slot in craftingSlots) //clears all crafting slots
+                {
+                    if (slot != null)
+                    {
+                        slot.item = null;
+                        slot.gameObject.SetActive(false);
+                        slot.GetComponent<Image>().sprite = null;
+                    }
+                }
+
+                //Reset Craftable flag
+                Craftable = false;
+                currRecipeString = "nullClothBombCompChip";
+                
+            }
+        
+    }
+
+    public void OnCraftButtonClick() //use this so that u can use onClick buttons easily
+    {
+        OnConfirmRecipe();
     }
 
 
