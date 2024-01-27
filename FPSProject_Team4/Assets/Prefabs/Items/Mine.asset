@@ -34,7 +34,7 @@ MonoBehaviour:
   runningMultiplier: 0
   jumpingMultiplier: 0
   baseAccuracy: 0
-  Model: {fileID: 100004, guid: cecca25c94780ca428d51ab9f5894270, type: 3}
+  Model: {fileID: 4314569354930837082, guid: 85657fa0ea430d5458fbf1953d47d83a, type: 3}
   MagModel: {fileID: 0}
   TrigModel: {fileID: 0}
   HitEffect: {fileID: 0}

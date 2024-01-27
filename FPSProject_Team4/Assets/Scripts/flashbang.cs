@@ -9,6 +9,7 @@ public class flashbang : MonoBehaviour
     [SerializeField] float throwForce;
     [SerializeField] AudioClip[] explosionSound;
     [SerializeField] Rigidbody rb;
+    [SerializeField] ParticleSystem flash;
     Collider[] enemies;
     IDamageable dmg;
     private void Start()
@@ -19,6 +20,8 @@ public class flashbang : MonoBehaviour
     IEnumerator fuse(float time)
     {
         yield return new WaitForSeconds(time);
+
+        Instantiate(flash, transform.position, Quaternion.LookRotation(Vector3.up, Vector3.up));
 
         enemies = Physics.OverlapSphere(transform.position, explosionRadius);
 
