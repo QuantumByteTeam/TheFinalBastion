@@ -671,7 +671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
-  index: 0
+  index: 5
 --- !u!114 &1049206398003814509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,10 +692,10 @@ MonoBehaviour:
         - m_Target: {fileID: 4310449834833495448}
           m_TargetAssemblyTypeName: CraftingManager, Assembly-CSharp
           m_MethodName: OnConfirmRecipe
-          m_Mode: 1
+          m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_ObjectArgument: {fileID: 1910594236238517787}
+            m_ObjectArgumentAssemblyTypeName: CraftingSlot, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 

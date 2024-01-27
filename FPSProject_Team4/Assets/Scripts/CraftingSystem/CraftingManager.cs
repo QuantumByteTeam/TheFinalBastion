@@ -45,6 +45,7 @@ public class CraftingManager : MonoBehaviour
                 currItem = null;
 
                 CheckForRecipe();
+                
             }
         }
 
@@ -54,7 +55,7 @@ public class CraftingManager : MonoBehaviour
     void CheckForRecipe()
     {
 
-        Craftable = false;
+        //Craftable = false; 1/26 commented out
         resultSlot.gameObject.SetActive(false); 
         resultSlot.item = null;
 
@@ -79,6 +80,7 @@ public class CraftingManager : MonoBehaviour
                 resultSlot.GetComponent<Image>().sprite = recipeResults[i].GetComponent<Image>().sprite;
                 resultSlot.item = recipeResults[i];
                 Craftable = true;
+                
             }
             else
             {
@@ -99,16 +101,31 @@ public class CraftingManager : MonoBehaviour
         CheckForRecipe();
     }
 
-    public void OnConfirmRecipe(CraftingSlot slot)
+    public void OnConfirmRecipe(CraftingSlot slot) // <<< middle of this code kinda works it atleast returns the craftable item in the result slot now, doesnt clear corectly still
     {
         if (Craftable == true)
         {
+
+
             //slot.gameObject.SetActive(true);
             //resultSlot.item = list of some sort              ( code for obtaining the item goes here )
 
             //lines below clear the item from the result slot
-            slot.item = null;
-            slot.gameObject.SetActive(false);
+
+            for (int i = 0; i < craftingSlots.Length; i++)
+            {
+                craftingSlots[i].item = null;
+                itemList[i] = null;
+                craftingSlots[i].gameObject.SetActive(false);
+            }
+
+            resultSlot.item = null;
+            resultSlot.gameObject.SetActive(false);
+
+            Craftable= false;
+
+            //slot.item = null;
+            //slot.gameObject.SetActive(false);
 
         }
     }
