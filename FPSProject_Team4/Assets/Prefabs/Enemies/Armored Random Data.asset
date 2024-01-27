@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c36b7ca5460f07448f8f352215e0b80, type: 3}
   m_Name: Armored Random Data
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  enemy: {fileID: 7414325923691125493, guid: 51e0a0e961deb4941b3366819cb7c5b4, type: 3}

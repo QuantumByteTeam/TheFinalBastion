@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c36b7ca5460f07448f8f352215e0b80, type: 3}
   m_Name: Roller Random Data
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  enemy: {fileID: 5794021598382911438, guid: 04c9bf1f4427726489b73d9e18912198, type: 3}

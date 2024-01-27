@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c36b7ca5460f07448f8f352215e0b80, type: 3}
   m_Name: Support Random Data
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  enemy: {fileID: 4073068257682086179, guid: a7fb36de93c93c74a971a584408791fa, type: 3}

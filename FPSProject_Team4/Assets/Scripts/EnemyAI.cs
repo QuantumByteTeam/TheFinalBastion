@@ -96,6 +96,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         else if (shouldTargetRandom)
         {
             agent.SetDestination(randomPoint.transform.position);
+            randomPoint.GetComponent<PointController>().isTargeted = true;
             hasTargetLOS(randomPoint.transform);
         }
         else if (shouldTargetPoint)
@@ -103,6 +104,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
             //Debug.Log("Targeting Point");
             //canSeeTarget(CoreManager.instance.GetClosestToPosition(transform.position).transform);
             agent.SetDestination(point.transform.position);
+            point.GetComponent<PointController>().isTargeted = true;
             hasTargetLOS(point.transform);
         }
         else
@@ -110,7 +112,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
             //Roam
             if (canRoam && !isRoaming)
             {
-                Debug.Log("Roaming");
                 StartCoroutine(roam());
             }
         }

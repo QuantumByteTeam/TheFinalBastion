@@ -10,6 +10,8 @@ public class grenade : MonoBehaviour
     [SerializeField] float throwForce;
     [SerializeField] AudioClip[] explosionSound;
     [SerializeField] Rigidbody rb;
+    [SerializeField] ParticleSystem explosion;
+    [SerializeField] ParticleSystem shockwave;
     Collider[] enemies;
     IDamageable dmg;
     private void Start()
@@ -22,6 +24,8 @@ public class grenade : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
+        Instantiate(explosion, transform.position, Quaternion.LookRotation(Vector3.up, Vector3.up));
+        Instantiate(shockwave, transform.position, Quaternion.LookRotation(Vector3.up, Vector3.up));
         enemies = Physics.OverlapSphere(transform.position, explosionRadius);
 
         for (int i = 0; i < enemies.Length; i++)

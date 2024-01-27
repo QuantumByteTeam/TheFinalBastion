@@ -14,6 +14,9 @@ public class Mine : MonoBehaviour
     [SerializeField] float armorPen;
     [SerializeField] float knockbackModifier;
     [SerializeField] AudioClip[] explosionSound;
+    [SerializeField] ParticleSystem explosion;
+    [SerializeField] ParticleSystem shockwave;
+    [SerializeField] GameObject explosionPosition;
     Collider[] enemies;
     IDamageable dmg;
 
@@ -22,8 +25,11 @@ public class Mine : MonoBehaviour
     {
         if (other.tag == "Enemy" && !other.isTrigger)
         {
-            
-            enemies = Physics.OverlapSphere(transform.position, explosionRadius);
+
+            Instantiate(explosion, transform.position, Quaternion.LookRotation(Vector3.up, Vector3.up));
+            Instantiate(shockwave, transform.position, Quaternion.LookRotation(Vector3.up, Vector3.up));
+
+            enemies = Physics.OverlapSphere(explosionPosition.transform.position, explosionRadius);
                 
             for (int i = 0; i < enemies.Length; i++)
             {
@@ -35,17 +41,35 @@ public class Mine : MonoBehaviour
                     if (dmg != null)
                     {
 
+
+
+                        //RaycastHit[] hits;
+
+                        //hits = Physics.RaycastAll(transform.position, enemies[i].transform.position - transform.position, Vector3.Distance(transform.position, enemies[i].transform.position));
+
+                        //foreach (RaycastHit rayhit in  hits)
+                        //{
+                        //    if (rayhit.collider.tag != "Enemy" && rayhit.collider.tag != "Player")
+                        //    {
+                        //        return;
+                        //    }
+                        //}
+
+                        //dmg.takeDamage(explosionDamage, armorPen);
+
                         RaycastHit hit;
 
-                        if (Physics.Raycast(transform.position, enemies[i].transform.position - transform.position, out hit, explosionRadius))
+                        if (Physics.Raycast(explosionPosition.transform.position, enemies[i].transform.position - explosionPosition.transform.position, out hit, explosionRadius))
                         {
+                            Debug.DrawRay(explosionPosition.transform.position, enemies[i].transform.position - explosionPosition.transform.position, Color.red, explosionRadius);
                             if (hit.collider.tag == "Enemy")
                             {
+                                Debug.Log("Damaged Enemy");
                                 dmg.takeDamage(explosionDamage, armorPen);
                             }
                         }
                     }
-                    
+
                 }
             }
 

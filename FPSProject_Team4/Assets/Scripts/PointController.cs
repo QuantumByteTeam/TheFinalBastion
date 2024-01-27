@@ -65,6 +65,7 @@ public class PointController : MonoBehaviour, ISimpleInteractable, IDamageable, 
 
     [Header("----- Is Attacked -----")]
     public bool isAttacked;
+    public bool isTargeted;
     private float timer;
 
     private bool playerOnPoint;
@@ -94,9 +95,13 @@ public class PointController : MonoBehaviour, ISimpleInteractable, IDamageable, 
             timer = 0;
         }
 
-        if (timer > 10)
+        if (timer > 5)
         {
             isAttacked = false;
+        }
+        if (isTargeted)
+        {
+
         }
     }
     

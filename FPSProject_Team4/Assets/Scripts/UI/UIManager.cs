@@ -32,6 +32,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text ammoCounterText;
     [SerializeField] TMP_Text reserveAmmoText;
     [SerializeField] GameObject reloadingText;
+
+    [SerializeField] TMP_Text ReactorText;
+    [SerializeField] TMP_Text LifeSupportText;
+    [SerializeField] TMP_Text ComputerText;
     //Interact UI Elements
     public GameObject InteractImage;
     public GameObject PromptText;
@@ -127,6 +131,14 @@ public class UIManager : MonoBehaviour
     public void UpdateRemainingEnemies()
     {
         enemyCountText.text = GameManager.instance.enemiesRemaining.ToString("0");
+        if (GameManager.instance.enemiesRemaining <= 5 && GameManager.instance.enemiesRemaining > 0)
+        {
+            enemyCountText.gameObject.SetActive(true);
+        }
+        else
+        {
+            enemyCountText.gameObject.SetActive(false);
+        }
     }
 
     public void UpdateAmmo()

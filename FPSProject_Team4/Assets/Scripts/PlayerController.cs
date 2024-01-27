@@ -397,6 +397,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             {
                 StartCoroutine(playEmptySound());
             }
+            IsShooting = false;
         }
 
 
