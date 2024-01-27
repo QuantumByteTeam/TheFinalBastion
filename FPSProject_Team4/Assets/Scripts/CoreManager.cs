@@ -43,4 +43,10 @@ public class CoreManager : MonoBehaviour
 
         return closestObj;
     }
+
+    public GameObject GetRandomPoint()
+    {
+        int i = Random.Range(0, cores.Count);
+        return cores[i];
+    }
 }
