@@ -153,6 +153,7 @@ public class PlayerController : MonoBehaviour, IDamageable
                     {
                         if (Input.GetButton("Shoot") && !IsShooting && !reloading && !swap)
                         {
+                            IsShooting = true;
                             StartCoroutine(Shoot());
                         }
 
@@ -177,7 +178,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
                     if (Input.GetButtonUp("Shoot"))
                     {
-                        IsShooting = false;
+                        //IsShooting = false;
                         swap = false;
                     }
                     controller.enabled = true; //Prevents bug where controller gets disabled for some reason
@@ -555,8 +556,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     public void ChangeItem()
     {
         //StopAllCoroutines();
-        
-        
+
+        StopCoroutine(reload());
         StopCoroutine(Shoot());
         StopCoroutine(playEmptySound());
         StopCoroutine(ShootSound());

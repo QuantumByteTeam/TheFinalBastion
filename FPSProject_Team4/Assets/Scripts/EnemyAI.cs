@@ -19,6 +19,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [SerializeField] int targetFaceSpeed;
     [SerializeField] bool shouldTargetPlayer;
     [SerializeField] bool shouldTargetPoint;
+    [SerializeField] bool shouldTargetRandom;
     [SerializeField] bool canRoam;
     [SerializeField] int pointTargetRange;
     [SerializeField] float maxLookAngle;
@@ -36,6 +37,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     [Header("----- Target -----")]
     public GameObject point;
+    public GameObject randomPoint;
 
 
     public bool isBuffed = false;
@@ -57,6 +59,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     void Start()
     {
         point = CoreManager.instance.GetClosestToPosition(transform.position);
+        randomPoint = CoreManager.instance.GetRandomPoint();
         colorOrig = model.material.color;
         GameManager.instance.UpdateEnemyCount(1);
         if (GetComponent<RollingMechanics>() != null)
@@ -82,12 +85,18 @@ public class EnemyAI : MonoBehaviour, IDamageable
     void Update()
     {
         point = CoreManager.instance.GetClosestToPosition(transform.position);
+        
         if (shouldTargetPlayer && playerInRange)
         {
             //Debug.Log("Targeting Player");
             //canSeeTarget(GameManager.instance.player.transform);
             agent.SetDestination(GameManager.instance.player.transform.position);
             hasTargetLOS(GameManager.instance.player.transform);
+        }
+        else if (shouldTargetRandom)
+        {
+            agent.SetDestination(randomPoint.transform.position);
+            hasTargetLOS(randomPoint.transform);
         }
         else if (shouldTargetPoint)
         {
@@ -278,21 +287,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         }
     }
 
-    //TODO: Figure out how to get enemies to spread around a target
-    //void SpreadOut(Vector3 targetPos)
-    //{
-    //    int uniqueIndex = gameObject.GetInstanceID();
-    //    Debug.Log(uniqueIndex);
-
-    //    float angleIncrement = 360f / GameManager.instance.enemiesRemaining;
-
-    //    float angle = uniqueIndex * angleIncrement;
-
-    //    Vector3 spreadPosition = targetPos + Quaternion.Euler(0, angle, 0) * (transform.forward * agent.stoppingDistance);
-
-    //    agent.SetDestination(spreadPosition);
-
-    //}
+    
 
     void faceTarget(Vector3 targetDir)
     {
