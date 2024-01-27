@@ -58,4 +58,6 @@ public class inventoryItem : ScriptableObject
     [Range(0, 1)] public float CasingSoundVol;
     public AudioClip[] EmptySound;
     [Range(0, 1)] public float EmptySoundVol;
+
+    [SerializeField] public float modelScale;
 }

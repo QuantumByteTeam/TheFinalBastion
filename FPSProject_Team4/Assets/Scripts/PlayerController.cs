@@ -579,6 +579,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             GunModel.GetComponent<MeshFilter>().sharedMesh = inventory.hotbarInventory.ElementAt(SelectedItem).Key.Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model
             GunModel.GetComponent<MeshRenderer>().sharedMaterial = inventory.hotbarInventory.ElementAt(SelectedItem).Key.Model.GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
+            float temp = inventory.hotbarInventory.ElementAt(SelectedItem).Key.modelScale;
+            GunModel.transform.localScale = new Vector3(temp, temp, temp);
         }
 
 

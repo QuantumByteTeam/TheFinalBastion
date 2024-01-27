@@ -47,3 +47,4 @@ MonoBehaviour:
   CasingSoundVol: 0
   EmptySound: []
   EmptySoundVol: 0
+  modelScale: 0.5

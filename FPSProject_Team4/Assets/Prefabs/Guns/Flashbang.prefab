@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blindTime: 5
   explosionRadius: 30
-  throwForce: 15
+  throwForce: 20
   explosionSound: []
   rb: {fileID: 1817203508782919901}
   flash: {fileID: 636251552572513178, guid: 3026a01ec19e76740848c5379fee5e93, type: 3}

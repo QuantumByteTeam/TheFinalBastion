@@ -54,3 +54,4 @@ MonoBehaviour:
   EmptySound:
   - {fileID: 8300000, guid: 5093ca16750adc64baa08a1878f8146c, type: 3}
   EmptySoundVol: 0.25
+  modelScale: 3

@@ -99,7 +99,7 @@ MonoBehaviour:
   explosionRadius: 10
   armorPen: 0.5
   knockbackModifier: 0
-  throwForce: 15
+  throwForce: 20
   explosionSound: []
   rb: {fileID: 7218188661652581308}
   explosion: {fileID: 4115201037910324011, guid: 0a2eca3c6beb48f43bdab3df4d788196, type: 3}

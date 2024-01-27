@@ -50,7 +50,7 @@ public class flashbang : MonoBehaviour
                             if (angleToTarget < enemy.viewCone/2)
                             {
                                 
-                                float dist = Vector3.Distance(transform.position, enemy.headPos.position);
+                                //float dist = Vector3.Distance(transform.position, enemy.headPos.position);
 
                                 enemy.stopShoot(blindTime);
                                 
