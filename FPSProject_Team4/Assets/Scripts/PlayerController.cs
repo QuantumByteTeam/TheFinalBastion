@@ -71,6 +71,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     bool isCrouching;
     bool isHealing;
 
+    bool shootSwap;
+
     public float damageModifier;
 
     //added by John
@@ -154,6 +156,7 @@ public class PlayerController : MonoBehaviour, IDamageable
                         if (Input.GetButton("Shoot") && !IsShooting && !reloading && !swap)
                         {
                             IsShooting = true;
+                            shootSwap = true;
                             StartCoroutine(Shoot());
                         }
 
@@ -168,6 +171,7 @@ public class PlayerController : MonoBehaviour, IDamageable
                         if (Input.GetButtonDown("Shoot"))
                         {
                             IsShooting = true;
+                            shootSwap = true;
                             Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployable, Camera.main.transform.position + (Camera.main.transform.forward * inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployDistance), Camera.main.transform.rotation);
                             inventory.Remove(SelectedItem);
                             UIManager.instance.updateHotbar();
@@ -179,6 +183,7 @@ public class PlayerController : MonoBehaviour, IDamageable
                     if (Input.GetButtonUp("Shoot"))
                     {
                         //IsShooting = false;
+                        shootSwap = false;
                         swap = false;
                     }
                     controller.enabled = true; //Prevents bug where controller gets disabled for some reason
@@ -328,7 +333,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             {
                 StartCoroutine(ShootSound());
             }
-
+            
             ammoCount--;
             currentItem.ammoCount--;
             RaycastHit hit;
@@ -391,6 +396,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             UIManager.instance.UpdateAmmo();
             IsShooting = true;
             yield return new WaitForSeconds(inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootRate);
+            
             IsShooting = false;
 
             //if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootDist))
@@ -519,7 +525,11 @@ public class PlayerController : MonoBehaviour, IDamageable
         
         //StartCoroutine(playSteps());
 
-        ChangeItem();
+        if (inventory.hotbarInventory.Count == 1)
+        {
+            ChangeItem();
+        }
+            
 
 
     }
@@ -609,7 +619,10 @@ public class PlayerController : MonoBehaviour, IDamageable
     void ChangeGun() //has double pump exploit, BUG WHEN A GUN IS PICKEDUP FIRERATE DOUBLES, temp fix by moving the vars into get stats
     {
 
-
+        if (shootSwap)
+        {
+            swap = true;
+        }
 
         //StopAllCoroutines();
         StopCoroutine(Shoot());
