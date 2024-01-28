@@ -6,10 +6,11 @@ using UnityEngine.UI;
 public class CraftingManager : MonoBehaviour
 {
     
-    private CraftingItem currItem; //stores the current item
+    private CraftingItem currItem; //stores the current item   
     public Image customCursor;
 
-    public CraftingSlot[] craftingSlots;
+    public CraftingSlot[] craftingSlots;                   //make sure to drag and drop crafting manager into UI since its still buggy when its actually in UI
+
 
     public List<CraftingItem> itemList;
     public string[] recipes;
@@ -18,6 +19,17 @@ public class CraftingManager : MonoBehaviour
     bool Craftable = false;
     public string currRecipeString;
     public int nonNullSlotsCount;
+
+    public GameObject AmmoPrefab;
+    public GameObject TurretPrefab;
+    public GameObject BarbedWirePrefab;
+    public GameObject MinePrefab;
+    public GameObject ArmorPrefab;
+    public GameObject BandagePrefab;
+
+    
+
+
 
     private void Update()
     {
@@ -139,12 +151,40 @@ public class CraftingManager : MonoBehaviour
                 Craftable = true;
             }
         }
-            if (Craftable == true && nonNullSlotsCount >= 2) // didnt work, try setting the crafting string to something that cant ever be crafted to set it back to normal as a fix (null,cloth,null,chip) << also didnt work
+            if (Craftable == true && nonNullSlotsCount >= 2)
             {
             // Handle the crafted item (obtain and use it)
 
-            // Clear the crafting slots
-                resultSlot.item = null;
+            Vector3 playerPosition = transform.position; //gets player positionm
+            Debug.Log("Player Pos: " + playerPosition); //logs it into debug
+            Vector3 spawnPosition = new Vector3(playerPosition.x, playerPosition.y, playerPosition.z); //sets spawn position for craftable item
+
+            if (currRecipeString == "ScrapCompChipCompChipnull") //Turret item get
+            {
+                GameObject CratableSpawn = Instantiate(TurretPrefab, spawnPosition, Quaternion.identity); //spawns item inside player (auto pickup)
+            }
+            if (currRecipeString == "ScrapScrapnullnull") //Barbed Wire item get
+            {
+                GameObject CratableSpawn = Instantiate(BarbedWirePrefab, spawnPosition, Quaternion.identity); //spawns item inside player (auto pickup)
+            }
+            if (currRecipeString == "ScrapBombBombCompChip") //Mine item get
+            {
+                GameObject CratableSpawn = Instantiate(MinePrefab, spawnPosition, Quaternion.identity); //spawns item inside player (auto pickup)
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+            // Clear the crafting slots and reset the UI/item indexes
+            resultSlot.item = null;
                 resultSlot.gameObject.SetActive(false);
                 resultSlot.GetComponent<Image>().sprite = null;
                 foreach (CraftingSlot slot in craftingSlots) //clears all crafting slots
@@ -198,4 +238,11 @@ public class CraftingManager : MonoBehaviour
 
 
     }
+
+    void GetPlayerPos()
+    {
+        Vector3 playerPosition = transform.position;
+        Debug.Log("Player Pos: " + playerPosition);
+    }
+
 }
