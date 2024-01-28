@@ -378,6 +378,14 @@ public class PlayerController : MonoBehaviour, IDamageable
                     {
                         Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.BloodEffect, hit.point, transform.rotation); //gun spark particle
                     }
+                    else if (hit.collider.CompareTag("Pipe") && hit.collider.GetComponent<PipeSystem>().isWater)
+                    {
+                        StartCoroutine(WaterLeakEffect(hit.collider.transform, hit.point, transform.rotation));
+                    }
+                    else if (hit.collider.CompareTag("Pipe") && (hit.collider.GetComponent<PipeSystem>().isSteam || hit.collider.GetComponent<PipeSystem>().isGas))
+                    {
+                        StartCoroutine(GasLeakEffect(hit.collider.transform, hit.point, transform.rotation));
+                    }
                     else
                     {
                         Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.HitEffect, hit.point, transform.rotation); //gun spark particle
@@ -440,6 +448,32 @@ public class PlayerController : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootRate);
         isPlayingEmpty = false;
 
+    }
+    
+    IEnumerator WaterLeakEffect(Transform parent, Vector3 pos, Quaternion rotation)
+    {
+        rotation *= Quaternion.Euler(0,180f,0);
+        
+        Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.HitEffect, pos, rotation);
+
+        yield return new WaitForEndOfFrame();
+
+        yield return new WaitForSeconds(0.5f);
+        
+        Instantiate(parent.gameObject.GetComponent<PipeSystem>().waterHitEffect, pos, rotation, parent);
+    }
+
+    IEnumerator GasLeakEffect(Transform parent, Vector3 pos, Quaternion rotation)
+    {
+        rotation *= Quaternion.Euler(0,180f,0);
+        
+        Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.HitEffect, pos, rotation);
+
+        yield return new WaitForEndOfFrame();
+
+        yield return new WaitForSeconds(0.5f);
+        
+        Instantiate(parent.gameObject.GetComponent<PipeSystem>().vapourHitEffect, pos, rotation, parent);
     }
 
     public void takeDamage(float amount, float armorPen)
