@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class LootBag : MonoBehaviour
 {
-    public GameObject itemDropsPrefab;
+    [SerializeField] public GameObject itemDropsPrefab;
     public List<Loot> lootList = new List<Loot>();
-    
+
     Loot GetDroppedItem()
     {
         int randomNumber = Random.Range(1, 101); //1 - 100

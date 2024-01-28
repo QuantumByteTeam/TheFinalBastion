@@ -5,12 +5,14 @@ using System.Linq;
 using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlayerController : MonoBehaviour, IDamageable
 {
     [Header("----- Components -----")]
     [SerializeField] CharacterController controller;
     [SerializeField] AudioSource aud;
+    [SerializeField] AudioMixerGroup audioMixerGroup;
     [SerializeField] Animator anim;
     // [SerializeField] public Camera radarCam;
     // [SerializeField] public GameObject radar;
@@ -90,6 +92,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     
     private void Start()
     {
+        aud.outputAudioMixerGroup = audioMixerGroup;
         HPOriginal = HP; //sets default hp to player's current HP
         respawnPlayer();
         controller.enabled = true;
@@ -195,6 +198,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     IEnumerator playSteps()
     {
+        //aud.outputAudioMixerGroup = audioMixer.outputAudioMixerGroup;
         isPlayingSteps = true;
         aud.PlayOneShot(SoundSteps[UnityEngine.Random.Range(0, SoundSteps.Length - 1)], SoundStepsVol);
 

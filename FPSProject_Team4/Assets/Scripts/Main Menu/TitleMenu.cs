@@ -5,9 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class TitleMenu : MonoBehaviour
 {
+    [SerializeField] GameObject menuOptions;
     public void StartGame()
     {
         SceneManager.LoadScene("Place Holder Main Map");
+        Debug.Log("crash");
     }
 
     public void QuitGame()
@@ -30,7 +32,7 @@ public class TitleMenu : MonoBehaviour
 
     public void Options()
     {
-        //whoever is working on Options menu, this will be called when the options button is clicked
+     //Need to open options menu in title menu, would not be trivial
     }
 
 }

@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
         waveScript = wave.GetComponent<WaveManager>();
         timescaleOG = Time.timeScale;
         coins = 0;
+
     }
 
     void Start()
