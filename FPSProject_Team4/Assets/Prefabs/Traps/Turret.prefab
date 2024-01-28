@@ -310,7 +310,7 @@ MonoBehaviour:
   viewCone: 90
   targetFaceSpeed: 10
   range: 100
-  bullet: {fileID: 7580640331045285745, guid: 30a1178c0347c7d4babb706e0e172bc6, type: 3}
+  bullet: {fileID: 3048037234482704135, guid: 21e1df73640435d48ad4dff51ed816df, type: 3}
   firePos: {fileID: 978502624121833211}
   headPos: {fileID: 7179136506353929740}
   fireRate: 1

@@ -44,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 685027641558584192}
-  m_Mesh: {fileID: -8640641907826397452, guid: 895e9286d31d8b3448c76379c24ea35d, type: 3}
+  m_Mesh: {fileID: -8640641907826397452, guid: 082aeb1164a736c49b294bc06f943f8f, type: 3}
 --- !u!23 &1333427720847354453
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: -6478536213147159724, guid: 082aeb1164a736c49b294bc06f943f8f, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -148,6 +148,7 @@ MonoBehaviour:
   mult: 1
   prompt: Repair
   isAttacked: 0
+  isTargeted: 0
 --- !u!1 &3709096562084211089
 GameObject:
   m_ObjectHideFlags: 0
