@@ -28,12 +28,13 @@ public class CraftingManager : MonoBehaviour
     public GameObject BandagePrefab;
 
     public Sprite SlotDefault;
-
-
+    public GameObject PlayerPos;
+    
+    Vector3 spawnPosition;
 
     private void Update()
     {
-
+        Vector3 playerPos = transform.position; //gets player position
 
         if (Input.GetMouseButtonUp(0))
         {
@@ -155,13 +156,21 @@ public class CraftingManager : MonoBehaviour
             {
             // Handle the crafted item (obtain and use it)
 
-            Vector3 playerPosition = transform.position; //gets player positionm
-            Debug.Log("Player Pos: " + playerPosition); //logs it into debug
-            Vector3 spawnPosition = new Vector3(playerPosition.x, playerPosition.y, playerPosition.z); //sets spawn position for craftable item
+            //Vector3 playerPosition = transform.position; //gets player position
+            //Debug.Log("Player Pos: " + PlayerPos); //logs it into debug
+            //Vector3 spawnPosition = PlayerPos;
+            //Vector3 spawnPosition = table.SpawnPos(); //sets spawn position for craftable item
+
+            Vector3 playerPos = PlayerPos.transform.position;
+            Vector3 spawnPosition = PlayerPos.transform.position;
+
+
+
 
             if (currRecipeString == "ScrapCompChipCompChipnull") //Turret item get
             {
                 GameObject CratableSpawn = Instantiate(TurretPrefab, spawnPosition, Quaternion.identity); //spawns item inside player (auto pickup)
+                
             }
             if (currRecipeString == "ScrapScrapnullnull") //Barbed Wire item get
             {

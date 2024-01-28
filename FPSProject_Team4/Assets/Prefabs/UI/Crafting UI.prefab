@@ -3305,6 +3305,7 @@ MonoBehaviour:
   ArmorPrefab: {fileID: 0}
   BandagePrefab: {fileID: 0}
   SlotDefault: {fileID: 21300000, guid: 1530dd53947c7c74e9cb81cdda983cb4, type: 3}
+  PlayerPos: {fileID: 0}
 --- !u!1 &7355928102823353520
 GameObject:
   m_ObjectHideFlags: 0
