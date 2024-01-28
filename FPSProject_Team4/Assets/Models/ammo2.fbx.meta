@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 15d3f25f79e4f974093e7235e8c2c755
+guid: df080ff0f9f3226409cf6be7b8dfbc47
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Ammo Base Color
+    second: {fileID: 2800000, guid: ff091d2096d3af94ea0ffae12732a4ab, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
