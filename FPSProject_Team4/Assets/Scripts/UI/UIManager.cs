@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Linq;
+using System.Numerics;
 
 public class UIManager : MonoBehaviour
 {
@@ -40,6 +41,10 @@ public class UIManager : MonoBehaviour
     public GameObject InteractImage;
     public GameObject PromptText;
 
+    PointController reactor;
+    PointController oxygen;
+    PointController computer;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -49,7 +54,11 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         UpdateBalance();
+        reactor = GameObject.Find("Reactor_Core").GetComponent<PointController>();
+        oxygen = GameObject.Find("Atmospheric_Regulator").GetComponent<PointController>();
+        computer = GameObject.Find("Cray-1_Supercomputer").GetComponent<PointController>();
     }
+
 
     public void DisplayPausedMenu()
     {
@@ -122,6 +131,62 @@ public class UIManager : MonoBehaviour
         }
     }
 
+
+    public void UpdatePointIndicators()
+    {
+        
+        if (reactor.isAttacked)
+        {
+            ReactorText.gameObject.SetActive(true);
+            ReactorText.color = Color.red;
+        }
+        else if (reactor.isTargeted)
+        {
+            //Debug.Log("Reactor Targeted");
+            ReactorText.gameObject.SetActive(true);
+            ReactorText.color = Color.yellow;
+        }
+        else
+        {
+            ReactorText.gameObject.SetActive(false);
+            ReactorText.color = Color.white;
+        }
+
+        if (computer.isAttacked)
+        {
+            ComputerText.gameObject.SetActive(true);
+            ComputerText.color = Color.red;
+        }
+        else if (computer.isTargeted)
+        {
+            //Debug.Log("Reactor Targeted");
+            ComputerText.gameObject.SetActive(true);
+            ComputerText.color = Color.yellow;
+        }
+        else
+        {
+            ComputerText.gameObject.SetActive(false);
+            ComputerText.color = Color.white;
+        }
+
+        if (oxygen.isAttacked)
+        {
+            LifeSupportText.gameObject.SetActive(true);
+            LifeSupportText.color = Color.red;
+        }
+        else if (oxygen.isTargeted)
+        {
+            //Debug.Log("Life Support Targeted");
+            LifeSupportText.gameObject.SetActive(true);
+            LifeSupportText.color = Color.yellow;
+        }
+        else
+        {
+            LifeSupportText.gameObject.SetActive(false);
+            LifeSupportText.color = Color.white;
+        }
+
+    }
     public void UpdateWaveCount()
     {
         WaveManager wave = GameManager.instance.waveScript;
@@ -196,7 +261,7 @@ public class UIManager : MonoBehaviour
 
     public void updateSelection(int selection)
     {
-        selectionBox.transform.localPosition = new Vector3((selection * (478f / 8)) - 239f, -480, 0);
+        selectionBox.transform.localPosition = new UnityEngine.Vector3((selection * (478f / 8)) - 239f, -480, 0);
         updateHotbar();
     }
 

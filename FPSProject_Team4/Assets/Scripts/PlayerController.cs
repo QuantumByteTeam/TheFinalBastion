@@ -185,7 +185,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
                     if (Input.GetButtonUp("Shoot"))
                     {
-                        //IsShooting = false;
+                        IsShooting = false;
                         shootSwap = false;
                         swap = false;
                     }
@@ -397,7 +397,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
                     IDamageable dmg = hit.collider.GetComponent<IDamageable>();
 
-                    if (hit.transform != transform && dmg != null)
+                    if (hit.transform != transform && dmg != null && hit.collider.tag != "Point")
                     {
                         float falloff = inventory.hotbarInventory.ElementAt(SelectedItem).Key.damageFalloffPerMeter * Vector3.Distance(Camera.main.transform.position, hit.point);
                         dmg.takeDamage(inventory.hotbarInventory.ElementAt(SelectedItem).Key.ShootDamage * damageModifier * (1 - falloff), inventory.hotbarInventory.ElementAt(SelectedItem).Key.armorPen);
@@ -591,7 +591,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void SelectItem()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && SelectedItem > 0)//scrolling up, -1 so that ur one less than out of bounds
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && SelectedItem > 0 && !IsShooting)//scrolling up, -1 so that ur one less than out of bounds
         {
             SelectedItem--;
             UIManager.instance.updateSelection(SelectedItem);
@@ -602,7 +602,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             ChangeItem();
 
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && SelectedItem < inventory.hotbarInventory.Count - 1) //scrolling down, makes sure we never get past 0
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && SelectedItem < inventory.hotbarInventory.Count - 1 && !IsShooting) //scrolling down, makes sure we never get past 0
         {
             SelectedItem++;
             UIManager.instance.updateSelection(SelectedItem);

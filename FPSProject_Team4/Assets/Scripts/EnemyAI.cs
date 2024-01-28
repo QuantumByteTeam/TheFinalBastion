@@ -100,14 +100,14 @@ public class EnemyAI : MonoBehaviour, IDamageable
             {
                 agent.SetDestination(randomPoint.transform.position);
                 randomPoint.GetComponent<PointController>().isTargeted = true;
+                randomPoint.GetComponent<PointController>().timer1 = 0;
                 hasTargetLOS(randomPoint.transform);
             }
             else if (shouldTargetPoint)
             {
-                //Debug.Log("Targeting Point");
-                //canSeeTarget(CoreManager.instance.GetClosestToPosition(transform.position).transform);
                 agent.SetDestination(point.transform.position);
                 point.GetComponent<PointController>().isTargeted = true;
+                point.GetComponent<PointController>().timer1 = 0;
                 hasTargetLOS(point.transform);
             }
             else
@@ -419,15 +419,15 @@ public class EnemyAI : MonoBehaviour, IDamageable
                 {
                     Debug.Log("LootBag True");
                     lootBag.InstantiateLoot(transform.position);
-                    GameManager.instance.score += reward;
-                   GameManager.instance.coins += reward;
+                    GameManager.instance.coins += reward;
                 }
                 Debug.Log("LootBag End");
                 Destroy(gameObject);
             }
             else
             {
-                agent.SetDestination(GameManager.instance.player.transform.position);
+                //agent.SetDestination(GameManager.instance.player.transform.position); //dont like this because any damage recieved will cause them to target the player
+                hasTargetLOS(GameManager.instance.player.transform);
             }
         }
     }

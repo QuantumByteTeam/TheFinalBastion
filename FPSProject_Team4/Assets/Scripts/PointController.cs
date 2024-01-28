@@ -2,53 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// OLD
-/*
-public class PointController : MonoBehaviour, IDamageable
-{
-    public float health;
-
-
-    
-    public float healthOrig;
-
-    void Start()
-    {
-        healthOrig = health;
-    }
-
-    public void takeDamage(float amount, float armorPen)
-    {
-        health -= amount;
-        UIManager.instance.UpdatePointHP(health, healthOrig);
-        GameManager.instance.score -= (int)amount;
-        if (health <= 0)
-        {
-            //player dies
-            GameManager.instance.YouLose();
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            UIManager.instance.UpdatePointHP(true);
-            UIManager.instance.UpdatePointHP(health, healthOrig);
-
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            UIManager.instance.UpdatePointHP(false);
-        }
-    }
-}
-*/
-
 public class PointController : MonoBehaviour, ISimpleInteractable, IDamageable, IRepairable
 {
     [Header("----- Health -----")]
@@ -66,16 +19,23 @@ public class PointController : MonoBehaviour, ISimpleInteractable, IDamageable, 
     [Header("----- Is Attacked -----")]
     public bool isAttacked;
     public bool isTargeted;
-    private float timer;
+    public float timer = 5;
+    public float timer1 = 5;
 
     private bool playerOnPoint;
     private PlayerController player;
+
+    [SerializeField] ParticleSystem damageParticles;
+    [SerializeField] GameObject particleLocation;
+    ParticleSystem particles;
 
     void Start()
     {
         healthOrig = health;
         player = GameManager.instance.playerScript;
         CoreManager.instance.RegisterCore(gameObject);
+        particles = Instantiate(damageParticles, particleLocation.transform.position, Quaternion.LookRotation(Vector3.up, Vector3.up));
+        particles.Stop();
     }
 
     void Update()
@@ -85,23 +45,18 @@ public class PointController : MonoBehaviour, ISimpleInteractable, IDamageable, 
             health = healthOrig;
         }
 
-        if (isAttacked)
-        {
-            timer += Time.deltaTime;
-        }
-        else
-        {
-            timer = 0;
-        }
+        timer += Time.deltaTime;
 
-        if (timer > 5)
+        if (timer > 3)
         {
             isAttacked = false;
         }
-        
-        if (isTargeted)
-        {
 
+        timer1 += Time.deltaTime;
+
+        if (timer1 > 0.1)
+        {
+            isTargeted = false;
         }
     }
     
@@ -129,7 +84,7 @@ public class PointController : MonoBehaviour, ISimpleInteractable, IDamageable, 
         {
             isAttacked = true;
         }
-        
+        timer = 0;
         health -= amount;
         GameManager.instance.score -= (int)amount;
         UIManager.instance.UpdateScore();
@@ -138,8 +93,12 @@ public class PointController : MonoBehaviour, ISimpleInteractable, IDamageable, 
         {
             UIManager.instance.UpdatePointHP(health, healthOrig);
         }
-        
-        GameManager.instance.score -= (int)amount;
+
+        if (health < (healthOrig/3))
+        {
+            particles.Play();
+        }
+
         if (health <= 0)
         {
             //player dies
@@ -174,5 +133,10 @@ public class PointController : MonoBehaviour, ISimpleInteractable, IDamageable, 
         UIManager.instance.UpdateScore();
         reqTool.ammoCount -= useCost;
         UIManager.instance.UpdatePointHP(true);
+
+        if (health >= (healthOrig/3))
+        {
+            particles.Stop();
+        }
     }
 }
