@@ -21,6 +21,8 @@ public class CraftingManager : MonoBehaviour
 
     private void Update()
     {
+
+
         if (Input.GetMouseButtonUp(0))
         {
             if (currItem != null)
@@ -75,8 +77,10 @@ public class CraftingManager : MonoBehaviour
     {
         nonNullSlotsCount = 0;
         //Craftable = false; 1/26 commented out
-        resultSlot.gameObject.SetActive(false); 
         resultSlot.item = null;
+        resultSlot.gameObject.SetActive(false);
+        resultSlot.GetComponent<Image>().sprite = null;
+
 
         currRecipeString = "";
         foreach(CraftingItem item in itemList)
@@ -91,6 +95,9 @@ public class CraftingManager : MonoBehaviour
                 currRecipeString += "null";
             }
         }
+
+        Debug.Log("nonNullSlotsCount: " + nonNullSlotsCount);
+        Debug.Log("currRecipeString: " + currRecipeString);
 
         for (int i = 0; i < recipes.Length; i++)
         {
@@ -152,15 +159,29 @@ public class CraftingManager : MonoBehaviour
 
                 //Reset Craftable flag
                 Craftable = false;
-                currRecipeString = "nullClothBombCompChip";
-                
+                currRecipeString = "";
+                //itemList[resultSlot.index] = null;
+                nonNullSlotsCount= 0;
+                currItem= null;
+                //Debug.Log("nonNullSlotsCount: " + nonNullSlotsCount);
+                //Debug.Log("currRecipeString: " + currRecipeString);
+
+                for (int i = 0; i < 4; i++)
+            {
+                itemList[i] = null; //essential for the items to not craft at half cost
             }
+
+                //itemList[2] = null; 
+                //itemList[1] = null; 
+        }
         
     }
 
     public void OnCraftButtonClick() //use this so that u can use onClick buttons easily
     {
         OnConfirmRecipe();
+        //nonNullSlotsCount = 0;
+        
     }
 
 
