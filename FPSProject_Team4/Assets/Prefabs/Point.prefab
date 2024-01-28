@@ -135,10 +135,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2065604795450172919}
+  - component: {fileID: 7609730442311277248}
   - component: {fileID: 1380894465510393121}
   - component: {fileID: 8172376285756593705}
   - component: {fileID: 1715083130885888272}
-  - component: {fileID: 7609730442311277248}
   m_Layer: 7
   m_Name: Point
   m_TagString: Point
@@ -162,6 +162,26 @@ Transform:
   - {fileID: 7055764872824784015}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7609730442311277248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8974552537905081539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab5065c9c6e3c6c41bee624d58f01fb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  healthOrig: 0
+  reqTool: {fileID: 11400000, guid: f53f8966cf7554449b501cb1562432ef, type: 2}
+  cost: 1
+  mult: 1
+  prompt: Repair
+  isAttacked: 0
+  isTargeted: 0
 --- !u!33 &1380894465510393121
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -235,22 +255,3 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &7609730442311277248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8974552537905081539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab5065c9c6e3c6c41bee624d58f01fb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  healthOrig: 0
-  reqTool: {fileID: 11400000, guid: f53f8966cf7554449b501cb1562432ef, type: 2}
-  cost: 1
-  mult: 1
-  prompt: Repair
-  isAttacked: 0

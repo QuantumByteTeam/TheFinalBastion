@@ -386,7 +386,7 @@ public class PlayerController : MonoBehaviour, IDamageable
                     {
                         StartCoroutine(WaterLeakEffect(hit.collider.transform, hit.point, transform.rotation));
                     }
-                    else if (hit.collider.CompareTag("Pipe") && (hit.collider.GetComponent<PipeSystem>().isSteam || hit.collider.GetComponent<PipeSystem>().isGas))
+                    else if (hit.collider.CompareTag("Pipe") && (hit.collider.GetComponent<PipeSystem>().isSmoke || hit.collider.GetComponent<PipeSystem>().isGas))
                     {
                         StartCoroutine(GasLeakEffect(hit.collider.transform, hit.point, transform.rotation));
                     }

@@ -56,6 +56,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
     //John
     public bool armor;
 
+    [HideInInspector] public float origSpeed;
+
     void Start()
     {
         isDead = false;
@@ -73,6 +75,9 @@ public class EnemyAI : MonoBehaviour, IDamageable
             exploder = GetComponent<ExplodingMechanic>();
             isExploder = true;
         }
+
+        origSpeed = gameObject.GetComponent<NavMeshAgent>().speed;
+
         //if (shouldTargetPlayer)
         //{
         //    agent.SetDestination(GameManager.instance.player.transform.position);

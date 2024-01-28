@@ -139,7 +139,7 @@ public class EnemyBuff : MonoBehaviour
         }
 
         yield return new WaitForSeconds(speedDuration);
-        enemy.GetComponent<NavMeshAgent>().speed = origSpeed;
+        enemy.GetComponent<NavMeshAgent>().speed = enemy.GetComponent<EnemyAI>().origSpeed;
         enemy.GetComponent<EnemyAI>().isBuffed = false;
     }
 
