@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1572990694379862255}
   m_Layer: 0
   m_Name: Cray-1_Supercomputer
-  m_TagString: Point
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3769332878783206705}
-  m_Mesh: {fileID: 4579117778615421093, guid: 00b0ad13c57e39b429d0c46d8de9f920, type: 3}
+  m_Mesh: {fileID: 4579117778615421093, guid: 955c5f962461beb44a88e43573f09a64, type: 3}
 --- !u!23 &3409119607045059812
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: -6478536213147159724, guid: 955c5f962461beb44a88e43573f09a64, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,6 +106,7 @@ MonoBehaviour:
   mult: 1
   prompt: Repair
   isAttacked: 0
+  isTargeted: 0
 --- !u!136 &2053982255548931149
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -164,7 +165,7 @@ GameObject:
   - component: {fileID: 4128703269039139595}
   m_Layer: 20
   m_Name: RadarIcon
-  m_TagString: Untagged
+  m_TagString: Point
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,8 +178,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4664156090994201710}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.45508528, y: -0.5411999, z: 0.5411999, w: 0.45508528}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.4550853, y: -0.5412, z: 0.5412, w: 0.4550853}
+  m_LocalPosition: {x: 0, y: -0.03500003, z: 0}
   m_LocalScale: {x: 20, y: 20, z: 40}
   m_ConstrainProportionsScale: 0
   m_Children: []

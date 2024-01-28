@@ -16,6 +16,8 @@ TagManager:
   - Flashbang
   - Trap
   - Teleporter
+  - Pipe
+  - PipeHitEffect
   layers:
   - Default
   - TransparentFX

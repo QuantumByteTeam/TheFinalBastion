@@ -76,7 +76,6 @@ public class PointController : MonoBehaviour, ISimpleInteractable, IDamageable, 
         healthOrig = health;
         player = GameManager.instance.playerScript;
         CoreManager.instance.RegisterCore(gameObject);
-
     }
 
     void Update()
@@ -99,6 +98,7 @@ public class PointController : MonoBehaviour, ISimpleInteractable, IDamageable, 
         {
             isAttacked = false;
         }
+        
         if (isTargeted)
         {
 

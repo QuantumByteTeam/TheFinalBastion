@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 15d3f25f79e4f974093e7235e8c2c755
+guid: 082aeb1164a736c49b294bc06f943f8f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Atmospheric_Regulator - Regulator_Handle-1 Base Color
+    second: {fileID: 2800000, guid: 05b6fac7a02a91a4d848a98892e39447, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

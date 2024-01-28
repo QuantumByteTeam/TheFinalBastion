@@ -27,7 +27,7 @@ public class CraftingManager : MonoBehaviour
     public GameObject ArmorPrefab;
     public GameObject BandagePrefab;
 
-    
+    public Sprite SlotDefault;
 
 
 
@@ -71,14 +71,14 @@ public class CraftingManager : MonoBehaviour
                 if (slot != null)
                 {
                     slot.item = null;
-                    slot.gameObject.SetActive(false);
-                    slot.GetComponent<Image>().sprite = null;
+                    //slot.gameObject.SetActive(false);
+                    slot.GetComponent<Image>().sprite = SlotDefault;
                 }
             }
             //clears result slot when exiting
             resultSlot.item = null;
             resultSlot.gameObject.SetActive(false);
-            resultSlot.GetComponent<Image>().sprite = null;
+            resultSlot.GetComponent<Image>().sprite = SlotDefault;
             Craftable = false;
 
         }
@@ -91,7 +91,7 @@ public class CraftingManager : MonoBehaviour
         //Craftable = false; 1/26 commented out
         resultSlot.item = null;
         resultSlot.gameObject.SetActive(false);
-        resultSlot.GetComponent<Image>().sprite = null;
+        resultSlot.GetComponent<Image>().sprite = SlotDefault;
 
 
         currRecipeString = "";
@@ -137,7 +137,7 @@ public class CraftingManager : MonoBehaviour
     {
         slot.item = null;
         itemList[slot.index] = null;
-        slot.gameObject.SetActive(false);
+        slot.gameObject.GetComponent<Image>().sprite = SlotDefault;
         CheckForRecipe();
     }
 
@@ -186,14 +186,14 @@ public class CraftingManager : MonoBehaviour
             // Clear the crafting slots and reset the UI/item indexes
             resultSlot.item = null;
                 resultSlot.gameObject.SetActive(false);
-                resultSlot.GetComponent<Image>().sprite = null;
+                resultSlot.GetComponent<Image>().sprite = SlotDefault;
                 foreach (CraftingSlot slot in craftingSlots) //clears all crafting slots
                 {
                     if (slot != null)
                     {
                         slot.item = null;
-                        slot.gameObject.SetActive(false);
-                        slot.GetComponent<Image>().sprite = null;
+                        //slot.gameObject.SetActive(false);
+                        slot.GetComponent<Image>().sprite = SlotDefault;
                     }
                 }
 
