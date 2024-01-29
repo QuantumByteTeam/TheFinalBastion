@@ -18,6 +18,8 @@ TagManager:
   - Teleporter
   - Pipe
   - PipeHitEffect
+  - Gun
+  - Door
   layers:
   - Default
   - TransparentFX
