@@ -67,7 +67,6 @@ public class UIManager : MonoBehaviour
 
     public void DisplayOptionsMenu()
     {
-        menuActive = menuOptions;
         menuOptions.SetActive(true);
     }
 
@@ -99,6 +98,11 @@ public class UIManager : MonoBehaviour
     {
         menuActive.SetActive(false);
         menuActive = null;
+    }
+
+    public void CloseOptionsMenu()
+    {
+        menuOptions.SetActive(false);
     }
 
     public void CloseStoreMenu()
