@@ -52,6 +52,7 @@ MonoBehaviour:
   isPoint: 0
   isWeapon: 0
   isItem: 0
+  isTurret: 0
 --- !u!212 &2562572074554150451
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -188,6 +189,7 @@ MonoBehaviour:
   targetFaceSpeed: 10
   shouldTargetPlayer: 1
   shouldTargetPoint: 1
+  shouldTargetRandom: 0
   canRoam: 1
   pointTargetRange: 15
   maxLookAngle: 45
@@ -200,11 +202,14 @@ MonoBehaviour:
   bulletDamage: 1
   bulletSpeed: 25
   point: {fileID: 0}
+  randomPoint: {fileID: 0}
+  isDead: 0
   isBuffed: 0
   isShooting: 0
   isRoaming: 0
   reward: 150
   armor: 0
+  origSpeed: 0
 --- !u!114 &2177037421144176401
 MonoBehaviour:
   m_ObjectHideFlags: 0

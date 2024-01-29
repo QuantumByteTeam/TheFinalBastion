@@ -61,6 +61,7 @@ MonoBehaviour:
   targetFaceSpeed: 10
   shouldTargetPlayer: 1
   shouldTargetPoint: 1
+  shouldTargetRandom: 0
   canRoam: 1
   pointTargetRange: 15
   maxLookAngle: 45
@@ -73,11 +74,14 @@ MonoBehaviour:
   bulletDamage: 1
   bulletSpeed: 25
   point: {fileID: 0}
+  randomPoint: {fileID: 0}
+  isDead: 0
   isBuffed: 0
   isShooting: 0
   isRoaming: 0
   reward: 100
   armor: 0
+  origSpeed: 0
 --- !u!195 &6816173695710615065
 NavMeshAgent:
   m_ObjectHideFlags: 0

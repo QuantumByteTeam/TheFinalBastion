@@ -308,11 +308,13 @@ MonoBehaviour:
   bulletSpeed: 25
   point: {fileID: 0}
   randomPoint: {fileID: 0}
+  isDead: 0
   isBuffed: 0
   isShooting: 0
   isRoaming: 0
   reward: 150
   armor: 0
+  origSpeed: 0
 --- !u!114 &6982668902544921908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,6 +479,7 @@ MonoBehaviour:
   itemDropsPrefab: {fileID: 7119326757821012853, guid: a4e4a424f3e005e4ab655e62b610cb08, type: 3}
   lootList:
   - {fileID: 11400000, guid: 4ccd886745a54114c911a92a417d8207, type: 2}
+  - {fileID: 11400000, guid: 2a6596511773adf48b650a922b201130, type: 2}
 --- !u!82 &217869926654074016
 AudioSource:
   m_ObjectHideFlags: 0

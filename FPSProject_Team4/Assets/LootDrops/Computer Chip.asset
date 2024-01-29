@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootName: Computer Chip
   dropChance: 20
-  lootSprite: {fileID: 21300000, guid: cec156ff849fb7d4f961a198c8be60d9, type: 3}
+  lootSprite: {fileID: 2800000, guid: 43696bb6d143da04fa585a831e185a8f, type: 3}

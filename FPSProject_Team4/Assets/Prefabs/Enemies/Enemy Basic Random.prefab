@@ -47,8 +47,8 @@ GameObject:
   - component: {fileID: 6182342185122864488}
   - component: {fileID: 234204103536319856}
   - component: {fileID: 1835859126449656892}
-  - component: {fileID: 1299502078975221357}
   - component: {fileID: 3585800391423779141}
+  - component: {fileID: 3086088211980711660}
   m_Layer: 19
   m_Name: Enemy Basic Random
   m_TagString: Enemy
@@ -106,11 +106,13 @@ MonoBehaviour:
   bulletSpeed: 25
   point: {fileID: 0}
   randomPoint: {fileID: 0}
+  isDead: 0
   isBuffed: 0
   isShooting: 0
   isRoaming: 0
   reward: 100
   armor: 0
+  origSpeed: 0
 --- !u!195 &2266457241191451737
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -248,22 +250,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a67ef63061619c847b9f3ba2dc5acd4e, type: 3}
   - {fileID: 8300000, guid: a9e2ee94721c6ca409f3d64ce09aa903, type: 3}
   ImpactSoundVol: 0.5
---- !u!114 &1299502078975221357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2635645611864226276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cf7bceb44a2b6347948115e24b7d6c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemDropsPrefab: {fileID: 7119326757821012853, guid: a4e4a424f3e005e4ab655e62b610cb08, type: 3}
-  lootList:
-  - {fileID: 11400000, guid: 4ccd886745a54114c911a92a417d8207, type: 2}
-  - {fileID: 11400000, guid: 2a6596511773adf48b650a922b201130, type: 2}
 --- !u!82 &3585800391423779141
 AudioSource:
   m_ObjectHideFlags: 0
@@ -360,6 +346,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3086088211980711660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2635645611864226276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf7bceb44a2b6347948115e24b7d6c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemDropsPrefab: {fileID: 7119326757821012853, guid: a4e4a424f3e005e4ab655e62b610cb08, type: 3}
+  lootList:
+  - {fileID: 11400000, guid: 81a015e0a148dd842a70900f00792576, type: 2}
+  - {fileID: 11400000, guid: 2a6596511773adf48b650a922b201130, type: 2}
+  - {fileID: 11400000, guid: 4ccd886745a54114c911a92a417d8207, type: 2}
 --- !u!1 &2707059792356115833
 GameObject:
   m_ObjectHideFlags: 0

@@ -419,6 +419,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
                 UIManager.instance.UpdateScore();
                 LootBag lootBag = GetComponent<LootBag>();
+                /*PowerUp power = GetComponent<PowerUp>();
+                power.drop(transform.position);*/ //tried making it work oops
                 Debug.Log("lootbag");
                 if (lootBag)
                 {

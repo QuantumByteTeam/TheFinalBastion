@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7041437091442426586}
   - component: {fileID: -5039189745956767537}
   - component: {fileID: 2560077517623344602}
-  - component: {fileID: -2244767174821851914}
+  - component: {fileID: -90099848677735999}
   m_Layer: 19
   m_Name: Enemy Basic Point Ignore
   m_TagString: Enemy
@@ -61,6 +61,7 @@ MonoBehaviour:
   targetFaceSpeed: 10
   shouldTargetPlayer: 1
   shouldTargetPoint: 0
+  shouldTargetRandom: 0
   canRoam: 1
   pointTargetRange: 15
   maxLookAngle: 45
@@ -73,11 +74,14 @@ MonoBehaviour:
   bulletDamage: 1
   bulletSpeed: 25
   point: {fileID: 0}
+  randomPoint: {fileID: 0}
+  isDead: 0
   isBuffed: 0
   isShooting: 0
   isRoaming: 0
   reward: 100
   armor: 0
+  origSpeed: 0
 --- !u!195 &6816173695710615065
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -311,7 +315,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-2244767174821851914
+--- !u!114 &-90099848677735999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -325,8 +329,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDropsPrefab: {fileID: 7119326757821012853, guid: a4e4a424f3e005e4ab655e62b610cb08, type: 3}
   lootList:
-  - {fileID: 11400000, guid: 2a6596511773adf48b650a922b201130, type: 2}
   - {fileID: 11400000, guid: 4ccd886745a54114c911a92a417d8207, type: 2}
+  - {fileID: 11400000, guid: 2a6596511773adf48b650a922b201130, type: 2}
+  - {fileID: 11400000, guid: 81a015e0a148dd842a70900f00792576, type: 2}
 --- !u!1 &2878983257175420442
 GameObject:
   m_ObjectHideFlags: 0
