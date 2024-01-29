@@ -178,7 +178,7 @@ public class PlayerController : MonoBehaviour, IDamageable
                     {
                         if (Input.GetButtonDown("Shoot"))
                         {
-                            IsShooting = true;
+                            //IsShooting = true;
                             //shootSwap = true;
                             Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployable, Camera.main.transform.position + (Camera.main.transform.forward * inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployDistance), Camera.main.transform.rotation);
                             inventory.Remove(SelectedItem);
