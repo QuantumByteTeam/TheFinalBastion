@@ -30,6 +30,10 @@ public class inventoryItem : ScriptableObject
     public int ShootDist;
     public float damageFalloffPerMeter;
 
+    public int ID;
+
+    public float recoil;
+
     public int ammoCount;
     public int ammoMag;
     public int ammoReserve;

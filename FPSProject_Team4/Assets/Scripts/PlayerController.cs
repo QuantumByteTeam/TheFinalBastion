@@ -14,8 +14,6 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] AudioSource aud;
     [SerializeField] AudioMixerGroup audioMixerGroup;
     [SerializeField] Animator anim;
-    // [SerializeField] public Camera radarCam;
-    // [SerializeField] public GameObject radar;
 
     [Header("----- Stats -----")]
     public float HP; //configurable amt of HP
@@ -79,6 +77,11 @@ public class PlayerController : MonoBehaviour, IDamageable
     Coroutine lastSound = null;
 
     bool shootSwap;
+
+    [SerializeField] Transform uzi;
+    [SerializeField] Transform m4;
+    [SerializeField] Transform sg;
+    [SerializeField] ParticleSystem flash;
 
     public float damageModifier;
 
@@ -342,7 +345,22 @@ public class PlayerController : MonoBehaviour, IDamageable
             {
                 lastSound = StartCoroutine(ShootSound());
             }
+            if (currentItem.ID == 0)
+            {
+                Instantiate(flash, sg.position, Quaternion.LookRotation(GunModel.transform.forward * -1));
+            }
+            else if (currentItem.ID == 1)
+            {
+                Instantiate(flash, m4.position, Quaternion.LookRotation(GunModel.transform.forward * -1));
+            }
+            else if (currentItem.ID == 2)
+            {
+                Instantiate(flash, uzi.position, Quaternion.LookRotation(GunModel.transform.forward * -1));
+            }
             
+
+            //Camera.main.transform.Rotate(Vector3.right, currentItem.recoil);
+
             ammoCount--;
             currentItem.ammoCount--;
             RaycastHit hit;

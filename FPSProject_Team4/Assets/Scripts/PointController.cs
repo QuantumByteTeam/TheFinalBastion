@@ -132,7 +132,7 @@ public class PointController : MonoBehaviour, ISimpleInteractable, IDamageable, 
         GameManager.instance.score += (int)(reqTool.ShootDamage* repairMult*0.5);
         UIManager.instance.UpdateScore();
         reqTool.ammoCount -= useCost;
-        UIManager.instance.UpdatePointHP(true);
+        UIManager.instance.UpdatePointHP(health, healthOrig);
 
         if (health >= (healthOrig/3))
         {

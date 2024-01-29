@@ -255,6 +255,7 @@ public class UIManager : MonoBehaviour
 
     public void restart()
     {
+        GameManager.instance.resetGuns();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         GameManager.instance.StateUnpaused();
     }
