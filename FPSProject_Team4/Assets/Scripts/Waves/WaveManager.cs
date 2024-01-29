@@ -150,13 +150,13 @@ public class WaveManager : MonoBehaviour
         currentWave++;
         UIManager.instance.UpdateWaveCount();
 
-        if (doors.Count > 0) 
-        {
-            foreach (Door door in doors)
-            {
-                door.DetermineIfBroken();
-            }
-        }
+        //if (doors.Count > 0) 
+        //{
+        //    foreach (Door door in doors)
+        //    {
+        //        door.DetermineIfBroken();
+        //    }
+        //}
 
         int enemyCount = Mathf.FloorToInt(startEnemyCount + enemyCountMultiplier * currentWave); // Enemy Count function, currently is linear
         totalEnemyCount = enemyCount;
