@@ -16,12 +16,4 @@ public class Loot : ScriptableObject
         this.lootName = lootName;
         this.dropChance = dropChance;
     }
-
-    private void OnCollisionEnter(Collider collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-
-        }
-    }
 }
