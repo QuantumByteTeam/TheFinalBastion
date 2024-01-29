@@ -32,6 +32,8 @@ public class CraftingManager : MonoBehaviour
     
     Vector3 spawnPosition;
 
+    
+
     private void Update()
     {
         Vector3 playerPos = transform.position; //gets player position
