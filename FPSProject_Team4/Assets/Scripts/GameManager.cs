@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
+using System.Linq;
 
 
 public class GameManager : MonoBehaviour
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
     float timescaleOG;
 
     public int score;
+    public Store accessedStore;
 
     public UnityEvent waveEndEvent;
     
@@ -61,11 +63,6 @@ public class GameManager : MonoBehaviour
             {
                 StatePaused();
                 UIManager.instance.DisplayPausedMenu();
-            }
-            else if (Input.GetButtonDown("Open Buy Menu"))
-            {
-                StatePaused();
-                UIManager.instance.DisplayStoreMenu();
             }
         }
         UIManager.instance.UpdatePointIndicators();
@@ -114,7 +111,24 @@ public class GameManager : MonoBehaviour
         }
     }
     
-    
+    public void resetGuns()
+    {
+        for (int i = 0; i < playerScript.inventory.hotbarInventory.Count; i++)
+        {
+            if (playerScript.inventory.hotbarInventory.ElementAt(i).Key.isGun)
+            {
+                playerScript.inventory.hotbarInventory.ElementAt(i).Key.firstInstance = true;
+            }
+        }
+
+        GameObject[] guns = GameObject.FindGameObjectsWithTag("Gun");
+
+        foreach (GameObject gun in guns)
+        {
+            gun.GetComponent<GunPickup>().gun.firstInstance = true;
+        }
+        
+    }
 
     // public void UpdateWaveCount(int amount)
     // {

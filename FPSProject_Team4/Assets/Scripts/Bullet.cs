@@ -23,6 +23,11 @@ public class Bullet : MonoBehaviour
 
         IDamageable damage = other.GetComponent<IDamageable>();
 
+        if (tag == "Turret" && other.tag == "Point")
+        {
+            Destroy(gameObject);
+        }
+
         if (damage != null)
         {
             damage.takeDamage(damageAmount, armorPen);

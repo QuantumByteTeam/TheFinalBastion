@@ -49,16 +49,14 @@ public class playerInventory //: MonoBehaviour
     {
         inventoryItem item = hotbarInventory.ElementAt(index).Key;
 
-        
 
+
+        PlayerController player = GameManager.instance.playerScript;
         GameObject newItem = GameManager.Instantiate(item.droppedItem, Camera.main.transform.position + (Camera.main.transform.forward * 3), Camera.main.transform.rotation);
         if (item.isGun)
         {
-            //gunStats newGunStats = newItem.gameObject.GetComponent<gunStats>();
-            //newGunStats.ammoCount = item.ammoCount;
-            //newGunStats.ammoMag = item.ammoMag;
-            //newGunStats.ammoReserve = item.ammoReserve;
-            //newGunStats.ammoCount = item.ammoCount;
+            newItem.GetComponent<GunPickup>().gun.ammoCount = player.ammoCount;
+            newItem.GetComponent<GunPickup>().gun.ammoReserve = player.ammoReserve;
         }
 
         Remove(index);
@@ -72,6 +70,8 @@ public class playerInventory //: MonoBehaviour
         GameManager.instance.playerScript.ChangeItem();
         UIManager.instance.updateHotbar();
     }
+
+    
 
     public int DictionarySize()
     {

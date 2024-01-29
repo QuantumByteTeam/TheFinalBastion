@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830448368923377388}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000015454336, y: -0.70710576, z: 0.000000015454289, w: 0.70710784}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 23.04447, y: 1.789, z: -25.411}
   m_LocalScale: {x: 0.5, y: 0.5, z: 6}
   m_ConstrainProportionsScale: 0
@@ -52,11 +52,11 @@ MonoBehaviour:
   isWater: 1
   isGas: 0
   waterHitEffect: {fileID: 7277364083340449282, guid: a60c7f18e6eecfc4199d220a19c8ad3a, type: 3}
-  vapourHitEffect: {fileID: 2370029053858668304, guid: 62dcc636c606d73488ef18adeefa6999, type: 3}
+  vapourHitEffect: {fileID: 1242286309843626312, guid: 2cb6c4602db1dd842a6416ce6c43dda2, type: 3}
   effectCreated: 0
-  smokeObject: {fileID: 4858140590602721606, guid: 22a043c8814df054ab3014f5f2e65d34, type: 3}
+  smokeObject: {fileID: 8615130296170281115, guid: 0e67796b3c0a26b4fb7bc773e7b9aad9, type: 3}
   waterObject: {fileID: 2476142829630269218, guid: 198d562b05fc06645a4c0b3760156290, type: 3}
-  gasObject: {fileID: 938170502728384701, guid: 6ad32178227c9e548af8b37dfeba876f, type: 3}
+  gasObject: {fileID: 5893358781792512498, guid: 626b8868fbbf9a7469a40fc58b00b59e, type: 3}
   health: 50
   healthOrig: 0
   fullHealth: 0

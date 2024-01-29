@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class GunPickup : MonoBehaviour
 {
-    [SerializeField] inventoryItem gun;
+    [SerializeField] public inventoryItem gun;
 
     bool triggerSet; //code that fixes a bug with picking up multiple of the same type of gun (activates trigger multiple times)
 
     // Start is called before the first frame update
     void Start()
     {
-        gun.ammoCount = gun.ammoMag;
-        gun.ammoReserve = gun.ammoReserveDefault;//sets ammo to max amt that the gun can hold
+        
     }
 
     private void OnTriggerEnter(Collider other)

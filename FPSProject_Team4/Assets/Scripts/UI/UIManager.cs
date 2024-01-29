@@ -1,11 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Linq;
-using System.Numerics;
 
 public class UIManager : MonoBehaviour
 {
@@ -32,7 +30,8 @@ public class UIManager : MonoBehaviour
     public GameObject menuActive;
     [SerializeField] TMP_Text ammoCounterText;
     [SerializeField] TMP_Text reserveAmmoText;
-    [SerializeField] GameObject reloadingText;
+    [SerializeField] public GameObject reloadingText;
+    public GameObject smokeVignette;
 
     [SerializeField] TMP_Text ReactorText;
     [SerializeField] TMP_Text LifeSupportText;
@@ -100,6 +99,12 @@ public class UIManager : MonoBehaviour
     {
         menuActive.SetActive(false);
         menuActive = null;
+    }
+
+    public void CloseStoreMenu()
+    {
+        GameManager.instance.ActiveUnpause();
+        Resume();
     }
 
     public void UpdatePlayerHP()
@@ -250,12 +255,14 @@ public class UIManager : MonoBehaviour
 
     public void restart()
     {
+        GameManager.instance.resetGuns();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         GameManager.instance.StateUnpaused();
     }
 
     public void quit()
     {
+        GameManager.instance.resetGuns();
         Application.Quit();
     }
 

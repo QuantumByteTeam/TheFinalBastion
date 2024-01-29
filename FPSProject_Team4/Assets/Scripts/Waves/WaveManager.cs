@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
@@ -50,6 +49,7 @@ public class WaveManager : MonoBehaviour
     private bool isWaveRunning = false;
     private RoundData round;
     private int totalEnemyCount;
+    private List<Door> doors;
 
     void OnValidate()
     {
@@ -88,6 +88,21 @@ public class WaveManager : MonoBehaviour
                 Debug.LogError("GameObject found with tag 'EnemySpawner' but does not have component 'EnemySpawner'.");
             }
         }
+
+        // FIXME: Issue caused by doors.Add(door); Object reference error
+        //foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Door"))
+        //{
+        //    Door door = obj.GetComponent<Door>();
+
+        //    if (door != null)
+        //    {
+        //        doors.Add(door);
+        //    }
+        //    else
+        //    {
+        //        Debug.LogError("GameObject found with tag 'Door' but does not have component 'Door'.");
+        //    }
+        //}
     }
 
     public void OnWaveEnd()
@@ -134,6 +149,14 @@ public class WaveManager : MonoBehaviour
         isWaveRunning = true;
         currentWave++;
         UIManager.instance.UpdateWaveCount();
+
+        if (doors.Count > 0) 
+        {
+            foreach (Door door in doors)
+            {
+                door.DetermineIfBroken();
+            }
+        }
 
         int enemyCount = Mathf.FloorToInt(startEnemyCount + enemyCountMultiplier * currentWave); // Enemy Count function, currently is linear
         totalEnemyCount = enemyCount;
@@ -221,6 +244,11 @@ public class WaveManager : MonoBehaviour
         return totalEnemyCount;
     }
 
+    public List<Door> GetDoors()
+    {
+        return doors;
+    }
+
     void ValidateRoundData(bool debug = false)
     {
         RoundData foundRound = roundData.Find(data => data.name == "regular");
@@ -248,7 +276,7 @@ public class WaveManager : MonoBehaviour
 
                 if ((totalEnemyProb > 1 || totalEnemyProb < 1) && debug)
                 {
-                    Debug.LogError("EnemyData total probability is greater/less than 1. Total enemyData probability = " + totalEnemyProb);
+                    Debug.LogError(data.name + " EnemyData total probability is greater/less than 1. Total enemyData probability = " + totalEnemyProb);
                 }
             }
 

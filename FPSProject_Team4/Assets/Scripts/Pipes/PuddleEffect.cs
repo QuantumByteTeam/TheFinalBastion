@@ -16,7 +16,6 @@ public class PuddleEffect : MonoBehaviour
     private BoxCollider boxCol;
 
     private float curRange;
-    private float oldZpos;
     
     private bool isGrounded;
     private bool isVisible;

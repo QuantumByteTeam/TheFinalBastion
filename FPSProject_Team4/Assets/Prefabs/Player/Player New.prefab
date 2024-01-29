@@ -71,7 +71,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 30
+  orthographic size: 45
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -283,6 +283,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2843757115981060671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5825958003608984701}
+  m_Layer: 0
+  m_Name: Gun - Uzi
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5825958003608984701
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2843757115981060671}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0264, z: -0.2207}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6801286354635644389}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3471007048470056918
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,7 +445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radarSpeed: 10
-  maxRange: 0
+  maxRange: 40
 --- !u!1 &4396436533674926331
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,6 +747,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &6383293489587267452
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 643313896049270992}
+  m_Layer: 0
+  m_Name: Gun - M4 (used to be m1918)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &643313896049270992
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6383293489587267452}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0582, z: -0.34}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6801286354635644389}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6569623406297177988
 GameObject:
   m_ObjectHideFlags: 0
@@ -998,6 +1060,9 @@ Transform:
   - {fileID: 5667559584413925846}
   - {fileID: 154299505073278646}
   - {fileID: 5375012853384047761}
+  - {fileID: 5825958003608984701}
+  - {fileID: 448160298724449572}
+  - {fileID: 643313896049270992}
   m_Father: {fileID: 5679570166593027513}
   m_LocalEulerAnglesHint: {x: 0, y: -165, z: 0}
 --- !u!33 &472880072422154048
@@ -1138,6 +1203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 6992360642434885414}
   aud: {fileID: 5276165935471756064}
+  audioMixerGroup: {fileID: 0}
   anim: {fileID: 3934705242051501869}
   HP: 100
   PlayerSpeed: 7
@@ -1185,6 +1251,10 @@ MonoBehaviour:
   gunPosition: {fileID: 4692781281717760944}
   isSprinting: 0
   isADS: 0
+  uzi: {fileID: 5825958003608984701}
+  m4: {fileID: 643313896049270992}
+  sg: {fileID: 448160298724449572}
+  flash: {fileID: 6549213742883343848, guid: 93f3023197a24984597c72290f64f745, type: 3}
   damageModifier: 1
   ammoCount: 0
   ammoMag: 0
@@ -1445,3 +1515,34 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &9146020717808174882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 448160298724449572}
+  m_Layer: 0
+  m_Name: Gun - Benelli (shotty)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &448160298724449572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9146020717808174882}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.483}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6801286354635644389}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
