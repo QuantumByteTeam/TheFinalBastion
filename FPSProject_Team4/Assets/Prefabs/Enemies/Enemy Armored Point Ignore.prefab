@@ -188,6 +188,7 @@ MonoBehaviour:
   targetFaceSpeed: 5
   shouldTargetPlayer: 1
   shouldTargetPoint: 0
+  shouldTargetRandom: 0
   canRoam: 1
   pointTargetRange: 15
   maxLookAngle: 45
@@ -200,11 +201,14 @@ MonoBehaviour:
   bulletDamage: 1
   bulletSpeed: 25
   point: {fileID: 0}
+  randomPoint: {fileID: 0}
+  isDead: 0
   isBuffed: 0
   isShooting: 0
   isRoaming: 0
   reward: 200
   armor: 1
+  origSpeed: 0
 --- !u!195 &9054785238413755786
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -450,7 +454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cf7bceb44a2b6347948115e24b7d6c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDropsPrefab: {fileID: 0}
+  itemDropsPrefab: {fileID: 7119326757821012853, guid: a4e4a424f3e005e4ab655e62b610cb08, type: 3}
   lootList:
   - {fileID: 11400000, guid: 4ccd886745a54114c911a92a417d8207, type: 2}
   - {fileID: 11400000, guid: e8d04b476d199f24a8637b92170ba1de, type: 2}

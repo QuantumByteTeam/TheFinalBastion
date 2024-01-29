@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
     public GameObject menuActive;
     [SerializeField] TMP_Text ammoCounterText;
     [SerializeField] TMP_Text reserveAmmoText;
-    [SerializeField] GameObject reloadingText;
+    [SerializeField] public GameObject reloadingText;
 
     [SerializeField] TMP_Text ReactorText;
     [SerializeField] TMP_Text LifeSupportText;
