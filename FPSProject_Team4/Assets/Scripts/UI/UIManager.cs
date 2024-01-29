@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text ammoCounterText;
     [SerializeField] TMP_Text reserveAmmoText;
     [SerializeField] public GameObject reloadingText;
+    public GameObject smokeVignette;
 
     [SerializeField] TMP_Text ReactorText;
     [SerializeField] TMP_Text LifeSupportText;
