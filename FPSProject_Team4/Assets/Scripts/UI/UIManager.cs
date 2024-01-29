@@ -256,6 +256,7 @@ public class UIManager : MonoBehaviour
 
     public void quit()
     {
+        GameManager.instance.resetGuns();
         Application.Quit();
     }
 

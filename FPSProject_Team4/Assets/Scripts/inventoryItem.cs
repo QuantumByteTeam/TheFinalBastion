@@ -39,6 +39,7 @@ public class inventoryItem : ScriptableObject
     public float armorPen;
     public float reloadTime;
 
+    public bool firstInstance;
     
     public float crouchingMultiplier;
     public float adsMultiplier;

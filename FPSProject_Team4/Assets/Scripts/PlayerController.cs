@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour, IDamageable
                     }
 
 
-                    if (Input.GetButtonDown("Drop") && invSize > 0 && !inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
+                    if (Input.GetButtonDown("Drop") && invSize > 0)
                     {
                         inventory.drop(SelectedItem);
                     }
@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
                     if (Input.GetButtonUp("Shoot"))
                     {
-                        IsShooting = false;
+                        //IsShooting = false;
                         //shootSwap = false;
                         //swap = false;
                     }
@@ -637,17 +637,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         inventoryItem currentGun = inventory.hotbarInventory.ElementAt(SelectedItem).Key;
 
-        //if (lastSound != null) //still doesn't stop the sounds, probsbly need to stop the aud instead
-        //{
-        //    Debug.Log("Stopping Sound");
-        //    StopCoroutine(lastSound);
-        //}
-
-        //if (lastEmpty != null)
-        //{
-        //    Debug.Log("Stopping Empty");
-        //    StopCoroutine(lastEmpty);
-        //}
+        
 
 
         IsShooting = false;
@@ -695,9 +685,23 @@ public class PlayerController : MonoBehaviour, IDamageable
         ShootDamage = currentGun.ShootDamage;
         ShootRate = currentGun.ShootRate;
         ShootDist = currentGun.ShootDist;
-        ammoCount = currentGun.ammoCount;
+
+        if (currentGun.firstInstance)
+        {
+            ammoCount = currentGun.ammoMag;
+            currentGun.ammoCount = currentGun.ammoMag;
+            ammoReserve = currentGun.ammoReserveDefault;
+            currentGun.ammoReserve = currentGun.ammoReserveDefault;
+            currentGun.firstInstance = false;
+        }
+        else
+        {
+            ammoCount = currentGun.ammoCount;
+            ammoReserve = currentGun.ammoReserve;
+        }
+
         ammoMag = currentGun.ammoMag;
-        ammoReserve = currentGun.ammoReserve;
+
         //gun models
 
         //gun mags

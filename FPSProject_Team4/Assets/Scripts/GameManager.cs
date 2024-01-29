@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
+using System.Linq;
 
 
 public class GameManager : MonoBehaviour
@@ -114,7 +115,24 @@ public class GameManager : MonoBehaviour
         }
     }
     
-    
+    public void resetGuns()
+    {
+        for (int i = 0; i < playerScript.inventory.hotbarInventory.Count; i++)
+        {
+            if (playerScript.inventory.hotbarInventory.ElementAt(i).Key.isGun)
+            {
+                playerScript.inventory.hotbarInventory.ElementAt(i).Key.firstInstance = true;
+            }
+        }
+
+        GameObject[] guns = GameObject.FindGameObjectsWithTag("Gun");
+
+        foreach (GameObject gun in guns)
+        {
+            gun.GetComponent<GunPickup>().gun.firstInstance = true;
+        }
+        
+    }
 
     // public void UpdateWaveCount(int amount)
     // {
