@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     float timescaleOG;
 
     public int score;
+    public Store accessedStore;
 
     public UnityEvent waveEndEvent;
     
@@ -62,11 +63,6 @@ public class GameManager : MonoBehaviour
             {
                 StatePaused();
                 UIManager.instance.DisplayPausedMenu();
-            }
-            else if (Input.GetButtonDown("Open Buy Menu"))
-            {
-                StatePaused();
-                UIManager.instance.DisplayStoreMenu();
             }
         }
         UIManager.instance.UpdatePointIndicators();

@@ -1,11 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Linq;
-using System.Numerics;
 
 public class UIManager : MonoBehaviour
 {
@@ -100,6 +98,12 @@ public class UIManager : MonoBehaviour
     {
         menuActive.SetActive(false);
         menuActive = null;
+    }
+
+    public void CloseStoreMenu()
+    {
+        GameManager.instance.ActiveUnpause();
+        Resume();
     }
 
     public void UpdatePlayerHP()
