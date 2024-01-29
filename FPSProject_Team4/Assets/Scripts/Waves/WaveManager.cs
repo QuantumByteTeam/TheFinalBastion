@@ -276,7 +276,7 @@ public class WaveManager : MonoBehaviour
 
                 if ((totalEnemyProb > 1 || totalEnemyProb < 1) && debug)
                 {
-                    Debug.LogError("EnemyData total probability is greater/less than 1. Total enemyData probability = " + totalEnemyProb);
+                    Debug.LogError(data.name + " EnemyData total probability is greater/less than 1. Total enemyData probability = " + totalEnemyProb);
                 }
             }
 

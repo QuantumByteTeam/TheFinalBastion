@@ -3573,6 +3573,7 @@ MonoBehaviour:
   ammoCounterText: {fileID: 3756346135311910830}
   reserveAmmoText: {fileID: 6539836312203598353}
   reloadingText: {fileID: 8927844395637245982}
+  smokeVignette: {fileID: 0}
   ReactorText: {fileID: 2492677696769046973}
   LifeSupportText: {fileID: 7421861230834663606}
   ComputerText: {fileID: 8522252391289901307}
@@ -4953,26 +4954,36 @@ MonoBehaviour:
   roundData:
   - name: regular
     type: 0
-    probability: 0.75
+    probability: 0.6
     enemyData:
-    - enemyRef: {fileID: 11400000, guid: ad5ee87c1046ce34aaef83b607bc1906, type: 2}
+    - enemyRef: {fileID: 11400000, guid: 5f7b51376cd33184cab1beb57e48af40, type: 2}
       probability: 0.5
-    - enemyRef: {fileID: 11400000, guid: 82ba5e32aad963949a693570382403c4, type: 2}
+    - enemyRef: {fileID: 11400000, guid: 1f96ae69d42998b4d9e6cf30ae745218, type: 2}
       probability: 0.25
-    - enemyRef: {fileID: 11400000, guid: b0edbd4f1167e0049988adbc52622aef, type: 2}
-      probability: 0.25
-  - name: Special
-    type: 1
-    probability: 0.25
-    enemyData:
-    - enemyRef: {fileID: 11400000, guid: e627fb49576308f4ebcecd5557a2916f, type: 2}
+    - enemyRef: {fileID: 11400000, guid: 2d9ef60ab06b7614195165994f80953a, type: 2}
       probability: 0.1
-    - enemyRef: {fileID: 11400000, guid: ad5ee87c1046ce34aaef83b607bc1906, type: 2}
-      probability: 0.35
+    - enemyRef: {fileID: 11400000, guid: 5ca3e67f595bdac44b26f78a7b160024, type: 2}
+      probability: 0.15
+  - name: Survive
+    type: 1
+    probability: 0.3
+    enemyData:
     - enemyRef: {fileID: 11400000, guid: 635e3018f4177264bac94d2807f704a5, type: 2}
+      probability: 0.7
+    - enemyRef: {fileID: 11400000, guid: 24455c35a20c0a840a7398e866d912e7, type: 2}
       probability: 0.3
-    - enemyRef: {fileID: 11400000, guid: b0edbd4f1167e0049988adbc52622aef, type: 2}
-      probability: 0.25
+  - name: Hard
+    type: 0
+    probability: 0.1
+    enemyData:
+    - enemyRef: {fileID: 11400000, guid: 5f7b51376cd33184cab1beb57e48af40, type: 2}
+      probability: 0.2
+    - enemyRef: {fileID: 11400000, guid: 1f96ae69d42998b4d9e6cf30ae745218, type: 2}
+      probability: 0.1
+    - enemyRef: {fileID: 11400000, guid: 2d9ef60ab06b7614195165994f80953a, type: 2}
+      probability: 0.55
+    - enemyRef: {fileID: 11400000, guid: 5ca3e67f595bdac44b26f78a7b160024, type: 2}
+      probability: 0.15
   intermissionTimes:
     start: 5
     afterRegular: 5
