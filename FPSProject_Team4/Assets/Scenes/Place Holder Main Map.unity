@@ -38787,8 +38787,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc35c61ecac9f3e4ea7e96c2ce7f1218, type: 3}
-<<<<<<< Updated upstream
-=======
 --- !u!1 &1888749380 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1130208405809564, guid: 886ef8301a4778342891ec173b845399, type: 3}
@@ -38831,7 +38829,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
->>>>>>> Stashed changes
 --- !u!1 &1905879743
 GameObject:
   m_ObjectHideFlags: 0
