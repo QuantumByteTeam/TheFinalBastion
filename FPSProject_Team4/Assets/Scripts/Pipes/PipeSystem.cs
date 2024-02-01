@@ -23,6 +23,7 @@ public class PipeSystem : MonoBehaviour, ISimpleInteractable, IDamageable, IRepa
     public float health;
     public float healthOrig;
     public bool fullHealth;
+    public bool startDamaged;
 
     [Header("----- Repair System -----")]
     [SerializeField] inventoryItem reqTool;
@@ -39,7 +40,15 @@ public class PipeSystem : MonoBehaviour, ISimpleInteractable, IDamageable, IRepa
     // Start is called before the first frame update
     void Start()
     {
-        healthOrig = health;
+        if (!startDamaged)
+        {
+            healthOrig = health;
+        }
+        else
+        {
+            healthOrig = health * 2;
+        }
+        
         player = GameManager.instance.playerScript;
         effectSpawnLoc = gameObject.transform.GetChild(0).transform;
 

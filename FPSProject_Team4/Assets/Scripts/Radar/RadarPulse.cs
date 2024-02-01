@@ -12,10 +12,13 @@ public class RadarPulse : MonoBehaviour
     private float curRange;
 
     private Collider[] colPing;
+
+    private PlayerController player;
     
     // Start is called before the first frame update
     void Start()
     {
+        player = GameManager.instance.playerScript;
         pulseTf = transform.Find("/Player New/PlayerRadar/Pulse");
         maxRange = 40f;
     }
@@ -23,6 +26,16 @@ public class RadarPulse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!player.isSprinting && maxRange > 40)
+        {
+            maxRange = 40;
+        }
+
+        if (maxRange < 5)
+        {
+            maxRange = 5;
+        }
+        
         if (curRange > maxRange)
         {
             curRange = 0f;

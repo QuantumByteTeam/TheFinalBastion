@@ -6,12 +6,14 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class EnemyAI : MonoBehaviour, IDamageable
 {
     [Header("----- Components -----")]
     [SerializeField] public NavMeshAgent agent;
     [SerializeField] Renderer model;
+    [SerializeField] SphereCollider sphCol;
 
     [Header("----- Stats -----")]
     [SerializeField] public float health;
@@ -43,6 +45,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
     public bool isBuffed = false;
     public bool isShooting;
     public bool isRoaming;
+    public bool isSmokeBlind;
+    
     bool playerInRange = false;
     bool isRoller;
     bool isExploder;
@@ -55,8 +59,10 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     //John
     public bool armor;
-
+    
     [HideInInspector] public float origSpeed;
+    private bool ranSmokeBlind;
+    private bool shootSmokeBlind;
 
     void Start()
     {
@@ -77,6 +83,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         }
 
         origSpeed = gameObject.GetComponent<NavMeshAgent>().speed;
+        sphCol = gameObject.GetComponent<SphereCollider>();
 
         //if (shouldTargetPlayer)
         //{
@@ -94,6 +101,11 @@ public class EnemyAI : MonoBehaviour, IDamageable
         {
             point = CoreManager.instance.GetClosestToPosition(transform.position);
 
+            if (isSmokeBlind && !ranSmokeBlind)
+            {
+                StartCoroutine(SmokeBlind());
+            }
+
             if (shouldTargetPlayer && playerInRange)
             {
                 //Debug.Log("Targeting Player");
@@ -101,14 +113,14 @@ public class EnemyAI : MonoBehaviour, IDamageable
                 agent.SetDestination(GameManager.instance.player.transform.position);
                 hasTargetLOS(GameManager.instance.player.transform);
             }
-            else if (shouldTargetRandom)
+            else if (shouldTargetRandom && !isSmokeBlind)
             {
                 agent.SetDestination(randomPoint.transform.position);
                 randomPoint.GetComponent<PointController>().isTargeted = true;
                 randomPoint.GetComponent<PointController>().timer1 = 0;
                 hasTargetLOS(randomPoint.transform);
             }
-            else if (shouldTargetPoint)
+            else if (shouldTargetPoint && !isSmokeBlind)
             {
                 agent.SetDestination(point.transform.position);
                 point.GetComponent<PointController>().isTargeted = true;
@@ -118,9 +130,36 @@ public class EnemyAI : MonoBehaviour, IDamageable
             else
             {
                 //Roam
-                if (canRoam && !isRoaming)
+                if (canRoam && !isRoaming && !isSmokeBlind)
                 {
                     StartCoroutine(roam());
+                }
+                
+                if (isSmokeBlind)
+                {
+                    float wutdo = Random.Range(0f, 1f);
+
+                    if (wutdo > 0.98f)
+                    {
+                        Vector3 targetDirection = headPos.position;
+                        if (!isShooting && !shootSmokeBlind)
+                        {
+                            StartCoroutine(ShootInSmoke(targetDirection));
+                        }
+                    }
+                    else
+                    {
+                        if (isShooting)
+                        {
+                            StopCoroutine(shoot());
+                            isShooting = false;
+                        }
+
+                        if (canRoam && !isRoaming)
+                        {
+                            StartCoroutine(roam());
+                        }
+                    }
                 }
             }
         }
@@ -242,9 +281,13 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
                 if (!isRoller && !isExploder)
                 {
-                    if (!isShooting)
+                    if (!isShooting && !isSmokeBlind)
                     {
                         StartCoroutine(shoot());
+                    }
+                    else if (isSmokeBlind && !isShooting && !shootSmokeBlind)
+                    {
+                        StartCoroutine(ShootInSmoke(targetDirection));
                     }
                 }
 
@@ -264,14 +307,18 @@ public class EnemyAI : MonoBehaviour, IDamageable
                         roller.InitiateRollingAttack();
                     }
                 }
-
-
-
             }
             else if (hit.collider.CompareTag("Enemy"))
             {
-                StopCoroutine(shoot());
-                isShooting = false;
+                if (!isSmokeBlind)
+                {
+                    StopCoroutine(shoot());
+                    isShooting = false;
+                }
+                else if (isSmokeBlind && !isShooting && !shootSmokeBlind)
+                {
+                    StartCoroutine(ShootInSmoke(targetDirection));
+                }
             }
             else if (hit.collider.CompareTag("Point"))
             {
@@ -291,6 +338,34 @@ public class EnemyAI : MonoBehaviour, IDamageable
                 if (agent.remainingDistance < agent.stoppingDistance)
                 {
                     faceTarget(targetDirection);
+                }
+            }
+            else
+            {
+                if (isSmokeBlind)
+                {
+                    float wutdo = Random.Range(0f, 1f);
+
+                    if (wutdo > 0.98f)
+                    {
+                        if (!isShooting && !shootSmokeBlind)
+                        {
+                            StartCoroutine(ShootInSmoke(targetDirection));
+                        }
+                    }
+                    else
+                    {
+                        if (isShooting)
+                        {
+                            StopCoroutine(shoot());
+                            isShooting = false;
+                        }
+
+                        if (canRoam && !isRoaming)
+                        {
+                            StartCoroutine(roam());
+                        }
+                    }
                 }
             }
 
@@ -346,8 +421,32 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
                 Destroy(obj);
             }
+            else if (damageable != null && hit.collider.CompareTag("Enemy") && isSmokeBlind)
+            {
+                GameObject obj = Instantiate(bullet, firePos.position, firePos.rotation);
+                Physics.IgnoreCollision(GetComponent<Collider>(), obj.GetComponent<Collider>());
+                Bullet bulletComp = obj.GetComponent<Bullet>();
+                bulletComp.damageAmount = bulletDamage;
+                bulletComp.speed = bulletSpeed;
+                bulletComp.run();
 
-            
+                yield return new WaitForSeconds(fireRate);
+
+                Destroy(obj);
+            }
+            else if (damageable == null && isSmokeBlind)
+            {
+                GameObject obj = Instantiate(bullet, firePos.position, firePos.rotation);
+                Physics.IgnoreCollision(GetComponent<Collider>(), obj.GetComponent<Collider>());
+                Bullet bulletComp = obj.GetComponent<Bullet>();
+                bulletComp.damageAmount = bulletDamage;
+                bulletComp.speed = bulletSpeed;
+                bulletComp.run();
+
+                yield return new WaitForSeconds(fireRate);
+
+                Destroy(obj);
+            }
         }
 
         isShooting = false;
@@ -376,6 +475,19 @@ public class EnemyAI : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(randTime);
 
         // isRoaming = false;
+    }
+
+    IEnumerator SmokeBlind()
+    {
+        ranSmokeBlind = true;
+        viewCone /= 2;
+        sphCol.radius /= 2.5f;
+
+        yield return new WaitUntil(() => !isSmokeBlind);
+
+        viewCone *= 2;
+        sphCol.radius *= 2.5f;
+        ranSmokeBlind = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -470,5 +582,37 @@ public class EnemyAI : MonoBehaviour, IDamageable
         isShooting = false;
         agent.speed = 3.5f;
         
+    }
+
+    IEnumerator ShootInSmoke(Vector3 direction)
+    {
+        shootSmokeBlind = true;
+        
+        if (isRoaming)
+        {
+            StopCoroutine(roam());
+            isRoaming = false;
+        }
+        
+        if (isShooting)
+        {
+            StopCoroutine(shoot());
+            isShooting = false;
+        }
+
+        Vector3 randDir = direction;
+        randDir.x += Random.Range(-200f, 200f);
+        randDir.y += Random.Range(-200f, 200f);
+        randDir.z += Random.Range(-200f, 200f);
+        
+        faceTarget(randDir);
+
+        StartCoroutine(shoot());
+
+        yield return shoot();
+
+        yield return new WaitForSeconds(1);
+        
+        shootSmokeBlind = false;
     }
 }

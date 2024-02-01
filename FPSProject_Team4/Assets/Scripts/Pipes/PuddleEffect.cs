@@ -137,7 +137,7 @@ public class PuddleEffect : MonoBehaviour
             maxRange = ground.GetComponent<Renderer>().bounds.size.x - 1;
         }
         
-        Destroy(gameObject.GetComponent<Rigidbody>());
+        // Destroy(gameObject.GetComponent<Rigidbody>());
     }
 
     private void OnTriggerEnter(Collider other)
@@ -151,7 +151,7 @@ public class PuddleEffect : MonoBehaviour
         else if (other.CompareTag("Enemy") && !other.isTrigger)
         {
             NavMeshAgent enemy = other.GetComponent<NavMeshAgent>();
-            enemy.speed /= 2;
+            enemy.speed /= 5;
         }
     }
 

@@ -10,6 +10,8 @@ public class RadarSwap : MonoBehaviour
     private RadarPulse pulse;
     private Camera radarCam;
     private PlayerController player;
+
+    private bool changeSpeed;
     
     // Start is called before the first frame update
     void Start()
@@ -19,6 +21,7 @@ public class RadarSwap : MonoBehaviour
         pulse = GameObject.Find("PlayerRadar").GetComponent<RadarPulse>();
         radarCam = GameObject.Find("PlayerRadar/RadarCamera").GetComponent<Camera>();
         player = GameManager.instance.playerScript;
+        changeSpeed = false;
     }
 
     // Update is called once per frame
@@ -32,7 +35,14 @@ public class RadarSwap : MonoBehaviour
         {
             RadarW();
         }
+
+        if (player.isSprinting && !changeSpeed)
+        {
+            changeSpeed = true;
+            StartCoroutine(ChangePulse());
+        }
         
+        /*
         if (player.isSprinting)
         {
             sprintView();
@@ -41,6 +51,7 @@ public class RadarSwap : MonoBehaviour
         {
             normView();
         }
+        */
     }
 
     void RadarW()
@@ -55,15 +66,30 @@ public class RadarSwap : MonoBehaviour
         radarNarrow.SetActive(true);
     }
 
+    /*
     void normView()
     {
         radarCam.orthographicSize = 45;
-        pulse.maxRange = 40;
+        pulse.maxRange /= 1.3f;
     }
 
     void sprintView()
     {
         radarCam.orthographicSize = 60;
-        pulse.maxRange = 55;
+        pulse.maxRange *= 1.3f;
+    }
+    */
+
+    IEnumerator ChangePulse()
+    {
+        radarCam.orthographicSize = 60;
+        pulse.maxRange *= 1.375f;
+
+        yield return new WaitUntil(() => !player.isSprinting);
+        
+        radarCam.orthographicSize = 45;
+        pulse.maxRange /= 1.375f;
+
+        changeSpeed = false;
     }
 }
