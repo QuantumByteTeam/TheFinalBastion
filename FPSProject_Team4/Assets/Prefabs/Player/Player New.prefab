@@ -554,7 +554,7 @@ Transform:
   m_GameObject: {fileID: 4758696344495348508}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.02, y: 0, z: 0.93}
+  m_LocalPosition: {x: 0.02, y: -0.548, z: 0.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -747,6 +747,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &6249342570890526266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1220149593445425149}
+  m_Layer: 0
+  m_Name: InteractionPointSimple
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1220149593445425149
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6249342570890526266}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.02, y: 0, z: 0.93}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2875283054887424542}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6383293489587267452
 GameObject:
   m_ObjectHideFlags: 0
@@ -1186,6 +1217,7 @@ Transform:
   m_Children:
   - {fileID: 5679570166593027513}
   - {fileID: 9191384329909761604}
+  - {fileID: 1220149593445425149}
   - {fileID: 4817439658521089509}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1203,7 +1235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 6992360642434885414}
   aud: {fileID: 5276165935471756064}
-  audioMixerGroup: {fileID: 0}
+  audioMixerGroup: {fileID: -3369964784341149741, guid: e2d6e7c403443e64987bd8f099ffaf17, type: 2}
   anim: {fileID: 3934705242051501869}
   HP: 100
   PlayerSpeed: 7
@@ -1293,7 +1325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51ae1aa1bd379d48acbe50ebfd73764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionPoint: {fileID: 9191384329909761604}
+  interactionPoint: {fileID: 1220149593445425149}
   interactionPointRadius: 0.5
   interactableMask:
     serializedVersion: 2

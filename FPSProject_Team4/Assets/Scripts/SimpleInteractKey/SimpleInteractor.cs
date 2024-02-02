@@ -21,7 +21,7 @@ private readonly Collider[] colliders = new Collider[3];
 
         if (_numFound > 0) //if something is within the interaction sphere, assigns it to first spot of colliders array
         {
-
+            
             UIManager.instance.InteractImageS.SetActive(true);
             UIManager.instance.PromptTextS.SetActive(true);
 
@@ -31,8 +31,8 @@ private readonly Collider[] colliders = new Collider[3];
             if (SimpleInteractable != null && Input.GetKeyDown(KeyCode.E)) //this code is setup for a way to differentiate from a simple interaction that doesnt need a paues and a complex one
             {
                 SimpleInteractable.SimpleInteract(this);
-                UIManager.instance.InteractImageS.SetActive(true);
-                UIManager.instance.PromptTextS.SetActive(true);
+                UIManager.instance.InteractImageS.SetActive(false);
+                UIManager.instance.PromptTextS.SetActive(false);
             }
 
         }
