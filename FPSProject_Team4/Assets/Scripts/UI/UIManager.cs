@@ -39,6 +39,8 @@ public class UIManager : MonoBehaviour
     //Interact UI Elements
     public GameObject InteractImage;
     public GameObject PromptText;
+    public GameObject InteractImageS;
+    public GameObject PromptTextS;
 
     PointController reactor;
     PointController oxygen;

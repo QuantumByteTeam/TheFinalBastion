@@ -8,8 +8,8 @@ public class Door : MonoBehaviour, ISimpleInteractable
     [SerializeField] private string prompt;
     public string InteractionPrompt => prompt;
 
-    private Renderer renderer;
-    private Collider collider;
+    private Renderer rendererD; //I had to change the name because renderer and collider were already reserved for the unity components and it caused errors to leave it as renderer
+    private Collider colliderD;
 
     private bool isBroken;
     private bool isClosed;
@@ -18,8 +18,8 @@ public class Door : MonoBehaviour, ISimpleInteractable
     {
         isBroken = false;
         isClosed = false;
-        renderer = gameObject.GetComponent<Renderer>();
-        collider = gameObject.GetComponent<Collider>();
+        rendererD = gameObject.GetComponent<Renderer>();
+        colliderD = gameObject.GetComponent<Collider>();
     }
 
     public void SimpleInteract(SimpleInteractor interactor)
@@ -63,14 +63,16 @@ public class Door : MonoBehaviour, ISimpleInteractable
     public void OpenDoor()
     {
         isClosed = false;
-        renderer.enabled = true;
-        collider.enabled = true;
+        rendererD.enabled = true;
+        colliderD.enabled = true;
     }
 
     public void CloseDoor()
     {
         isClosed = true;
-        renderer.enabled = false;
-        collider.enabled = false;
+        rendererD.enabled = false;
+        colliderD.enabled = false;
     }
+
+   
 }
