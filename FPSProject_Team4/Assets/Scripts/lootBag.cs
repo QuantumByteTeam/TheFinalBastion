@@ -28,9 +28,10 @@ public class LootBag : MonoBehaviour
         return null;
     }
 
-    public void InstantiateLoot(Vector3 spawnPosition)
+    public void InstantiateLoot(Vector3 spawnPosition, int coins)
     {
         Loot droppedItem = GetDroppedItem();
+        droppedItem.value = coins;
         if(droppedItem != null)
         {
             var lootGameObject = Instantiate(itemDropsPrefab, spawnPosition, Quaternion.identity);

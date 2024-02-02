@@ -12,6 +12,9 @@ public class lootPrefabscript : MonoBehaviour
         {
             Debug.Log(collision);
             Debug.Log(loot);
+
+            GameManager.instance.playerScript.inventory.AddMats(loot);
+
             Destroy(gameObject); //TO DO: add loot pick ups to player inventory
         }
     }

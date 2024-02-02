@@ -10,6 +10,7 @@ public class Loot : ScriptableObject
     public string lootName;
     public int dropChance; //1 - 100% chance
     public Texture lootSprite;
+    public int value;
 
     public Loot(string lootName, int dropChance) //Constructor. Can be used in other classes
     {

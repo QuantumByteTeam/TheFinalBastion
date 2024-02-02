@@ -13,9 +13,41 @@ public class playerInventory //: MonoBehaviour
 
     public Dictionary<inventoryItem, int> hotbarInventory = new Dictionary<inventoryItem, int>();
 
+    public int Cloth = 0;
+    public int Exp = 0;
+    public int Circuits = 0;
+    public int Scrap = 0;
+
     public void Add(inventoryItem item)
     {
 
+    }
+
+    public void AddMats(Loot loot)
+    {
+        switch (loot.name)
+        {
+            case "Currency":
+                GameManager.instance.coins += loot.value;
+                UIManager.instance.UpdateBalance();
+                break;
+            case "Cloth":
+                Cloth++;
+                break;
+            case "Explosives":
+                Exp++;
+                break;
+            case "Computer Chip":
+                Circuits++;
+                break;
+            case "Metal Scrap":
+                Scrap++;
+                break;
+            default:
+                Debug.LogWarning("Invalid Loot Type");
+                break;
+        }
+        UIManager.instance.updateMats();
     }
 
     public void Remove(int index)

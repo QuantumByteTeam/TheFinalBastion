@@ -25,12 +25,15 @@ MonoBehaviour:
   ShootRate: 1.35
   ShootDist: 100
   damageFalloffPerMeter: 0.01
-  ammoCount: 4
+  ID: 0
+  recoil: 0
+  ammoCount: 0
   ammoMag: 5
-  ammoReserve: 47
+  ammoReserve: 50
   ammoReserveDefault: 50
   armorPen: 0.2
   reloadTime: 2
+  firstInstance: 1
   crouchingMultiplier: 0.5
   adsMultiplier: 0.25
   walkingMultiplier: 1.2

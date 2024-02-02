@@ -20,6 +20,7 @@ TagManager:
   - PipeHitEffect
   - Gun
   - Door
+  - Turret
   layers:
   - Default
   - TransparentFX

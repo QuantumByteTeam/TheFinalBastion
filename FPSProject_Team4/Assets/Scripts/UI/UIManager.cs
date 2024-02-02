@@ -21,6 +21,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text coinCountText;
     [SerializeField] TMP_Text scoreCountText;
+
+    [SerializeField] TMP_Text clothCountText;
+    [SerializeField] TMP_Text metalCountText;
+    [SerializeField] TMP_Text circuitsCountText;
+    [SerializeField] TMP_Text expCountText;
+
     public GameObject playerDamageScreen;
     public GameObject playerFlashScreen;
     public GameObject CraftingUI;
@@ -58,6 +64,10 @@ public class UIManager : MonoBehaviour
         reactor = GameObject.Find("Reactor_Core").GetComponent<PointController>();
         oxygen = GameObject.Find("Atmospheric_Regulator").GetComponent<PointController>();
         computer = GameObject.Find("Cray-1_Supercomputer").GetComponent<PointController>();
+
+        
+
+        updateMats();
     }
 
 
@@ -297,7 +307,13 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("Main Menu");       
     }
 
-
+    public void updateMats()
+    {
+        clothCountText.text = GameManager.instance.playerScript.inventory.Cloth.ToString();
+        metalCountText.text = GameManager.instance.playerScript.inventory.Scrap.ToString();
+        expCountText.text = GameManager.instance.playerScript.inventory.Exp.ToString();
+        circuitsCountText.text = GameManager.instance.playerScript.inventory.Circuits.ToString();
+    }
 
     public void blind()
     {
