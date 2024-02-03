@@ -70,8 +70,14 @@ public class playerInventory //: MonoBehaviour
             GameManager.instance.playerScript.ChangeItem();
             //UIManager.instance.updateHotbar(); <<<<<<<<<<<<<<< commented out
         }
-        Debug.LogWarning(DictionarySize());
-        GameManager.instance.playerScript.SelectedItem = 0;
+        if (DictionarySize() <=0)
+        {
+            GameManager.instance.playerScript.SelectedItem = 0;
+            GameManager.instance.playerScript.ammoCount = 0;
+            GameManager.instance.playerScript.ammoReserve = 0;
+            UIManager.instance.UpdateAmmo();
+        }
+        
         GameManager.instance.playerScript.ChangeItem();
         UIManager.instance.updateHotbar();
     }

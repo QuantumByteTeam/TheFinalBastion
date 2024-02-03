@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class GunPickup : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class GunPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !triggerSet && GameManager.instance.playerScript.inventory.hotbarInventory.Count < 9) 
+        if (other.CompareTag("Player") && !triggerSet && (GameManager.instance.playerScript.inventory.hotbarInventory.Count < 9 || GameManager.instance.playerScript.inventory.hotbarInventory.ContainsKey(gun))) 
         {
             triggerSet = true;
             //give stats to player
