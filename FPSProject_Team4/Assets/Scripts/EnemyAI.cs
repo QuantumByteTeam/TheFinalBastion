@@ -533,14 +533,22 @@ public class EnemyAI : MonoBehaviour, IDamageable
                 LootBag lootBag = GetComponent<LootBag>();
                 /*PowerUp power = GetComponent<PowerUp>();
                 power.drop(transform.position);*/ //tried making it work oops
-                Debug.Log("lootbag");
+                //Debug.Log("lootbag");
                 if (lootBag)
                 {
                     Debug.Log("LootBag True");
-                    lootBag.InstantiateLoot(transform.position, reward);
+                    try
+                    {
+                        lootBag.InstantiateLoot(transform.position, reward);
+                    }
+                    catch
+                    {
+                        Debug.Log("Loot Error");
+                    }
+                    
                     //GameManager.instance.coins += reward;
                 }
-                Debug.Log("LootBag End");
+                //Debug.Log("LootBag End");
                 Destroy(gameObject);
             }
             else

@@ -652,8 +652,16 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
 
         UIManager.instance.reloadingText.SetActive(false);
-
-        inventoryItem currentGun = inventory.hotbarInventory.ElementAt(SelectedItem).Key;
+        inventoryItem currentGun;
+        if (inventory.hotbarInventory.Count > 0)
+        {
+            currentGun = inventory.hotbarInventory.ElementAt(SelectedItem).Key;
+        }
+        else
+        {
+            currentGun = null;
+        }
+        
 
         
 

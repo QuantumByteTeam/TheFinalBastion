@@ -16,7 +16,7 @@ public class itemPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !triggerSet && GameManager.instance.playerScript.inventory.hotbarInventory.Count < 9)
+        if (other.CompareTag("Player") && !triggerSet && (GameManager.instance.playerScript.inventory.hotbarInventory.Count < 9 || GameManager.instance.playerScript.inventory.hotbarInventory.ContainsKey(item)))
         {
             triggerSet = true;
             //give stats to player

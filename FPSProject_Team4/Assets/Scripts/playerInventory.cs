@@ -65,16 +65,15 @@ public class playerInventory //: MonoBehaviour
                 GameManager.instance.playerScript.SelectedItem = hotbarInventory.Count-1;
             }
 
-            if(DictionarySize() <= 0)
-            {
-                GameManager.instance.playerScript.SelectedItem = 0;
-                GameManager.instance.playerScript.ChangeItem();
-                UIManager.instance.updateHotbar();
-            }
+            
             
             GameManager.instance.playerScript.ChangeItem();
             //UIManager.instance.updateHotbar(); <<<<<<<<<<<<<<< commented out
         }
+        Debug.LogWarning(DictionarySize());
+        GameManager.instance.playerScript.SelectedItem = 0;
+        GameManager.instance.playerScript.ChangeItem();
+        UIManager.instance.updateHotbar();
     }
 
     public void drop(int index)
