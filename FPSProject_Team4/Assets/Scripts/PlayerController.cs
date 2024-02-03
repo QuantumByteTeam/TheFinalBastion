@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 
 
-                    if (Input.GetButton("ADS"))
+                    if (Input.GetButton("ADS") && inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
                     {
                         isADS = true;
                         Camera.main.fieldOfView = FOV * 0.75f;

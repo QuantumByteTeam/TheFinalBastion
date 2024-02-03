@@ -542,8 +542,14 @@ public class EnemyAI : MonoBehaviour, IDamageable
                 if (lootBag)
                 {
                     Debug.Log("LootBag True");
-                    lootBag.InstantiateLoot(transform.position, reward);
-                    //GameManager.instance.coins += reward;
+                    try
+                    {
+                        lootBag.InstantiateLoot(transform.position, reward);
+                    }
+                    catch
+                    {
+
+                    }
                 }
                 Debug.Log("LootBag End");
                 Destroy(gameObject);

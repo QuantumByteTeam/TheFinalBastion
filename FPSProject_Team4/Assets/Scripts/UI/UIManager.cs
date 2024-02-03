@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -254,7 +255,15 @@ public class UIManager : MonoBehaviour
 
     public void UpdateScore()
     {
-        scoreCountText.text = GameManager.instance.score.ToString("0");
+        if (GameManager.instance.score <= 0)
+        {
+            GameManager.instance.score = 0;
+            scoreCountText.text = GameManager.instance.score.ToString("0");
+        }
+        else
+        {
+            scoreCountText.text = GameManager.instance.score.ToString("0");
+        }
     }
 
     public IEnumerator reloading(float time)
@@ -315,14 +324,32 @@ public class UIManager : MonoBehaviour
         circuitsCountText.text = GameManager.instance.playerScript.inventory.Circuits.ToString();
     }
 
+    private Coroutine lastFlash;
     public void blind()
     {
-        StartCoroutine(playerBlind());
+        if (lastFlash != null)
+        {
+            StopCoroutine(lastFlash);
+        }
+        lastFlash = StartCoroutine(playerBlind());
     }
     public IEnumerator playerBlind()
     {
+        playerFlashScreen.GetComponent<CanvasGroup>().alpha = 1f;
         playerFlashScreen.SetActive(true);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2.5f);
+
+        
+
+        float a = 1;
+
+        while (a > 0.1f)
+        {
+            a -= 0.01f;
+            playerFlashScreen.GetComponent<CanvasGroup>().alpha = a;
+            yield return new WaitForSeconds(0.01f);
+        }
+
         playerFlashScreen.SetActive(false);
     }
 
