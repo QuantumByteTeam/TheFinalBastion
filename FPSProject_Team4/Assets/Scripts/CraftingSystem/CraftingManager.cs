@@ -39,13 +39,8 @@ public class CraftingManager : MonoBehaviour
     int scrapCount;
 
     public GameObject CraftingFailed;
-    public float showDuration = 1f;
 
-    private void Start()
-    {
-        Invoke("Fail", showDuration);
-    }
-
+   
     private void Update()
     {
         //update mat counts
@@ -205,8 +200,7 @@ public class CraftingManager : MonoBehaviour
             }
             else //cannot craft not enough components
             {
-                CraftingFailed.gameObject.SetActive(true);
-                Fail();
+                StartCoroutine(Fail());
             }
 
 
@@ -218,8 +212,7 @@ public class CraftingManager : MonoBehaviour
             }
             else //cannot craft not enough components
             {
-                CraftingFailed.gameObject.SetActive(true);
-                Fail();
+                StartCoroutine(Fail());
             }
 
 
@@ -233,8 +226,7 @@ public class CraftingManager : MonoBehaviour
             }
             else //cannot craft not enough components
             {
-                CraftingFailed.gameObject.SetActive(true);
-                Fail(); //invoking didnt work
+                StartCoroutine(Fail()); 
             }
 
 
@@ -310,8 +302,10 @@ public class CraftingManager : MonoBehaviour
         Debug.Log("Player Pos: " + playerPosition);
     }
 
-    void Fail()
+    IEnumerator Fail() //flashes the red panel screen when dmg is taken
     {
-        CraftingFailed.SetActive(false);
+        CraftingFailed.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        CraftingFailed.gameObject.SetActive(false);
     }
 }
