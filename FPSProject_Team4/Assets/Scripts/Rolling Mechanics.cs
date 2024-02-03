@@ -11,15 +11,16 @@ public class RollingMechanics : MonoBehaviour
     [SerializeField] float knockbackDuration;
 
     [SerializeField] Collider damageCollider;
+    [SerializeField] Rigidbody body;
 
     EnemyAI enemyAI;
 
-    bool canRoll;
+    public bool canRoll;
 
     private void Start()
     {
         canRoll = true;
-        damageCollider.enabled = true; //fix later
+        damageCollider.enabled = false;
         enemyAI = GetComponent<EnemyAI>();
     }
 
@@ -58,15 +59,17 @@ public class RollingMechanics : MonoBehaviour
 
         yield return new WaitForSeconds(1.0f);
 
-        
+
         ApplyKnockback();
+
+        DisableCollision();
 
         yield return new WaitForSeconds(knockbackDuration);
 
         canRoll = true;
     }
 
-    
+
 
     void StopRolling()
     {
@@ -79,17 +82,13 @@ public class RollingMechanics : MonoBehaviour
         // Calculate the knockback direction
         Vector3 knockbackDirection = (transform.position - GameManager.instance.player.transform.position).normalized;
 
-        Vector3 reverseDirection = -knockbackDirection;
-
-        // Update the NavMeshAgent destination to move in the opposite direction
-        enemyAI.agent.SetDestination(transform.position + reverseDirection * knockbackForce);
+        body.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
 
         StartCoroutine(StopRollingForDuration());
     }
 
     IEnumerator StopRollingForDuration()
     {
-        yield return new WaitUntil(() => enemyAI.agent.remainingDistance == 0);
         StopRolling();
         yield return new WaitForSeconds(knockbackDuration);
         enemyAI.agent.speed = rollingSpeed;

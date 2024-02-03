@@ -46,20 +46,20 @@ public class EnemyAI : MonoBehaviour, IDamageable
     public bool isShooting;
     public bool isRoaming;
     public bool isSmokeBlind;
-    
+
     bool playerInRange = false;
-    bool isRoller;
+    public bool isRoller;
     bool isExploder;
     float randTime;
     float timer;
     [SerializeField] int reward;
     Color colorOrig;
-    RollingMechanics roller;
+    public RollingMechanics roller;
     ExplodingMechanic exploder;
 
     //John
     public bool armor;
-    
+
     [HideInInspector] public float origSpeed;
     private bool ranSmokeBlind;
     private bool shootSmokeBlind;
@@ -71,11 +71,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
         randomPoint = CoreManager.instance.GetRandomPoint();
         colorOrig = model.material.color;
         GameManager.instance.UpdateEnemyCount(1);
-        if (GetComponent<RollingMechanics>() != null)
-        {
-            roller = GetComponent<RollingMechanics>();
-            isRoller = true;
-        }
         if (GetComponent<ExplodingMechanic>() != null)
         {
             exploder = GetComponent<ExplodingMechanic>();
@@ -106,12 +101,23 @@ public class EnemyAI : MonoBehaviour, IDamageable
                 StartCoroutine(SmokeBlind());
             }
 
+            if (isRoller && roller.canRoll)
+            {
+                Debug.Log("seen?");
+                agent.SetDestination(GameManager.instance.player.transform.position);
+                if (agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    roller.InitiateRollingAttack();
+                }
+            }
+
             if (shouldTargetPlayer && playerInRange)
             {
                 //Debug.Log("Targeting Player");
                 //canSeeTarget(GameManager.instance.player.transform);
                 agent.SetDestination(GameManager.instance.player.transform.position);
                 hasTargetLOS(GameManager.instance.player.transform);
+
             }
             else if (shouldTargetRandom && !isSmokeBlind)
             {
@@ -134,7 +140,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
                 {
                     StartCoroutine(roam());
                 }
-                
+
                 if (isSmokeBlind)
                 {
                     float wutdo = Random.Range(0f, 1f);
@@ -208,18 +214,17 @@ public class EnemyAI : MonoBehaviour, IDamageable
                         faceTarget(targetDirection);
                     }
                 }
-                
-                if (isRoller)
-                {
-                    agent.speed = roller.rollingSpeed;
-                    if (agent.remainingDistance == agent.stoppingDistance)
-                    {
-                        roller.InitiateRollingAttack();
-                    }
-                }
-                
 
-                
+                //if (isRoller)
+                //{
+                //    if (agent.remainingDistance == agent.stoppingDistance)
+                //    {
+                //        roller.InitiateRollingAttack();
+                //    }
+                //}
+
+
+
             }
             else if (hit.collider.CompareTag("Enemy"))
             {
@@ -372,7 +377,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         }
     }
 
-    
+
 
     void faceTarget(Vector3 targetDir)
     {
@@ -471,7 +476,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         yield return new WaitUntil(() => !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance);
 
         isRoaming = false;
-        
+
         yield return new WaitForSeconds(randTime);
 
         // isRoaming = false;
@@ -508,7 +513,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     public void takeDamage(float amount, float armorPen)
     {
-        if(!isDead)
+        if (!isDead)
         {
             if (armor)
             {
@@ -533,22 +538,14 @@ public class EnemyAI : MonoBehaviour, IDamageable
                 LootBag lootBag = GetComponent<LootBag>();
                 /*PowerUp power = GetComponent<PowerUp>();
                 power.drop(transform.position);*/ //tried making it work oops
-                //Debug.Log("lootbag");
+                Debug.Log("lootbag");
                 if (lootBag)
                 {
                     Debug.Log("LootBag True");
-                    try
-                    {
-                        lootBag.InstantiateLoot(transform.position, reward);
-                    }
-                    catch
-                    {
-                        Debug.Log("Loot Error");
-                    }
-                    
+                    lootBag.InstantiateLoot(transform.position, reward);
                     //GameManager.instance.coins += reward;
                 }
-                //Debug.Log("LootBag End");
+                Debug.Log("LootBag End");
                 Destroy(gameObject);
             }
             else
@@ -589,19 +586,19 @@ public class EnemyAI : MonoBehaviour, IDamageable
         fireRate = temp;
         isShooting = false;
         agent.speed = 3.5f;
-        
+
     }
 
     IEnumerator ShootInSmoke(Vector3 direction)
     {
         shootSmokeBlind = true;
-        
+
         if (isRoaming)
         {
             StopCoroutine(roam());
             isRoaming = false;
         }
-        
+
         if (isShooting)
         {
             StopCoroutine(shoot());
@@ -612,7 +609,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         randDir.x += Random.Range(-200f, 200f);
         randDir.y += Random.Range(-200f, 200f);
         randDir.z += Random.Range(-200f, 200f);
-        
+
         faceTarget(randDir);
 
         StartCoroutine(shoot());
@@ -620,7 +617,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         yield return shoot();
 
         yield return new WaitForSeconds(1);
-        
+
         shootSmokeBlind = false;
     }
 }
