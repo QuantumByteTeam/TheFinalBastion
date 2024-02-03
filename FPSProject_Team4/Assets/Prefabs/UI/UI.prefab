@@ -3842,6 +3842,10 @@ MonoBehaviour:
   enemyCountText: {fileID: 1193240010415467145}
   coinCountText: {fileID: 5128538989374719935}
   scoreCountText: {fileID: 4769265313289987387}
+  clothCountText: {fileID: 183903605929298947}
+  metalCountText: {fileID: 6963453378027002638}
+  circuitsCountText: {fileID: 2300287280250300723}
+  expCountText: {fileID: 8869317906650993318}
   playerDamageScreen: {fileID: 4739241912908701379}
   playerFlashScreen: {fileID: 2140748175560581253}
   CraftingUI: {fileID: 0}
@@ -3869,6 +3873,10 @@ MonoBehaviour:
   PromptText: {fileID: 8640668605869565657}
   InteractImageS: {fileID: 960635818331492959}
   PromptTextS: {fileID: 125904245961735728}
+  ClothCount: {fileID: 183903605929298947}
+  ScrapCount: {fileID: 6963453378027002638}
+  BombCount: {fileID: 8869317906650993318}
+  ChipCount: {fileID: 2300287280250300723}
 --- !u!1 &3424643918686732873
 GameObject:
   m_ObjectHideFlags: 0

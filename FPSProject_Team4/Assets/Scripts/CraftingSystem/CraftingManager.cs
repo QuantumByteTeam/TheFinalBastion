@@ -32,14 +32,36 @@ public class CraftingManager : MonoBehaviour
     
     Vector3 spawnPosition;
 
-    
+    //public playerInventory inventory; //ref player inv for public int access
+    int clothCount;
+    int bombCount;
+    int chipCount;
+    int scrapCount;
+
+    /*public GameObject cloth;
+    public GameObject scrap;
+    public GameObject bomb;
+    public GameObject chip;*/
+
 
     private void Update()
     {
+        //update mat counts
+
+        
+
+
+        
+
+
         Vector3 playerPos = transform.position; //gets player position
+
+        
 
         if (Input.GetMouseButtonUp(0))
         {
+            
+
             if (currItem != null)
             {
                 customCursor.gameObject.SetActive(false);
@@ -146,7 +168,10 @@ public class CraftingManager : MonoBehaviour
 
     public void OnConfirmRecipe() 
     {
-        
+        clothCount = GameManager.instance.playerScript.inventory.Cloth;
+        bombCount = GameManager.instance.playerScript.inventory.Exp;
+        chipCount = GameManager.instance.playerScript.inventory.Circuits;
+        scrapCount = GameManager.instance.playerScript.inventory.Scrap;
         for (int i = 0; i < recipes.Length; i++)
         {
             if (recipes[i] == currRecipeString)
@@ -166,21 +191,41 @@ public class CraftingManager : MonoBehaviour
             Vector3 playerPos = PlayerPos.transform.position;
             Vector3 spawnPosition = PlayerPos.transform.position;
 
+            
 
 
-
-            if (currRecipeString == "ScrapCompChipCompChipnull") //Turret item get
+            if (currRecipeString == "ScrapCompChipCompChipnull" && scrapCount >= 1 && chipCount >= 2) //Turret item get
             {
                 GameObject CratableSpawn = Instantiate(TurretPrefab, spawnPosition, Quaternion.identity); //spawns item inside player (auto pickup)
+                GameManager.instance.playerScript.inventory.Scrap = GameManager.instance.playerScript.inventory.Scrap - 1; //updates count
+                GameManager.instance.playerScript.inventory.Circuits = GameManager.instance.playerScript.inventory.Circuits - 2;
+                UIManager.instance.updateMats();
+            }
+            else //cannot craft not enough components
+            {
                 
             }
-            if (currRecipeString == "ScrapScrapnullnull") //Barbed Wire item get
+            if (currRecipeString == "ScrapScrapnullnull" && scrapCount >= 2) //Barbed Wire item get
             {
                 GameObject CratableSpawn = Instantiate(BarbedWirePrefab, spawnPosition, Quaternion.identity); //spawns item inside player (auto pickup)
+                GameManager.instance.playerScript.inventory.Scrap = GameManager.instance.playerScript.inventory.Scrap - 2; //updates count
+                UIManager.instance.updateMats();
             }
-            if (currRecipeString == "ScrapBombBombCompChip") //Mine item get
+            else //cannot craft not enough components
+            {
+
+            }
+            if (currRecipeString == "ScrapBombBombCompChip" && scrapCount >= 1 && bombCount >= 2 && chipCount >= 1) //Mine item get
             {
                 GameObject CratableSpawn = Instantiate(MinePrefab, spawnPosition, Quaternion.identity); //spawns item inside player (auto pickup)
+                GameManager.instance.playerScript.inventory.Scrap = GameManager.instance.playerScript.inventory.Scrap - 1; //updates count
+                GameManager.instance.playerScript.inventory.Scrap = GameManager.instance.playerScript.inventory.Exp - 2; 
+                GameManager.instance.playerScript.inventory.Scrap = GameManager.instance.playerScript.inventory.Circuits - 1;
+                UIManager.instance.updateMats();
+            }
+            else //cannot craft not enough components
+            {
+
             }
 
 
