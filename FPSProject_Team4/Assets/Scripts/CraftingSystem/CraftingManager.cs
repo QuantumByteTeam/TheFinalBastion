@@ -32,17 +32,19 @@ public class CraftingManager : MonoBehaviour
     
     Vector3 spawnPosition;
 
-    //public playerInventory inventory; //ref player inv for public int access
+    
     int clothCount;
     int bombCount;
     int chipCount;
     int scrapCount;
 
-    /*public GameObject cloth;
-    public GameObject scrap;
-    public GameObject bomb;
-    public GameObject chip;*/
+    public GameObject CraftingFailed;
+    public float showDuration = 1f;
 
+    private void Start()
+    {
+        Invoke("Fail", showDuration);
+    }
 
     private void Update()
     {
@@ -203,8 +205,11 @@ public class CraftingManager : MonoBehaviour
             }
             else //cannot craft not enough components
             {
-                
+                CraftingFailed.gameObject.SetActive(true);
+                Fail();
             }
+
+
             if (currRecipeString == "ScrapScrapnullnull" && scrapCount >= 2) //Barbed Wire item get
             {
                 GameObject CratableSpawn = Instantiate(BarbedWirePrefab, spawnPosition, Quaternion.identity); //spawns item inside player (auto pickup)
@@ -213,8 +218,11 @@ public class CraftingManager : MonoBehaviour
             }
             else //cannot craft not enough components
             {
-
+                CraftingFailed.gameObject.SetActive(true);
+                Fail();
             }
+
+
             if (currRecipeString == "ScrapBombBombCompChip" && scrapCount >= 1 && bombCount >= 2 && chipCount >= 1) //Mine item get
             {
                 GameObject CratableSpawn = Instantiate(MinePrefab, spawnPosition, Quaternion.identity); //spawns item inside player (auto pickup)
@@ -225,7 +233,8 @@ public class CraftingManager : MonoBehaviour
             }
             else //cannot craft not enough components
             {
-
+                CraftingFailed.gameObject.SetActive(true);
+                Fail(); //invoking didnt work
             }
 
 
@@ -301,4 +310,8 @@ public class CraftingManager : MonoBehaviour
         Debug.Log("Player Pos: " + playerPosition);
     }
 
+    void Fail()
+    {
+        CraftingFailed.SetActive(false);
+    }
 }
