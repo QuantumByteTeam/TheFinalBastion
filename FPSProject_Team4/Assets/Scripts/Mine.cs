@@ -17,6 +17,7 @@ public class Mine : MonoBehaviour
     [SerializeField] ParticleSystem explosion;
     [SerializeField] ParticleSystem shockwave;
     [SerializeField] GameObject explosionPosition;
+    [SerializeField] AudioClip clip;
     Collider[] enemies;
     IDamageable dmg;
 
@@ -25,7 +26,7 @@ public class Mine : MonoBehaviour
     {
         if (other.tag == "Enemy" && !other.isTrigger)
         {
-
+            AudioSource.PlayClipAtPoint(clip, transform.position);
             Instantiate(explosion, transform.position, Quaternion.LookRotation(Vector3.up, Vector3.up));
             Instantiate(shockwave, transform.position, Quaternion.LookRotation(Vector3.up, Vector3.up));
 

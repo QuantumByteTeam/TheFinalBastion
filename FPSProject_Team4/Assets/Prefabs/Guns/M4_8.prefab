@@ -597,6 +597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gun: {fileID: 11400000, guid: 81365988a7fdae440a32c5039d8edac7, type: 2}
+  triggerSet: 0
 --- !u!33 &4446736241734012862
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -708,7 +709,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 525568
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

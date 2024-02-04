@@ -10,6 +10,7 @@ public class flashbang : MonoBehaviour
     [SerializeField] AudioClip[] explosionSound;
     [SerializeField] Rigidbody rb;
     [SerializeField] ParticleSystem flash;
+    [SerializeField] AudioClip clip;
     Collider[] enemies;
     IDamageable dmg;
     private void Start()
@@ -22,7 +23,7 @@ public class flashbang : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         Instantiate(flash, transform.position, Quaternion.LookRotation(Vector3.up, Vector3.up));
-
+        AudioSource.PlayClipAtPoint(clip, transform.position);
         enemies = Physics.OverlapSphere(transform.position, explosionRadius);
 
         for (int i = 0; i < enemies.Length; i++)

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -185,12 +186,7 @@ public class PlayerController : MonoBehaviour, IDamageable
                         {
                             if (Input.GetButtonDown("Shoot"))
                             {
-                                //IsShooting = true;
-                                //shootSwap = true;
-                                Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployable, Camera.main.transform.position + (Camera.main.transform.forward * inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployDistance), Camera.main.transform.rotation);
-                                inventory.Remove(SelectedItem);
-                                UIManager.instance.updateHotbar();
-                                UIManager.instance.UpdateAmmo();
+                                Deploy(inventory.hotbarInventory.ElementAt(SelectedItem).Key);
                             }
 
                         }
@@ -331,6 +327,19 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
     }
 
+    void Deploy(inventoryItem item)
+    {
+        GameObject deployed = Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployable, Camera.main.transform.position + (Camera.main.transform.forward * inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployDistance), Camera.main.transform.rotation);
+
+        if (deployed.tag != "Flashbang")
+        {
+            deployed.GetComponent<Rigidbody>().velocity = deployed.transform.forward * 5;
+        }
+
+        inventory.Remove(SelectedItem);
+        UIManager.instance.updateHotbar();
+        UIManager.instance.UpdateAmmo();
+    }
 
 
     IEnumerator Shoot()

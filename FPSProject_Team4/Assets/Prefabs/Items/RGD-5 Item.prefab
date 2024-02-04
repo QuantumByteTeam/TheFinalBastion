@@ -156,7 +156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: cecca25c94780ca428d51ab9f5894270, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.664
+      value: 14.113
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: cecca25c94780ca428d51ab9f5894270, type: 3}
       propertyPath: m_LocalPosition.z
@@ -228,6 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 7ca675f86f8778e46a614dbbfefa424b, type: 2}
+  triggerSet: 0
 --- !u!65 &1330367023966191899
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -241,7 +242,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 525568
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

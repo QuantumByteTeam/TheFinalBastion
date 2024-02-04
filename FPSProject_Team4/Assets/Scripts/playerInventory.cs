@@ -89,13 +89,25 @@ public class playerInventory //: MonoBehaviour
 
 
         PlayerController player = GameManager.instance.playerScript;
-        GameObject newItem = GameManager.Instantiate(item.droppedItem, Camera.main.transform.position + (Camera.main.transform.forward * 3), Camera.main.transform.rotation);
+        GameObject newItem = GameManager.Instantiate(item.droppedItem, Camera.main.transform.position/* + (Camera.main.transform.forward * 3)*/, Camera.main.transform.rotation);
+        newItem.gameObject.layer = 14;
+
+        Rigidbody rb = newItem.GetComponent<Rigidbody>();
+
+        rb.velocity = rb.transform.forward * 5;
+
+        GameManager.instance.StartCoroutine(enablePickup(newItem));
         if (item.isGun)
         {
             newItem.GetComponent<GunPickup>().gun.ammoCount = player.ammoCount;
             newItem.GetComponent<GunPickup>().gun.ammoReserve = player.ammoReserve;
+            newItem.GetComponent<GunPickup>().triggerSet = true;
         }
-
+        else
+        {
+            newItem.GetComponent<itemPickup>().triggerSet = true;
+        }
+        
         Remove(index);
 
         if (GameManager.instance.playerScript.SelectedItem >= hotbarInventory.Count && hotbarInventory.Count > 0)
@@ -108,7 +120,11 @@ public class playerInventory //: MonoBehaviour
         UIManager.instance.updateHotbar();
     }
 
-    
+    IEnumerator enablePickup(GameObject item)
+    {
+        yield return new WaitForSeconds(1f);
+        item.layer = 0;
+    }
 
     public int DictionarySize()
     {

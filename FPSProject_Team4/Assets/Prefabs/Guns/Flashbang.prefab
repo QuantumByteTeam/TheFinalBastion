@@ -105,6 +105,7 @@ MonoBehaviour:
   explosionSound: []
   rb: {fileID: 1817203508782919901}
   flash: {fileID: 636251552572513178, guid: 3026a01ec19e76740848c5379fee5e93, type: 3}
+  clip: {fileID: 8300000, guid: 638a85bd2a2c5914881478865a3c1a0e, type: 3}
 --- !u!54 &1817203508782919901
 Rigidbody:
   m_ObjectHideFlags: 0

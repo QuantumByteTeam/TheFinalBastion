@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RGD-5 Grenade
       objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: cecca25c94780ca428d51ab9f5894270, type: 3}
+      propertyPath: m_TagString
+      value: Flashbang
+      objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: cecca25c94780ca428d51ab9f5894270, type: 3}
       propertyPath: m_LocalScale.x
       value: 3
@@ -104,6 +108,7 @@ MonoBehaviour:
   rb: {fileID: 7218188661652581308}
   explosion: {fileID: 4115201037910324011, guid: 0a2eca3c6beb48f43bdab3df4d788196, type: 3}
   shockwave: {fileID: 5344711545221876148, guid: 88aae71d2e46b124e82ed18da9363a3b, type: 3}
+  clip: {fileID: 8300000, guid: a00bf521033f8f24d9d33d42d5803809, type: 3}
 --- !u!54 &7218188661652581308
 Rigidbody:
   m_ObjectHideFlags: 0
