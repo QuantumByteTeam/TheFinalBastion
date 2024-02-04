@@ -20,7 +20,7 @@ MonoBehaviour:
   itemSprite: {fileID: 21300000, guid: 159ae6ce77b8347438640e05c36cb053, type: 3}
   deployable: {fileID: 1068280170183586175, guid: d0523112751fcc84aa348ed49b1b9c41, type: 3}
   droppedItem: {fileID: 6171672880650700548, guid: 1c6f98049548c754b93ec689f668b8c4, type: 3}
-  deployDistance: 0
+  deployDistance: 0.5
   ShootDamage: 0
   ShootRate: 0
   ShootDist: 0
