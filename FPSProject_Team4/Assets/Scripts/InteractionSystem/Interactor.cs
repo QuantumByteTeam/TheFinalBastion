@@ -8,7 +8,6 @@ public class Interactor : MonoBehaviour
     [SerializeField] private Transform interactionPoint;
     [SerializeField] private float interactionPointRadius = 0.5f;
     [SerializeField] private LayerMask interactableMask;
-    
 
     private readonly Collider[] colliders = new Collider[3];
 
@@ -26,8 +25,8 @@ public class Interactor : MonoBehaviour
             UIManager.instance.PromptText.SetActive(true);
             
             var interactable = colliders[0].GetComponent<Iinteractable>();
-            
-            
+
+
             if (interactable != null && Input.GetKeyDown(KeyCode.E)) //this code is setup for a way to differentiate from a simple interaction that doesnt need a paues and a complex one
             {
                 interactable.Interact(this);
@@ -38,6 +37,8 @@ public class Interactor : MonoBehaviour
 
                 Cursor.lockState = CursorLockMode.Confined;
                 UIManager.instance.CraftingUI.SetActive(false); //turns off crafting UI
+                UIManager.instance.CloseStoreMenu();
+                UIManager.instance.menuActive.SetActive(false); //turns off store menu, fixes the problem where u need to press Q x2 to exit the store properly
                 Cursor.visible = false;
                 GameManager.instance.ActiveUnpause(); //unpauses the game for ALL menu's accessed by interaction
             }

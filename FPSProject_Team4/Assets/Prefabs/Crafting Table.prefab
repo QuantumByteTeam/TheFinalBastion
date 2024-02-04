@@ -49,14 +49,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: Craft
-  playerPosition: {x: 0, y: 0, z: 0}
-  spawnPosition: {x: 0, y: 0, z: 0}
-  AmmoPrefab: {fileID: 0}
-  TurretPrefab: {fileID: 7484076976484053707, guid: 183b8aa68ee92c74c8b3d3a689b4862d, type: 3}
-  BarbedWirePrefab: {fileID: 7552328904006426114, guid: fdf81396cfc5bef42a97792d75bb9412, type: 3}
-  MinePrefab: {fileID: 8349228599287161360, guid: 2bf205160279e6148a2b9c363e591f17, type: 3}
-  ArmorPrefab: {fileID: 0}
-  BandagePrefab: {fileID: 0}
 --- !u!33 &3665463749201429392
 MeshFilter:
   m_ObjectHideFlags: 0

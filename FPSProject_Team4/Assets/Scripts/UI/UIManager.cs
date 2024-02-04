@@ -105,6 +105,7 @@ public class UIManager : MonoBehaviour
     {
         menuActive = menuStore;
         menuActive.SetActive(true);
+        GameManager.instance.ActivePaused();
     }
 
     public void CloseActiveMenu()
@@ -121,7 +122,8 @@ public class UIManager : MonoBehaviour
     public void CloseStoreMenu()
     {
         GameManager.instance.ActiveUnpause();
-        Resume();
+        CloseActiveMenu();
+        //Resume(); commented out because the game should not fully pause for the player while in the shop, only active pause
     }
 
     public void UpdatePlayerHP()
