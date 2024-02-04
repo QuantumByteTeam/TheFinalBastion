@@ -183,6 +183,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 9054785238413755786}
   model: {fileID: 7101192409231401207}
+  sphCol: {fileID: 0}
+  animator: {fileID: 0}
   health: 100
   viewCone: 90
   targetFaceSpeed: 5
@@ -206,7 +208,10 @@ MonoBehaviour:
   isBuffed: 0
   isShooting: 0
   isRoaming: 0
+  isSmokeBlind: 0
+  isRoller: 0
   reward: 200
+  roller: {fileID: 0}
   armor: 1
   origSpeed: 0
 --- !u!195 &9054785238413755786
@@ -459,6 +464,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4ccd886745a54114c911a92a417d8207, type: 2}
   - {fileID: 11400000, guid: e8d04b476d199f24a8637b92170ba1de, type: 2}
   - {fileID: 11400000, guid: 81a015e0a148dd842a70900f00792576, type: 2}
+  - {fileID: 11400000, guid: a19ef754f5372a747a098543d6c4e90c, type: 2}
 --- !u!1 &1814709559962558461
 GameObject:
   m_ObjectHideFlags: 0

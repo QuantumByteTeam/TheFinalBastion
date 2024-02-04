@@ -289,6 +289,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 61298598477938213}
   model: {fileID: 5156100000446173959}
+  sphCol: {fileID: 0}
+  animator: {fileID: 0}
   health: 100
   viewCone: 90
   targetFaceSpeed: 10
@@ -312,7 +314,10 @@ MonoBehaviour:
   isBuffed: 0
   isShooting: 0
   isRoaming: 0
+  isSmokeBlind: 0
+  isRoller: 0
   reward: 150
+  roller: {fileID: 0}
   armor: 0
   origSpeed: 0
 --- !u!114 &6982668902544921908
@@ -480,6 +485,7 @@ MonoBehaviour:
   lootList:
   - {fileID: 11400000, guid: 4ccd886745a54114c911a92a417d8207, type: 2}
   - {fileID: 11400000, guid: 2a6596511773adf48b650a922b201130, type: 2}
+  - {fileID: 11400000, guid: a19ef754f5372a747a098543d6c4e90c, type: 2}
 --- !u!82 &217869926654074016
 AudioSource:
   m_ObjectHideFlags: 0
