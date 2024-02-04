@@ -233,19 +233,28 @@ public class UIManager : MonoBehaviour
     public void UpdateAmmo()
     {
         PlayerController playerCont = GameManager.instance.playerScript;
-        if (playerCont.inventory.hotbarInventory.Count <= 0)
+
+        if (playerCont.SelectedItem < playerCont.inventory.hotbarInventory.Count)
         {
-            ammoCounterText.text = playerCont.ammoCount.ToString("0");
-            reserveAmmoText.text = playerCont.ammoReserve.ToString("0");
-        }
-        else if (playerCont.inventory.hotbarInventory.ElementAt(playerCont.SelectedItem).Key.isGun)
-        {
-            ammoCounterText.text = playerCont.ammoCount.ToString("0");
-            reserveAmmoText.text = playerCont.ammoReserve.ToString("0");
+            if (playerCont.inventory.hotbarInventory.Count <= 0)
+            {
+                ammoCounterText.text = playerCont.ammoCount.ToString("0");
+                reserveAmmoText.text = playerCont.ammoReserve.ToString("0");
+            }
+            else if (playerCont.inventory.hotbarInventory.ElementAt(playerCont.SelectedItem).Key.isGun)
+            {
+                ammoCounterText.text = playerCont.ammoCount.ToString("0");
+                reserveAmmoText.text = playerCont.ammoReserve.ToString("0");
+            }
+            else
+            {
+                ammoCounterText.text = playerCont.inventory.hotbarInventory.ElementAt(playerCont.SelectedItem).Value.ToString();
+                reserveAmmoText.text = "0";
+            }
         }
         else
         {
-            ammoCounterText.text = playerCont.inventory.hotbarInventory.ElementAt(playerCont.SelectedItem).Value.ToString();
+            ammoCounterText.text = "0";
             reserveAmmoText.text = "0";
         }
     }

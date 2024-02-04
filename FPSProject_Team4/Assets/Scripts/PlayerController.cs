@@ -111,14 +111,14 @@ public class PlayerController : MonoBehaviour, IDamageable
     void Update()
     {
         invSize = inventory.hotbarInventory.Count();
-        if (invSize > 0)
-        {
-            //holdingGun = inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun;
-            if (SelectedItem >= invSize)
-            {
-                SelectedItem = invSize - 1;
-            }
-        }
+        //if (invSize > 0)
+        //{
+        //    //holdingGun = inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun;
+        //    if (SelectedItem >= invSize)
+        //    {
+        //        SelectedItem = invSize - 1;
+        //    }
+        //}
 
 
 
@@ -136,67 +136,67 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 
 
-                    if (Input.GetButton("ADS") && inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
-                    {
-                        isADS = true;
-                        Camera.main.fieldOfView = FOV * 0.75f;
-                        GunModel.transform.position = ADSPosition.transform.position;
-                        GunModel.transform.rotation = ADSPosition.transform.rotation;
-                    }
-                    else
-                    {
-                        isADS = false;
-                        Camera.main.fieldOfView = FOV;
-                        GunModel.transform.position = gunPosition.transform.position;
-                        GunModel.transform.rotation = gunPosition.transform.rotation;
-                    }
-
-
-                    if (Input.GetButtonDown("Drop") && invSize > 0)
-                    {
-                        inventory.drop(SelectedItem);
-                    }
+                    
 
                     if (invSize >= 0)
                     {
                         SelectItem();
                     }
 
-                    if (inventory.hotbarInventory.Count > 0 && inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
+                    if (SelectedItem < inventory.hotbarInventory.Count)
                     {
-                        if (Input.GetButton("Shoot") && !IsShooting && !reloading/* && !swap*/)
+                        if (Input.GetButton("ADS") && inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
                         {
-                            IsShooting = true;
-                            //shootSwap = true;
-                            lastShoot = StartCoroutine(Shoot());
+                            isADS = true;
+                            Camera.main.fieldOfView = FOV * 0.75f;
+                            GunModel.transform.position = ADSPosition.transform.position;
+                            GunModel.transform.rotation = ADSPosition.transform.rotation;
+                        }
+                        else
+                        {
+                            isADS = false;
+                            Camera.main.fieldOfView = FOV;
+                            GunModel.transform.position = gunPosition.transform.position;
+                            GunModel.transform.rotation = gunPosition.transform.rotation;
                         }
 
-                        if (Input.GetButton("Reload") && !IsShooting)
+
+                        if (Input.GetButtonDown("Drop") && invSize > 0)
                         {
-                            lastReload = StartCoroutine(reload());
-                        }
-                        //SelectGun();
-                    }
-                    else if (inventory.hotbarInventory.Count > 0 && inventory.hotbarInventory.ElementAt(SelectedItem).Key.isDeployable)
-                    {
-                        if (Input.GetButtonDown("Shoot"))
-                        {
-                            //IsShooting = true;
-                            //shootSwap = true;
-                            Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployable, Camera.main.transform.position + (Camera.main.transform.forward * inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployDistance), Camera.main.transform.rotation);
-                            inventory.Remove(SelectedItem);
-                            UIManager.instance.updateHotbar();
-                            UIManager.instance.UpdateAmmo();
+                            inventory.drop(SelectedItem);
                         }
 
-                    }
+                        if (inventory.hotbarInventory.Count > 0 && inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
+                        {
+                            if (Input.GetButton("Shoot") && !IsShooting && !reloading/* && !swap*/)
+                            {
+                                IsShooting = true;
+                                //shootSwap = true;
+                                lastShoot = StartCoroutine(Shoot());
+                            }
 
-                    if (Input.GetButtonUp("Shoot"))
-                    {
-                        //IsShooting = false;
-                        //shootSwap = false;
-                        //swap = false;
+                            if (Input.GetButton("Reload") && !IsShooting)
+                            {
+                                lastReload = StartCoroutine(reload());
+                            }
+                            //SelectGun();
+                        }
+                        else if (inventory.hotbarInventory.Count > 0 && inventory.hotbarInventory.ElementAt(SelectedItem).Key.isDeployable)
+                        {
+                            if (Input.GetButtonDown("Shoot"))
+                            {
+                                //IsShooting = true;
+                                //shootSwap = true;
+                                Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployable, Camera.main.transform.position + (Camera.main.transform.forward * inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployDistance), Camera.main.transform.rotation);
+                                inventory.Remove(SelectedItem);
+                                UIManager.instance.updateHotbar();
+                                UIManager.instance.UpdateAmmo();
+                            }
+
+                        }
                     }
+                    
+
                     controller.enabled = true; //Prevents bug where controller gets disabled for some reason
                     movement();
                 }
@@ -618,22 +618,70 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             SelectedItem--;
             UIManager.instance.updateSelection(SelectedItem);
-            if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
-            {
-                SelectedGun--;
-            }
+            //if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
+            //{
+            //    SelectedGun--;
+            //}
             ChangeItem();
 
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && SelectedItem < inventory.hotbarInventory.Count - 1 && !IsShooting) //scrolling down, makes sure we never get past 0
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && SelectedItem < 8 && !IsShooting) //scrolling down, makes sure we never get past 0
         {
             SelectedItem++;
             UIManager.instance.updateSelection(SelectedItem);
-            if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
-            {
-                SelectedGun++;
-            }
+            //if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
+            //{
+            //    SelectedGun++;
+            //}
             ChangeItem();
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
+            {
+                SelectedItem = 0;
+                ChangeItem();
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
+            {
+                SelectedItem = 1;
+                ChangeItem();
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
+            {
+                SelectedItem = 2;
+                ChangeItem();
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4))
+            {
+                SelectedItem = 3;
+                ChangeItem();
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5))
+            {
+                SelectedItem = 4;
+                ChangeItem();
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6))
+            {
+                SelectedItem = 5;
+                ChangeItem();
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7))
+            {
+                SelectedItem = 6;
+                ChangeItem();
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Keypad8))
+            {
+                SelectedItem = 7;
+                ChangeItem();
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Keypad9))
+            {
+                SelectedItem = 8;
+                ChangeItem();
+            }
         }
     }
 
@@ -653,7 +701,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         UIManager.instance.reloadingText.SetActive(false);
         inventoryItem currentGun;
-        if (inventory.hotbarInventory.Count > 0)
+        if (SelectedItem < inventory.hotbarInventory.Count)
         {
             currentGun = inventory.hotbarInventory.ElementAt(SelectedItem).Key;
         }
@@ -677,20 +725,24 @@ public class PlayerController : MonoBehaviour, IDamageable
         GunTrig.GetComponent<MeshFilter>().sharedMesh = null;
         GunTrig.GetComponent<MeshRenderer>().sharedMaterial = null;
 
-        if (inventory.hotbarInventory.Count > 0 && currentGun.Model != null)
+        if (currentGun != null)
         {
-            GunModel.GetComponent<MeshFilter>().sharedMesh = currentGun.Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model
-            GunModel.GetComponent<MeshRenderer>().sharedMaterial = currentGun.Model.GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
-            float temp = currentGun.modelScale;
-            GunModel.transform.localScale = new Vector3(temp, temp, temp);
+            if (inventory.hotbarInventory.Count > 0 && currentGun.Model != null)
+            {
+                GunModel.GetComponent<MeshFilter>().sharedMesh = currentGun.Model.GetComponent<MeshFilter>().sharedMesh; //sets the model to the correct gun model
+                GunModel.GetComponent<MeshRenderer>().sharedMaterial = currentGun.Model.GetComponent<MeshRenderer>().sharedMaterial; //sets the texture/shar to the correct gun
+                float temp = currentGun.modelScale;
+                GunModel.transform.localScale = new Vector3(temp, temp, temp);
+            }
+
+
+
+            if (inventory.hotbarInventory.Count > 0 && currentGun.isGun)
+            {
+                ChangeGun();
+            }
         }
-
-
-
-        if (inventory.hotbarInventory.Count > 0 && currentGun.isGun)
-        {
-            ChangeGun();
-        }
+        
 
         UIManager.instance.updateSelection(SelectedItem);
     }
