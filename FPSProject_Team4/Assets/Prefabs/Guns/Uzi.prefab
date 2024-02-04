@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 2553205333994376577}
   - component: {fileID: 460193011256089962}
   - component: {fileID: 4845208377154392826}
+  - component: {fileID: 4898003701127100942}
   m_Layer: 0
   m_Name: Uzi
   m_TagString: Gun
@@ -425,6 +426,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.036269262, y: 0.14970443, z: 0.37248352}
   m_Center: {x: 0, y: -0.0033774823, z: -0.032502145}
+--- !u!95 &4898003701127100942
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5924633815591688547}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4da318b9bbec13d4bb3e0024801014e7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6641057259233427777
 GameObject:
   m_ObjectHideFlags: 0
