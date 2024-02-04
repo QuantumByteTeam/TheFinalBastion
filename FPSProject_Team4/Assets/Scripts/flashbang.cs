@@ -15,8 +15,8 @@ public class flashbang : MonoBehaviour
     IDamageable dmg;
     private void Start()
     {
-        rb.velocity = rb.transform.forward * throwForce;
-        StartCoroutine(fuse(2.5f));
+        rb.velocity = Camera.main.transform.forward * throwForce;
+        StartCoroutine(fuse(1.5f));
     }
     IEnumerator fuse(float time)
     {

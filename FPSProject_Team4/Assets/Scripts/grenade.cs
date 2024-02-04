@@ -17,8 +17,8 @@ public class grenade : MonoBehaviour
     IDamageable dmg;
     private void Start()
     {
-        rb.velocity = rb.transform.forward * throwForce;
-        StartCoroutine(fuse(5));
+        rb.velocity = Camera.main.transform.forward * throwForce;
+        StartCoroutine(fuse(3));
     }
 
     IEnumerator fuse(float time)

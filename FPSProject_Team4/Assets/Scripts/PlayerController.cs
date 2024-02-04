@@ -329,11 +329,11 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void Deploy(inventoryItem item)
     {
-        GameObject deployed = Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployable, Camera.main.transform.position + (Camera.main.transform.forward * inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployDistance), Camera.main.transform.rotation);
+        GameObject deployed = Instantiate(inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployable, Camera.main.transform.position + (transform.forward * inventory.hotbarInventory.ElementAt(SelectedItem).Key.deployDistance), transform.rotation);
 
         if (deployed.tag != "Flashbang")
         {
-            deployed.GetComponent<Rigidbody>().velocity = deployed.transform.forward * 5;
+            deployed.GetComponent<Rigidbody>().velocity = transform.forward * 5;
         }
 
         inventory.Remove(SelectedItem);
