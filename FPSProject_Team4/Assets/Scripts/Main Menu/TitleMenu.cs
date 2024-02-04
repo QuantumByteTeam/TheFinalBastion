@@ -32,7 +32,8 @@ public class TitleMenu : MonoBehaviour
 
     public void Options()
     {
-     //Need to open options menu in title menu, would not be trivial
+    UIManager.instance.DisplayOptionsMenu();
+    
     }
 
 }
