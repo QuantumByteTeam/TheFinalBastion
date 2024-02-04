@@ -134,15 +134,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a1749177d82e88e40af6b0926338d01d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 545.60693
+      value: 546
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a1749177d82e88e40af6b0926338d01d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.133968
+      value: 8.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a1749177d82e88e40af6b0926338d01d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 198.21431
+      value: 197
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a1749177d82e88e40af6b0926338d01d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -223,6 +223,7 @@ MonoBehaviour:
   agent: {fileID: -5314071062989489878}
   model: {fileID: 2316755740313365476}
   sphCol: {fileID: 0}
+  animator: {fileID: 7488905470163274535}
   health: 100
   viewCone: 90
   targetFaceSpeed: 5
@@ -282,5 +283,10 @@ Transform:
 --- !u!4 &6990392310547808346 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -2916741891282405652, guid: a1749177d82e88e40af6b0926338d01d, type: 3}
+  m_PrefabInstance: {fileID: 3929243826095355574}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7488905470163274535 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: a1749177d82e88e40af6b0926338d01d, type: 3}
   m_PrefabInstance: {fileID: 3929243826095355574}
   m_PrefabAsset: {fileID: 0}

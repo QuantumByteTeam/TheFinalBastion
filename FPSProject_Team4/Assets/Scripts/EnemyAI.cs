@@ -14,6 +14,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [SerializeField] public NavMeshAgent agent;
     [SerializeField] Renderer model;
     [SerializeField] SphereCollider sphCol;
+    [SerializeField] Animator animator;
 
     [Header("----- Stats -----")]
     [SerializeField] public float health;
@@ -94,6 +95,15 @@ public class EnemyAI : MonoBehaviour, IDamageable
     {
         if (!isDead)
         {
+            animator.SetBool("Shooting", isShooting);
+            if (agent.velocity.magnitude == 0)
+            {
+                animator.SetFloat("Speed", 0);
+            }
+            else
+            {
+                animator.SetFloat("Speed", agent.velocity.magnitude / agent.speed);
+            }
             point = CoreManager.instance.GetClosestToPosition(transform.position);
 
             if (isSmokeBlind && !ranSmokeBlind)
@@ -402,6 +412,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     IEnumerator shoot()
     {
         isShooting = true;
+        animator.SetBool("Shooting", isShooting);
 
         // Perform a ray cast
         Ray ray = new Ray(firePos.position, firePos.forward);
@@ -455,6 +466,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         }
 
         isShooting = false;
+        animator.SetBool("Shooting", isShooting);
     }
 
     IEnumerator roam()
