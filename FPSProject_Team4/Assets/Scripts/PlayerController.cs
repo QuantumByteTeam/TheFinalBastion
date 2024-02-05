@@ -19,10 +19,12 @@ public class PlayerController : MonoBehaviour, IDamageable
     [Header("----- Stats -----")]
     public float HP; //configurable amt of HP
     public float PlayerSpeed; //configurable speed
+    float playerspeedoriginal;
     [SerializeField] float JumpHeight; //configurable jump height
     [SerializeField] float GravityValue;
     [SerializeField] int JumpMax; //configurable max amt of jumps 
     [SerializeField] float SprintMod; //configurable amt for speed multiplier
+    [SerializeField] float crouchMod;
     [SerializeField] float animSpeedTransition; //anim speed
     [SerializeField] private Vector3 crouchingScale = new Vector3(1, 0.5f, 1);
     [SerializeField] private Vector3 standingScale = new Vector3(1, 1, 1);
@@ -106,7 +108,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         HPOriginal = HP; //sets default hp to player's current HP
         respawnPlayer();
         controller.enabled = true;
-
+        playerspeedoriginal = PlayerSpeed;
 
     }
 
@@ -310,6 +312,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             colliderHeight = GetComponent<CharacterController>();
             colliderHeight.height = 1.0f;
+            PlayerSpeed *= crouchMod;
             isCrouching = true;
         }
 
@@ -317,6 +320,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             colliderHeight = GetComponent<CharacterController>();
             colliderHeight.height = 2.0f;
+            PlayerSpeed /= crouchMod;
             isCrouching = false;
         }
     }

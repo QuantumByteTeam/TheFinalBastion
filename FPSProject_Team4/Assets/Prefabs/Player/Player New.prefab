@@ -179,7 +179,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 524535
+    m_Bits: 541175
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -407,7 +407,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4817439658521089509}
   - component: {fileID: 686293988826507470}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: PlayerRadar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1195,7 +1195,7 @@ GameObject:
   - component: {fileID: 8219199703989425336}
   - component: {fileID: 5276165935471756064}
   - component: {fileID: 3934705242051501869}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player New
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1243,6 +1243,7 @@ MonoBehaviour:
   GravityValue: -30
   JumpMax: 3
   SprintMod: 1.3
+  crouchMod: 0.5
   animSpeedTransition: 0
   crouchingScale: {x: 1, y: 0.5, z: 1}
   standingScale: {x: 1, y: 1, z: 1}
@@ -1277,6 +1278,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 30073fc16ac7c284e96c78b25cafbabe, type: 3}
   - {fileID: 8300000, guid: c7c209e85e0335041bbce741f13944f3, type: 3}
   SoundJumpsVol: 0.5
+  eeeee: {fileID: 8300000, guid: 72fc1827beda2f740a9f07e0f7b97eda, type: 3}
   IsShooting: 0
   HPOriginal: 0
   ADSPosition: {fileID: 7097433012950497643}
