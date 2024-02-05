@@ -20,6 +20,8 @@ public class StoreItem : MonoBehaviour, IStoreItem
         if (GameManager.instance.coins >= cost)
         {
             Transform dropPoint = GameManager.instance.accessedStore.itemDropPoint.transform;
+            GameManager.instance.coins -= cost;
+            UIManager.instance.UpdateBalance();
             Instantiate(itemToSpawn, dropPoint.position, dropPoint.rotation);
         }
         else

@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour, IDamageable
                                 lastShoot = StartCoroutine(Shoot());
                             }
 
-                            if (Input.GetButton("Reload") && !IsShooting)
+                            if (Input.GetButton("Reload") && !IsShooting && !reloading)
                             {
                                 lastReload = StartCoroutine(reload());
                             }
@@ -624,75 +624,79 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void SelectItem()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && SelectedItem > 0 && !IsShooting)//scrolling up, -1 so that ur one less than out of bounds
+        if (!IsShooting && !reloading)
         {
-            SelectedItem--;
-            UIManager.instance.updateSelection(SelectedItem);
-            //if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
-            //{
-            //    SelectedGun--;
-            //}
-            ChangeItem();
+            if (Input.GetAxis("Mouse ScrollWheel") > 0 && SelectedItem > 0)//scrolling up, -1 so that ur one less than out of bounds
+            {
+                SelectedItem--;
+                UIManager.instance.updateSelection(SelectedItem);
+                //if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
+                //{
+                //    SelectedGun--;
+                //}
+                ChangeItem();
 
+            }
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0 && SelectedItem < 8) //scrolling down, makes sure we never get past 0
+            {
+                SelectedItem++;
+                UIManager.instance.updateSelection(SelectedItem);
+                //if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
+                //{
+                //    SelectedGun++;
+                //}
+                ChangeItem();
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
+                {
+                    SelectedItem = 0;
+                    ChangeItem();
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
+                {
+                    SelectedItem = 1;
+                    ChangeItem();
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
+                {
+                    SelectedItem = 2;
+                    ChangeItem();
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4))
+                {
+                    SelectedItem = 3;
+                    ChangeItem();
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5))
+                {
+                    SelectedItem = 4;
+                    ChangeItem();
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6))
+                {
+                    SelectedItem = 5;
+                    ChangeItem();
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7))
+                {
+                    SelectedItem = 6;
+                    ChangeItem();
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Keypad8))
+                {
+                    SelectedItem = 7;
+                    ChangeItem();
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Keypad9))
+                {
+                    SelectedItem = 8;
+                    ChangeItem();
+                }
+            }
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && SelectedItem < 8 && !IsShooting) //scrolling down, makes sure we never get past 0
-        {
-            SelectedItem++;
-            UIManager.instance.updateSelection(SelectedItem);
-            //if (inventory.hotbarInventory.ElementAt(SelectedItem).Key.isGun)
-            //{
-            //    SelectedGun++;
-            //}
-            ChangeItem();
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
-            {
-                SelectedItem = 0;
-                ChangeItem();
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
-            {
-                SelectedItem = 1;
-                ChangeItem();
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
-            {
-                SelectedItem = 2;
-                ChangeItem();
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4))
-            {
-                SelectedItem = 3;
-                ChangeItem();
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5))
-            {
-                SelectedItem = 4;
-                ChangeItem();
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6))
-            {
-                SelectedItem = 5;
-                ChangeItem();
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7))
-            {
-                SelectedItem = 6;
-                ChangeItem();
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Keypad8))
-            {
-                SelectedItem = 7;
-                ChangeItem();
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Keypad9))
-            {
-                SelectedItem = 8;
-                ChangeItem();
-            }
-        }
+        
     }
     public void tinnitus()
     {
