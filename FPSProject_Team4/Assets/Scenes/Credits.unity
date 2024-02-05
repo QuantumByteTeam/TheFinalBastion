@@ -189,7 +189,18 @@ MonoBehaviour:
     https://www.pixelsquid.com/png/barbed-wire-2016767565908415784?image=G03 By:
     k3b3\r\n\n https://creazilla.com/nodes/1999403-green-land-mine-clipart By: Opengameart\r\n\n
     https://pngimg.com/image/49071 By: pngimg.com\r\n\n https://www.pixelsquid.com/png/bandage-1129946257112962813?image=G03
-    By: royalmix \r\n"
+    By: royalmix \r\n\n\nRichie Chao\n\n\nJohn McFarland\n\n\nhttps://assetstore.unity.com/packages/tools/custom-teleporter-pad-script-20098\r\nhttps://pixabay.com/sound-effects/teleport-179433/
+    By: Damaged Grounds\n\nhttps://freesound.org/people/Krokulator/sounds/658261/\n\n\nhttps://freesound.org/people/MATRIXXX_/sounds/702805/\n\n\nhttps://opengameart.org/content/ubot
+    By: Oblivion\n\n\nhttps://www.pngegg.com/en/png-fiuur\n\n\nhttps://www.vecteezy.com/vector-art/2071753-abstract-digital-technology-ui-futuristic-hud-virtual-interface-elements-sci-fi-modern-user-motion-graphic-technology-innovative-concept
+    By: Pramote Lertnitivanit \n\n\nhttps://assetstore.unity.com/packages/3d/environments/sci-fi/free-sci-fi-office-pack-195067
+    \n\n\nhttps://assetstore.unity.com/packages/3d/props/modular-pipes-pack-85778\n\n\nhttps://assetstore.unity.com/packages/3d/props/voxel-office-props-127772
+    By: Air Dinghy Interactive\n\n\nhttps://assetstore.unity.com/packages/3d/props/furniture/chair-and-sofa-set-263004
+    By: Geniuscrate Games\n\n\nhttps://assetstore.unity.com/packages/vfx/particles/effect-textures-and-prefabs-109031\n\n\nhttps://assetstore.unity.com/packages/3d/environments/sci-fi/atm-95057#description\n\n\nhttps://opengameart.org/content/shock-bot
+    By: Teh Bucket\n\n\n https://opengameart.org/content/scifi-weapon By: SatySaty\n\nhttps://pixabay.com/sound-effects/firecracker-corsair-4-95046/\r\n\r\nhttps://pixabay.com/sound-effects/medium-explosion-40472/\r\n\r\nhttps://pixabay.com/sound-effects/explosion-6055/\n\n\nhttps://quaternius.com/packs/scifimodularguns.html
+    By: Quaternius\n\nhttps://assetstore.unity.com/packages/2d/textures-materials/sci-fi-texture-pack-1-23301
+    By: firebolt studios\n\nhttps://assetstore.unity.com/packages/2d/textures-materials/free-sci-fi-textures-9933
+    By: Luca Eberhart\n https://assetstore.unity.com/packages/3d/props/interior/crafting-table-160161
+    By:Mcomp\n\n\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -563,43 +574,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Wrench
-
-
-
-    Barbed Wire
-
-
-
-
-    Roller Enemy Material
-
-
-
-    Ammo
-
-
-
-    Turret
-
-
-
-    Barbed
-    Wire Sprite
-
-
-
-    Mine
-
-
-
-    Armor
-
-
-
-    Bandage
-
-'
+  m_text: "Wrench\n\n\nBarbed Wire\n\n\n\nRoller Enemy Material\n\n\nAmmo\n\n\nTurret\n\n\nBarbed
+    Wire Sprite\n\n\nMine\n\n\nArmor\n\n\nBandage\n\n\nRadar \n\n\nCrafting Materials
+    \n\n\nTeleporter\n\n\n\n\nButton Select SFX\n\n\nButton Hover SFX\n\n\n\nBasic
+    Enemy Model\n\n\nCrafting Slots\n\n\nCrafting Background\n\n\n\n\n\nSci-fi Office
+    Models\n\n\n\nPipes\n\n\n\nVoxel Office Props\n\n\n\nSofa Set\n\n\n\nSmoke Textures\n\n\n\nATM\n\n\n\nArmored
+    Enemy\n\n\n\nEnemy Gun\n\n\nGrenade SFX\n\n\nFlashbang SFX\n\n\nMine SFX\n\n\nEnemy
+    Guns 2\n\n\nMap Textures\n\n\nSci-Fi Textures 2\n\n\nWorkbench Station\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1224,7 +1205,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 278, y: 2283}
+  m_AnchoredPosition: {x: 278, y: 6081}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1579055535
