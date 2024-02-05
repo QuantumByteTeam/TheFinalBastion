@@ -11035,6 +11035,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -333
       objectReference: {fileID: 0}
+    - target: {fileID: 2348247113640543943, guid: 0921d070520c32d4590ce60ea097e716, type: 3}
+      propertyPath: cost
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 2470477584152147824, guid: 0921d070520c32d4590ce60ea097e716, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -11307,6 +11311,10 @@ PrefabInstance:
       propertyPath: itemToSpawn
       value: 
       objectReference: {fileID: 3735391452281817817, guid: b964ef15a0de3c84998ddf1844203f42, type: 3}
+    - target: {fileID: 6820706671972890901, guid: 0921d070520c32d4590ce60ea097e716, type: 3}
+      propertyPath: cost
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 6883620815618330933, guid: 0921d070520c32d4590ce60ea097e716, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
