@@ -49,8 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 5645211895251887586}
   secondsUntilDestroy: 10
-  damageAmount: 1
-  speed: 5
+  damageAmount: 10
+  speed: 10
   armorPen: 0
 --- !u!135 &1531564377498527789
 SphereCollider:

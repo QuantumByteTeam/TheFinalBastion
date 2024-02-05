@@ -14,8 +14,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [SerializeField] public NavMeshAgent agent;
     [SerializeField] Renderer model;
     [SerializeField] SphereCollider sphCol;
-    [SerializeField] Animator animator;
-    [SerializeField] AudioClip clip;
+    //[SerializeField] Animator animator;
+    //[SerializeField] AudioClip clip;
 
     [Header("----- Stats -----")]
     [SerializeField] public float health;
@@ -97,19 +97,19 @@ public class EnemyAI : MonoBehaviour, IDamageable
     {
         if (!isDead)
         {
-            if (isAnimated)
-            {
-                animator.SetBool("Shooting", isShooting);
+            //if (isAnimated)
+            //{
+            //    animator.SetBool("Shooting", isShooting);
 
-                if (agent.velocity.magnitude == 0)
-                {
-                    animator.SetFloat("Speed", 0);
-                }
-                else
-                {
-                    animator.SetFloat("Speed", agent.velocity.magnitude / agent.speed);
-                }
-            }
+            //    if (agent.velocity.magnitude == 0)
+            //    {
+            //        animator.SetFloat("Speed", 0);
+            //    }
+            //    else
+            //    {
+            //        animator.SetFloat("Speed", agent.velocity.magnitude / agent.speed);
+            //    }
+            //}
             point = CoreManager.instance.GetClosestToPosition(transform.position);
 
             if (isSmokeBlind && !ranSmokeBlind)
@@ -418,7 +418,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     IEnumerator shoot()
     {
         isShooting = true;
-        animator.SetBool("Shooting", isShooting);
+        //animator.SetBool("Shooting", isShooting);
 
         // Perform a ray cast
         Ray ray = new Ray(firePos.position, firePos.forward);
@@ -428,7 +428,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         {
             // Check if the hit object implements IDamagable
             IDamageable damageable = hit.collider.GetComponent<IDamageable>();
-            AudioSource.PlayClipAtPoint(clip, transform.position);
+            //AudioSource.PlayClipAtPoint(clip, transform.position);
             if (damageable != null && hit.collider.tag != "Enemy")
             {
                 // Instantiate and configure the bullet
@@ -472,7 +472,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         }
 
         isShooting = false;
-        animator.SetBool("Shooting", isShooting);
+        //animator.SetBool("Shooting", isShooting);
     }
 
     IEnumerator roam()
