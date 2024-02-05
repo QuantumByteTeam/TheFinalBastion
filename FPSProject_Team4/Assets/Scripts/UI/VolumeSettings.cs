@@ -32,14 +32,6 @@ public class VolumeSettings : MonoBehaviour
     //    volumeSlider.value = PlayerPrefs.GetFloat(volumeParameter, volumeSlider.value);
     //}
 
-    private void Start()
-    {
-        fullscreen.onValueChanged.AddListener(delegate
-        {
-            OnDisplayModeChanged(fullscreen);
-        });
-    }
-
     private void OnDisable()
     {
         SavePrefs();
@@ -66,7 +58,7 @@ public class VolumeSettings : MonoBehaviour
         PlayerPrefs.SetFloat("volume", volume);
         if (!isWebGL)
         {
-            PlayerPrefs.SetString("displayMode", Screen.fullScreenMode.ToString());
+            PlayerPrefs.SetInt("fullscreen", Screen.fullScreen ? 1 : 0);
             PlayerPrefs.SetInt("activeDisplay", GetCurrentDisplayNumber());
         }
 
@@ -79,7 +71,7 @@ public class VolumeSettings : MonoBehaviour
         audioMixer.SetFloat("volume", PlayerPrefs.GetFloat("volume", 1));
         if (!isWebGL)
         {
-            Screen.fullScreenMode = (FullScreenMode)PlayerPrefs.GetInt("displayMode", (int)FullScreenMode.FullScreenWindow);
+            Screen.fullScreenMode = PlayerPrefs.GetInt("fullscreen", 1) == 1 ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.Windowed;
 
             fullscreen.isOn = Screen.fullScreenMode == FullScreenMode.FullScreenWindow;
 
@@ -92,29 +84,25 @@ public class VolumeSettings : MonoBehaviour
         isLoading = false;
     }
 
-    public void OnDisplayModeChanged(Toggle change)
+    public void OnDisplayModeChanged()
     {
         if (isLoading) return;
 
-        Debug.Log("Changing");
-
         if (!isWebGL)
         {
-            if (change.isOn)
+            int displayNumber = GetCurrentDisplayNumber();
+            if (fullscreen.isOn)
             {
-                int displayNumber = GetCurrentDisplayNumber();
-                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
                 Display.displays[displayNumber].Activate();
                 Debug.Log("Fullscreen");
             }
             else
             {
-                Screen.fullScreenMode = FullScreenMode.MaximizedWindow;
-                Debug.Log("Maximized");
+                Screen.SetResolution(Display.displays[displayNumber].renderingWidth, Display.displays[displayNumber].renderingHeight, FullScreenMode.Windowed);
+                Debug.Log("Window");
             }
         }
-
-        Debug.Log("Mode Changed: " + change.isOn.ToString());
     }
 
     public int GetCurrentDisplayNumber()
