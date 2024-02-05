@@ -220,8 +220,8 @@ public class CraftingManager : MonoBehaviour
             {
                 GameObject CratableSpawn = Instantiate(MinePrefab, spawnPosition, Quaternion.identity); //spawns item inside player (auto pickup)
                 GameManager.instance.playerScript.inventory.Scrap = GameManager.instance.playerScript.inventory.Scrap - 1; //updates count
-                GameManager.instance.playerScript.inventory.Scrap = GameManager.instance.playerScript.inventory.Exp - 2; 
-                GameManager.instance.playerScript.inventory.Scrap = GameManager.instance.playerScript.inventory.Circuits - 1;
+                GameManager.instance.playerScript.inventory.Exp = GameManager.instance.playerScript.inventory.Exp - 2; 
+                GameManager.instance.playerScript.inventory.Circuits = GameManager.instance.playerScript.inventory.Circuits - 1;
                 UIManager.instance.updateMats();
             }
             else //cannot craft not enough components
@@ -230,10 +230,31 @@ public class CraftingManager : MonoBehaviour
             }
 
 
+            if (currRecipeString == "ClothClothnullnull" && clothCount >= 2) //Medkit item get
+            {
+                GameObject CratableSpawn = Instantiate(BandagePrefab, spawnPosition, Quaternion.identity); //spawns item inside player (auto pickup)
+                GameManager.instance.playerScript.inventory.Cloth = GameManager.instance.playerScript.inventory.Cloth - 2;
+                
+                UIManager.instance.updateMats();
+            }
+            else //cannot craft not enough components
+            {
+                StartCoroutine(Fail());
+            }
 
 
+            if (currRecipeString == "ScrapBombnullnull" && scrapCount >= 1 && bombCount >= 1) //Ammo item get
+            {
+                GameObject CratableSpawn = Instantiate(AmmoPrefab, spawnPosition, Quaternion.identity); //spawns item inside player (auto pickup)
+                GameManager.instance.playerScript.inventory.Scrap = GameManager.instance.playerScript.inventory.Scrap - 1;
+                GameManager.instance.playerScript.inventory.Exp = GameManager.instance.playerScript.inventory.Exp - 1;
 
-
+                UIManager.instance.updateMats();
+            }
+            else //cannot craft not enough components
+            {
+                StartCoroutine(Fail());
+            }
 
 
 

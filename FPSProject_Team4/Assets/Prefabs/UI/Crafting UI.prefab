@@ -3433,12 +3433,12 @@ MonoBehaviour:
   resultSlot: {fileID: 1910594236238517787}
   currRecipeString: 
   nonNullSlotsCount: 0
-  AmmoPrefab: {fileID: 0}
+  AmmoPrefab: {fileID: 3313579629206589762, guid: 1050462ce9306064e814f6e26b8d5720, type: 3}
   TurretPrefab: {fileID: 7484076976484053707, guid: 183b8aa68ee92c74c8b3d3a689b4862d, type: 3}
   BarbedWirePrefab: {fileID: 7552328904006426114, guid: fdf81396cfc5bef42a97792d75bb9412, type: 3}
   MinePrefab: {fileID: 8349228599287161360, guid: 2bf205160279e6148a2b9c363e591f17, type: 3}
   ArmorPrefab: {fileID: 0}
-  BandagePrefab: {fileID: 0}
+  BandagePrefab: {fileID: 72169611873692662, guid: 23c1bf7baa92bf241a83e1196e107d4c, type: 3}
   SlotDefault: {fileID: 21300000, guid: 1530dd53947c7c74e9cb81cdda983cb4, type: 3}
   PlayerPos: {fileID: 0}
   CraftingFailed: {fileID: 4456287727576323466}
