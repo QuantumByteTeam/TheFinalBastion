@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 
 [CustomEditor(typeof(WaveManager))]
@@ -35,3 +36,4 @@ public class WaveManagerEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 }
+#endif
