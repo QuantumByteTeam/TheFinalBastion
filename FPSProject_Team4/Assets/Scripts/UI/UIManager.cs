@@ -287,7 +287,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateBalance()
     {
-        coinCountText.text = GameManager.instance.coins.ToString("0");
+        if (coinCountText)
+            coinCountText.text = GameManager.instance.coins.ToString("0");
     }
 
     public void UpdateScore()
@@ -355,10 +356,13 @@ public class UIManager : MonoBehaviour
 
     public void updateMats()
     {
-        clothCountText.text = GameManager.instance.playerScript.inventory.Cloth.ToString();
-        metalCountText.text = GameManager.instance.playerScript.inventory.Scrap.ToString();
-        expCountText.text = GameManager.instance.playerScript.inventory.Exp.ToString();
-        circuitsCountText.text = GameManager.instance.playerScript.inventory.Circuits.ToString();
+        if (GameManager.instance)
+        {
+            clothCountText.text = GameManager.instance.playerScript.inventory.Cloth.ToString();
+            metalCountText.text = GameManager.instance.playerScript.inventory.Scrap.ToString();
+            expCountText.text = GameManager.instance.playerScript.inventory.Exp.ToString();
+            circuitsCountText.text = GameManager.instance.playerScript.inventory.Circuits.ToString();
+        }
     }
 
     private Coroutine lastFlash;
