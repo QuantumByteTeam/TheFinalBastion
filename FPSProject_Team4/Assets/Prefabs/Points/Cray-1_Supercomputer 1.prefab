@@ -175,8 +175,8 @@ GameObject:
   m_Name: Cray-1_Supercomputer 1
   m_TagString: Point
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &7145974177291302052
 Transform:
@@ -193,6 +193,7 @@ Transform:
   m_Children:
   - {fileID: 6374741545615904339}
   - {fileID: 5065628823928033005}
+  - {fileID: 4494989831616188260}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2580078408084317924
@@ -313,3 +314,34 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 264.2, y: 38.3, z: 160}
   m_Center: {x: 19.44, y: 5.3, z: -18.25}
+--- !u!1 &8586251518967412197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4494989831616188260}
+  m_Layer: 0
+  m_Name: Waypoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4494989831616188260
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8586251518967412197}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 8, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7145974177291302052}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

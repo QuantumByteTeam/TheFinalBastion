@@ -53,6 +53,10 @@ public class UIManager : MonoBehaviour
     PointController oxygen;
     PointController computer;
 
+    [SerializeField] GameObject reactorWP;
+    [SerializeField] GameObject computerWP;
+    [SerializeField] GameObject oxygenWP;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -163,16 +167,21 @@ public class UIManager : MonoBehaviour
         {
             ReactorText.gameObject.SetActive(true);
             ReactorText.color = Color.red;
+            reactorWP.gameObject.SetActive(true);
+            reactorWP.GetComponent<Waypoint>().Img.sprite = reactorWP.GetComponent<Waypoint>().errorSprite;
         }
         else if (reactor.isTargeted)
         {
             //Debug.Log("Reactor Targeted");
             ReactorText.gameObject.SetActive(true);
             ReactorText.color = Color.yellow;
+            reactorWP.gameObject.SetActive(true);
+            reactorWP.GetComponent<Waypoint>().Img.sprite = reactorWP.GetComponent<Waypoint>().warnSprite;
         }
         else
         {
             ReactorText.gameObject.SetActive(false);
+            reactorWP.gameObject.SetActive(false);
             ReactorText.color = Color.white;
         }
 
@@ -180,16 +189,21 @@ public class UIManager : MonoBehaviour
         {
             ComputerText.gameObject.SetActive(true);
             ComputerText.color = Color.red;
+            computerWP.gameObject.SetActive(true);
+            computerWP.GetComponent<Waypoint>().Img.sprite = computerWP.GetComponent<Waypoint>().errorSprite;
         }
         else if (computer.isTargeted)
         {
             //Debug.Log("Reactor Targeted");
             ComputerText.gameObject.SetActive(true);
             ComputerText.color = Color.yellow;
+            computerWP.gameObject.SetActive(true);
+            computerWP.GetComponent<Waypoint>().Img.sprite = computerWP.GetComponent<Waypoint>().warnSprite;
         }
         else
         {
             ComputerText.gameObject.SetActive(false);
+            computerWP.gameObject.SetActive(false);
             ComputerText.color = Color.white;
         }
 
@@ -197,16 +211,21 @@ public class UIManager : MonoBehaviour
         {
             LifeSupportText.gameObject.SetActive(true);
             LifeSupportText.color = Color.red;
+            oxygenWP.gameObject.SetActive(true);
+            oxygenWP.GetComponent<Waypoint>().Img.sprite = oxygenWP.GetComponent<Waypoint>().errorSprite;
         }
         else if (oxygen.isTargeted)
         {
             //Debug.Log("Life Support Targeted");
             LifeSupportText.gameObject.SetActive(true);
             LifeSupportText.color = Color.yellow;
+            oxygenWP.gameObject.SetActive(true);
+            oxygenWP.GetComponent<Waypoint>().Img.sprite = oxygenWP.GetComponent<Waypoint>().warnSprite;
         }
         else
         {
             LifeSupportText.gameObject.SetActive(false);
+            oxygenWP.gameObject.SetActive(false);
             LifeSupportText.color = Color.white;
         }
 
