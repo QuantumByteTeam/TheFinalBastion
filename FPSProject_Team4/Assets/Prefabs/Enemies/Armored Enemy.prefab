@@ -134,15 +134,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a1749177d82e88e40af6b0926338d01d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 546
+      value: 516.5085
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a1749177d82e88e40af6b0926338d01d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.25
+      value: 12.703968
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a1749177d82e88e40af6b0926338d01d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 197
+      value: 268.78073
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a1749177d82e88e40af6b0926338d01d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -248,6 +248,7 @@ MonoBehaviour:
   isShooting: 0
   isRoaming: 0
   isSmokeBlind: 0
+  isAnimated: 0
   isRoller: 0
   reward: 200
   roller: {fileID: 0}
@@ -267,7 +268,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 20
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

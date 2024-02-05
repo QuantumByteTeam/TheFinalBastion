@@ -47,6 +47,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     public bool isShooting;
     public bool isRoaming;
     public bool isSmokeBlind;
+    public bool isAnimated;
 
     bool playerInRange = false;
     public bool isRoller;
@@ -95,14 +96,18 @@ public class EnemyAI : MonoBehaviour, IDamageable
     {
         if (!isDead)
         {
-            animator.SetBool("Shooting", isShooting);
-            if (agent.velocity.magnitude == 0)
+            if (isAnimated)
             {
-                animator.SetFloat("Speed", 0);
-            }
-            else
-            {
-                animator.SetFloat("Speed", agent.velocity.magnitude / agent.speed);
+                animator.SetBool("Shooting", isShooting);
+
+                if (agent.velocity.magnitude == 0)
+                {
+                    animator.SetFloat("Speed", 0);
+                }
+                else
+                {
+                    animator.SetFloat("Speed", agent.velocity.magnitude / agent.speed);
+                }
             }
             point = CoreManager.instance.GetClosestToPosition(transform.position);
 
