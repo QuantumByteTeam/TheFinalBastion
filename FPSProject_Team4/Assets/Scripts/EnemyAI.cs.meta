@@ -3,7 +3,18 @@ guid: 1190b6365f87b2540bb4ae1a5bb3c2eb
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - agent: {instanceID: 0}
+  - model: {instanceID: 0}
+  - sphCol: {instanceID: 0}
+  - animator: {instanceID: 0}
+  - clip: {fileID: 8300000, guid: 35c13cb79e6d9034fa0363f03b8d90d2, type: 3}
+  - bullet: {instanceID: 0}
+  - firePos: {instanceID: 0}
+  - headPos: {instanceID: 0}
+  - point: {instanceID: 0}
+  - randomPoint: {instanceID: 0}
+  - roller: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

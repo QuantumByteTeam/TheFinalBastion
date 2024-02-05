@@ -15,6 +15,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [SerializeField] Renderer model;
     [SerializeField] SphereCollider sphCol;
     [SerializeField] Animator animator;
+    [SerializeField] AudioClip clip;
 
     [Header("----- Stats -----")]
     [SerializeField] public float health;
@@ -427,7 +428,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         {
             // Check if the hit object implements IDamagable
             IDamageable damageable = hit.collider.GetComponent<IDamageable>();
-
+            AudioSource.PlayClipAtPoint(clip, transform.position);
             if (damageable != null && hit.collider.tag != "Enemy")
             {
                 // Instantiate and configure the bullet
