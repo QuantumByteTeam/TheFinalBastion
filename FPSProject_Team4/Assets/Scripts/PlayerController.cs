@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 {
     [Header("----- Components -----")]
     [SerializeField] CharacterController controller;
-    [SerializeField] AudioSource aud;
+    [SerializeField] public AudioSource aud;
     [SerializeField] AudioMixerGroup audioMixerGroup;
     [SerializeField] Animator anim;
 
@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [Range(0, 1)][SerializeField] float SoundStepsVol;
     [SerializeField] AudioClip[] SoundJumps;
     [Range(0, 1)][SerializeField] float SoundJumpsVol;
+    [SerializeField] AudioClip eeeee;
 
     private Vector3 PlayerVelocity;
     private bool GroundedPlayer; //is player grounded or not
@@ -693,7 +694,10 @@ public class PlayerController : MonoBehaviour, IDamageable
             }
         }
     }
-
+    public void tinnitus()
+    {
+        aud.PlayOneShot(eeeee, 0.75f);
+    }
 
     public void ChangeItem()
     {

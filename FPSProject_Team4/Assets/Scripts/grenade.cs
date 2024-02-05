@@ -25,7 +25,8 @@ public class grenade : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
-        AudioSource.PlayClipAtPoint(clip, transform.position);
+        float v = (float)((UIManager.instance.getVolume() + 80) / 80);
+        AudioSource.PlayClipAtPoint(clip, transform.position, v);
         Instantiate(explosion, transform.position, Quaternion.LookRotation(Vector3.up, Vector3.up));
         Instantiate(shockwave, transform.position, Quaternion.LookRotation(Vector3.up, Vector3.up));
         enemies = Physics.OverlapSphere(transform.position, explosionRadius);

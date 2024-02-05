@@ -75,6 +75,13 @@ public class UIManager : MonoBehaviour
         updateMats();
     }
 
+    public float getVolume()
+    {
+        float vol;
+        menuOptions.GetComponent<VolumeSettings>().audioMixer.GetFloat("volume", out vol);
+        Debug.LogWarning(vol);
+        return vol;
+    }
 
     public void DisplayPausedMenu()
     {

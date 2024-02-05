@@ -23,7 +23,9 @@ public class flashbang : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         Instantiate(flash, transform.position, Quaternion.LookRotation(Vector3.up, Vector3.up));
-        AudioSource.PlayClipAtPoint(clip, transform.position);
+        float v = (float)((UIManager.instance.getVolume() + 80) / 80);
+        AudioSource.PlayClipAtPoint(clip, transform.position, v);
+        Debug.LogWarning(GameManager.instance.playerScript.aud.volume);
         enemies = Physics.OverlapSphere(transform.position, explosionRadius);
 
         for (int i = 0; i < enemies.Length; i++)
@@ -73,6 +75,7 @@ public class flashbang : MonoBehaviour
                 {
                     if (hit.collider.tag == "Flashbang" && angleToTarget <= 45)
                     {
+                        GameManager.instance.playerScript.tinnitus();
                         UIManager.instance.blind();
                     }
                 }

@@ -71,6 +71,8 @@ public class GameManager : MonoBehaviour
     public void StatePaused()
     {
         isPaused = !isPaused;
+        playerScript.aud.Pause();
+        AudioListener.pause = true;
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
@@ -80,6 +82,8 @@ public class GameManager : MonoBehaviour
     {
         isPaused = !isPaused;
         Time.timeScale = timescaleOG;
+        playerScript.aud.UnPause();
+        AudioListener.pause = false;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         UIManager.instance.CloseActiveMenu();
